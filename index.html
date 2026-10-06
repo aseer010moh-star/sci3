@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلسلة اختبارات الأمين - نظام الاختبارات المتقدم</title>
+    <title>سلسلة اختبارات الأمين - اختبار العلوم المتكاملة والفيزياء 2027</title>
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -51,19 +51,19 @@
         }
         .header h1 {
             color: var(--primary);
-            font-size: 22px;
+            font-size: 24px;
             margin-bottom: 5px;
         }
         .header p {
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 14px;
         }
 
         /* الشاشات */
         .screen { display: none; }
         .screen.active { display: block; }
 
-        /* واجهة الاختبار */
+        /* شاشة الاختبار */
         .quiz-top-bar {
             display: flex;
             justify-content: space-between;
@@ -151,8 +151,8 @@
             background: var(--accent-gold);
             color: #0f172a;
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             font-weight: bold;
             font-size: 18px;
@@ -164,10 +164,10 @@
             z-index: 1000;
         }
 
-        /* نافذة آلة كاسيو المتقدمة */
+        /* نافذة آلة كاسيو المتقدمة المتكاملة */
         .calculator-modal {
             position: fixed;
-            bottom: 80px;
+            bottom: 85px;
             left: 20px;
             width: 330px;
             background: #111827;
@@ -229,7 +229,7 @@
         .calc-btn.eq { background: var(--primary); color: #0f172a; font-weight: bold; grid-column: span 2; }
         .calc-btn.ac { background: #dc2626; color: white; }
 
-        /* شاشة النتيجة والتسليم المحمية */
+        /* شاشة التسليم والنتيجة والحماية بـ PIN */
         .success-card {
             background: #064e3b;
             border: 1px solid var(--primary);
@@ -281,13 +281,13 @@
     <div class="container">
         <div class="header">
             <h1>سلسلة اختبارات الأمين</h1>
-            <p>اختبار الفيزياء - باكوريا 2027</p>
+            <p>اختبار 3 - العلوم المتكاملة - 2027 (مستويات تفكير متقدمة)</p>
         </div>
 
-        <!-- شاشة الاختبار -->
+        <!-- شاشة الاختبار الرئيسية -->
         <div id="quizScreen" class="screen active">
             <div class="quiz-top-bar">
-                <span id="questionNumText">السؤال 1 من 3</span>
+                <span id="questionNumText">السؤال 1 من 50</span>
                 <div class="timer" id="timer">89:49</div>
             </div>
 
@@ -308,7 +308,7 @@
             </div>
         </div>
 
-        <!-- شاشة التسليم والرمز السري (PIN) -->
+        <!-- شاشة التسليم وإرسال الإيميل وقفل الـ PIN -->
         <div id="resultScreen" class="screen">
             <div class="success-card">
                 <h2>✓ تم تسليم الاختبار بنجاح</h2>
@@ -318,68 +318,9 @@
 
             <div class="lock-section">
                 <h3>🔒 فتح الشهادة والتقرير التفصيلي</h3>
-                <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 10px;">أدخل رمز PIN للاطلاع على التقرير والخطوات والصح والخطأ:</p>
+                <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 10px;">أدخل رمز PIN المخصص للاطلاع على التقرير والشهادة والخطوات:</p>
                 <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="6">
                 <div>
                     <button class="main-btn" onclick="verifyPin()" style="width: 180px;">فتح التقرير والشهادة</button>
                 </div>
-                <div id="errorMsg" class="error-msg">الرمز السري غير صحيح!</div>
-            </div>
-
-            <div id="reportContent" class="report-content">
-                <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 14px;">📊 التقرير المفصل (الصح والخطأ والخطوات):</h4>
-                <div class="report-item correct">السؤال 1: صح (الإجابة ب - الكثافة). الشرح: الكثافة صفة مميزة للمادة.</div>
-                <div class="report-item correct">السؤال 2: صح (تم تطبيق القوانين الرياضية بنجاح).</div>
-                <div class="report-item wrong">السؤال 3: خطأ (الإجابة الصحيحة هي الخيار ج).</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- زر الآلة الحاسبة العائمة -->
-    <button class="calc-toggle-btn" onclick="toggleCalculator()" title="آلة كاسيو المتقدمة">fx</button>
-
-    <!-- نافذة آلة كاسيو العلمية المتكاملة -->
-    <div id="calcModal" class="calculator-modal">
-        <div class="calc-header">
-            <span>CASIO fx-991ES Plus (Advanced)</span>
-            <button class="calc-close" onclick="toggleCalculator()">×</button>
-        </div>
-        <div class="calc-screen">
-            <div class="calc-history" id="calcHistory"></div>
-            <div class="calc-output" id="calcOutput">0</div>
-        </div>
-        <div class="calc-grid">
-            <button class="calc-btn fn" onclick="appendCalc('Math.sin(')">sin</button>
-            <button class="calc-btn fn" onclick="appendCalc('Math.cos(')">cos</button>
-            <button class="calc-btn fn" onclick="appendCalc('Math.tan(')">tan</button>
-            <button class="calc-btn fn" onclick="appendCalc('Math.sqrt(')">√</button>
-            <button class="calc-btn ac" onclick="clearCalc()">AC</button>
-
-            <button class="calc-btn fn" onclick="appendCalc('Math.log10(')">log</button>
-            <button class="calc-btn fn" onclick="appendCalc('Math.log(')">ln</button>
-            <button class="calc-btn fn" onclick="appendCalc('**2')">x²</button>
-            <button class="calc-btn fn" onclick="appendCalc('**')">x^y</button>
-            <button class="calc-btn op" onclick="appendCalc('/')">÷</button>
-
-            <button class="calc-btn" onclick="appendCalc('7')">7</button>
-            <button class="calc-btn" onclick="appendCalc('8')">8</button>
-            <button class="calc-btn" onclick="appendCalc('9')">9</button>
-            <button class="calc-btn fn" onclick="appendCalc('Math.PI')">π</button>
-            <button class="calc-btn op" onclick="appendCalc('*')">×</button>
-
-            <button class="calc-btn" onclick="appendCalc('4')">4</button>
-            <button class="calc-btn" onclick="appendCalc('5')">5</button>
-            <button class="calc-btn" onclick="appendCalc('6')">6</button>
-            <button class="calc-btn fn" onclick="appendCalc('Math.E')">e</button>
-            <button class="calc-btn op" onclick="appendCalc('-')">-</button>
-
-            <button class="calc-btn" onclick="appendCalc('1')">1</button>
-            <button class="calc-btn" onclick="appendCalc('2')">2</button>
-            <button class="calc-btn" onclick="appendCalc('3')">3</button>
-            <button class="calc-btn fn" onclick="appendCalc('(')">(</button>
-            <button class="calc-btn op" onclick="appendCalc('+')">+</button>
-
-            <button class="calc-btn" onclick="appendCalc('0')">0</button>
-            <button class="calc-btn" onclick="appendCalc('.')">.</button>
-            <button class="calc-btn fn" onclick="appendCalc(')')">)</button>
-            <button class="calc-btn eq" onclick="calculateResult()">
+                <div id="errorMsg" class="error-msg">الرمز السري غير صحيح! يرجى المحاولة مرة

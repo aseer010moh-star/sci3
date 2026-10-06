@@ -4,18 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سلسلة اختبارات الأمين</title>
-    <!-- استدعاء خطوط عربية مميزة -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <!-- استدعاء خط Cairo و Reem Kufi من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --bg-color: #0b3c3d; /* اللون الداكن للحديث والوجهة */
-            --card-bg: #ffffff;
-            --text-color: #0b3c3d;
-            --accent-green: #00ff66;
-            --button-bg: #0b3c3d;
-            --gold-color: #dfb256;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -24,147 +18,134 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: #0d3b36;
+            color: #1a1a1a;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
             padding: 20px 15px;
-            color: #ffffff;
         }
 
         .container {
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        /* الكارت العلوي - العنوان */
+        /* كارت العنوان العلوي */
         .header-card {
-            background-color: var(--card-bg);
-            border-radius: 25px;
-            padding: 30px 20px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 25px 15px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border-bottom: 6px solid var(--gold-color);
+            box-shadow: 0 8px 0px #c2a661;
         }
 
-        .title-glow {
-            font-size: 38px;
-            font-weight: 900;
-            color: #111;
-            text-shadow: 0 0 10px var(--accent-green), 0 0 20px var(--accent-green);
+        .main-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0b2e2b;
+            text-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+            white-space: nowrap;
             margin-bottom: 10px;
-            line-height: 1.2;
         }
 
-        .sub-title-glow {
-            font-size: 32px;
-            font-weight: 900;
-            color: #111;
-            text-shadow: 0 0 10px var(--accent-green), 0 0 20px var(--accent-green);
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        .exam-info {
-            font-size: 18px;
+        .sub-title {
+            font-size: 16px;
             font-weight: 700;
-            color: var(--text-color);
+            color: #2c3e50;
         }
 
         /* كارت تسجيل الدخول */
         .login-card {
-            background-color: var(--card-bg);
-            border-radius: 25px;
-            padding: 30px 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            color: var(--text-color);
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .login-title {
+        .form-title {
             text-align: center;
-            font-size: 24px;
-            font-weight: 900;
+            font-size: 22px;
+            font-weight: 800;
+            color: #0b2e2b;
             margin-bottom: 25px;
-            color: var(--text-color);
         }
 
-        .form-group {
+        .input-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        .input-group label {
             display: block;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
+            color: #0b2e2b;
             margin-bottom: 8px;
-            color: var(--text-color);
         }
 
-        .form-group input {
+        .input-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 1.5px solid #b2d4d0;
-            border-radius: 12px;
+            border: 1px solid #c8d6e5;
+            border-radius: 10px;
             font-size: 15px;
             outline: none;
-            transition: all 0.3s ease;
-            text-align: right;
+            transition: border-color 0.3s;
         }
 
-        .form-group input:focus {
-            border-color: var(--button-bg);
-            box-shadow: 0 0 5px rgba(11, 60, 61, 0.3);
+        .input-group input:focus {
+            border-color: #0d3b36;
         }
 
         .submit-btn {
             width: 100%;
-            background-color: var(--button-bg);
+            background-color: #0d3b36;
             color: #ffffff;
             border: none;
             padding: 14px;
+            border-radius: 10px;
             font-size: 18px;
             font-weight: 700;
-            border-radius: 12px;
             cursor: pointer;
+            transition: background-color 0.3s;
             margin-top: 10px;
-            transition: background 0.3s;
         }
 
         .submit-btn:hover {
-            opacity: 0.9;
+            background-color: #082724;
         }
 
         .error-message {
-            color: #d9534f;
-            font-size: 14px;
-            font-weight: bold;
+            color: #e74c3c;
+            font-size: 13px;
+            font-weight: 700;
             text-align: center;
             margin-top: 10px;
             display: none;
         }
 
-        /* الجزء السفلي المميز */
+        /* الفوتر كما كان في الأصل */
         .footer {
-            margin-top: 30px;
             text-align: center;
+            color: #d4af37;
+            margin-top: 30px;
+            padding-bottom: 10px;
         }
 
         .footer-quote {
-            font-family: 'Aref Ruqaa', serif;
-            font-size: 28px;
-            color: var(--gold-color);
+            font-family: 'Reem Kufi', cursive;
+            font-size: 22px;
             margin-bottom: 8px;
-            letter-spacing: 1px;
         }
 
         .footer-rights {
-            font-size: 14px;
-            color: #e0e0e0;
+            font-size: 13px;
+            color: #ffffff;
             opacity: 0.9;
         }
     </style>
@@ -172,66 +153,66 @@
 <body>
 
     <div class="container">
-        <!-- الكارت العلوي -->
+        <!-- كارت العنوان -->
         <div class="header-card">
-            <div class="title-glow">سلسلة</div>
-            <div class="sub-title-glow">اختبارات الأمين</div>
-            <div class="exam-info">اختبار الفيزياء - بكالوريا 2027</div>
+            <h1 class="main-title">سلسلة اختبارات الأمين</h1>
+            <div class="sub-title">اختبار 3.. العلوم المتكاملة.. 2027</div>
         </div>
 
-        <!-- كارت التسجيل -->
+        <!-- كارت الدخول -->
         <div class="login-card">
-            <div class="login-title">تسجيل الدخول للاختبار</div>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                
-                <!-- 1. اسم الطالب الثلاثي أولاً -->
-                <div class="form-group">
+            <h2 class="form-title">تسجيل الدخول للاختبار</h2>
+            
+            <form id="quizLoginForm">
+                <div class="input-group">
                     <label for="studentName">اسم الطالب الثلاثي:</label>
                     <input type="text" id="studentName" placeholder="أدخل اسمك الكامل" required>
                 </div>
 
-                <!-- 2. كود الطالب -->
-                <div class="form-group">
+                <div class="input-group">
                     <label for="studentCode">كود الطالب:</label>
-                    <input type="number" id="studentCode" placeholder="أدخل الكود (من 1 إلى 100)" min="1" max="100" required>
+                    <!-- استخدام type="password" لإخفاء الأكواد على شكل نجوم/نقاط -->
+                    <input type="password" id="studentCode" placeholder="أدخل الكود (من 1 إلى 100)" required>
                 </div>
 
                 <button type="submit" class="submit-btn">بدء الاختبار</button>
-                <div id="errorMsg" class="error-message">عذراً، يجب أن يكون الكود برقم من 1 إلى 100 فقط!</div>
+                <div id="errorMsg" class="error-message">عذراً، كود الطالب غير صحيح!</div>
             </form>
         </div>
     </div>
 
-    <!-- الجزء السفلي الخرافي اللي عاجبك -->
+    <!-- الفوتر الأخير زي الأول تماماً -->
     <div class="footer">
         <div class="footer-quote">ما استعان عبدٌ بالله إلا وصل</div>
         <div class="footer-rights">جميع الحقوق محفوظة © أ/ محمد أمين - 2027</div>
     </div>
 
     <script>
-        function handleLogin(e) {
-            e.preventDefault();
-            
+        document.getElementById('quizLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // منع إعادة تحميل الصفحة
+
             const name = document.getElementById('studentName').value.trim();
-            const code = parseInt(document.getElementById('studentCode').value, 10);
+            const codeInput = document.getElementById('studentCode').value.trim();
             const errorMsg = document.getElementById('errorMsg');
 
-            // التحقق من الأكواد (من 1 إلى 100)
-            if (code >= 1 && code <= 100) {
+            // تحويل الرقم المكتوب إلى رقم صحيح للاختبار
+            const codeNumber = parseInt(codeInput, 10);
+
+            // التحقق من أن الكود من 1 إلى 100
+            if (codeNumber >= 1 && codeNumber <= 100) {
                 errorMsg.style.display = 'none';
                 
-                // حفظ البيانات محلياً لاستخدامها في إرسال الإيميل لاحقاً
-                localStorage.setItem('studentName', name);
-                localStorage.setItem('studentCode', code);
+                // ضع رابط صفحة الاختبار الخاصة بك هنا بدلاً من الرابط المكتوب
+                const quizUrl = "https://example.com/quiz-page"; 
 
-                alert(`أهلاً بك يا ${name}! كودك (${code}) صحيح. جاري تحويلك للأختبار...`);
-                
-                // هنا يمكنك توجيهه لصفحة الاختبار أو فتح فورم الإيميل
-                // window.location.href = "exam.html";
+                // التحويل المباشر وفوراً بدون أي رسالة تنبيه alert
+                window.location.href = quizUrl;
             } else {
+                // إظهار نص الخطأ تحت الزر مباشرة بدلاً من alert
                 errorMsg.style.display = 'block';
             }
-        }
+        });
     </script>
+
 </body>
 </html>

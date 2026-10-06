@@ -3,120 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلسلة اختبارات الأمين</title>
+    <title>سلسلة اختبارات الأمين - العلوم المتكاملة</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0d3b36;
+            --primary-light: #155e55;
+            --accent: #c2a661;
+            --bg-dark: #07221f;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --border-color: #cbd5e1;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; user-select: none; }
-        body { background-color: #0d3b36; color: #1a1a1a; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .container { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 12px; }
-        .header-card { background-color: #ffffff; border-radius: 20px; padding: 18px 12px; text-align: center; box-shadow: 0 6px 0px #c2a661; }
-        .main-title { font-size: 24px; font-weight: 900; color: #0b2e2b; white-space: nowrap; margin-bottom: 4px; }
-        .sub-title { font-size: 14px; font-weight: 700; color: #2c3e50; }
-        .card { background-color: #ffffff; border-radius: 20px; padding: 20px 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
-        .form-title { text-align: center; font-size: 20px; font-weight: 800; color: #0b2e2b; margin-bottom: 15px; }
+        body { background: var(--bg-dark); color: var(--text-main); padding: 15px 10px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 12px; }
+        
+        .header-card { background: var(--card-bg); border-radius: 16px; padding: 16px; text-align: center; border-bottom: 5px solid var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .main-title { font-size: 22px; font-weight: 900; color: var(--primary); margin-bottom: 2px; }
+        .sub-title { font-size: 13px; font-weight: 700; color: #475569; }
+
+        .card { background: var(--card-bg); border-radius: 16px; padding: 18px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); position: relative; }
+        .form-title { text-align: center; font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 15px; }
+
         .input-group { margin-bottom: 12px; }
-        .input-group label { display: block; font-size: 14px; font-weight: 700; color: #0b2e2b; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 10px 12px; border: 1px solid #c8d6e5; border-radius: 10px; font-size: 15px; outline: none; }
-        .submit-btn { width: 100%; background-color: #0d3b36; color: #ffffff; border: none; padding: 12px; border-radius: 10px; font-size: 17px; font-weight: 700; cursor: pointer; margin-top: 5px; }
-        .error-message { color: #e74c3c; font-size: 13px; font-weight: 700; text-align: center; margin-top: 8px; display: none; }
+        .input-group label { display: block; font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .input-group input { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 14px; outline: none; }
+        .input-group input:focus { border-color: var(--primary); }
+
+        .btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 11px; border-radius: 10px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .btn:hover { background: var(--primary-light); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .error-message { color: #dc2626; font-size: 12px; font-weight: 700; text-align: center; margin-top: 8px; display: none; }
         .hidden { display: none !important; }
-        .quiz-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; font-weight: bold; font-size: 14px; }
-        .timer-box { background: #fee2e2; color: #ef4444; padding: 2px 8px; border-radius: 6px; }
+
+        /* Quiz UI */
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #f1f5f9; margin-bottom: 10px; }
+        .timer-badge { background: #fee2e2; color: #b91c1c; padding: 4px 10px; border-radius: 20px; font-weight: 800; font-size: 13px; }
+        .q-count { font-weight: 800; color: var(--primary); font-size: 13px; }
+
+        /* Question Grid Nav */
+        .grid-nav-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px; margin-bottom: 12px; }
+        .grid-nav-title { font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 6px; text-align: center; }
+        .q-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+        .q-grid-btn { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 0; font-size: 11px; font-weight: 800; color: #334155; cursor: pointer; text-align: center; }
+        .q-grid-btn.active { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+        .q-grid-btn.answered { background: #dcfce7; color: #166534; border-color: #86efac; }
+        .q-grid-btn.active.answered { background: var(--primary); color: #ffffff; }
+
+        /* Helpers Bar */
         .helpers-bar { display: flex; gap: 6px; margin-bottom: 12px; }
-        .help-btn { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; padding: 6px 8px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; flex: 1; }
-        .help-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .q-text { font-size: 15px; font-weight: 700; color: #0b2e2b; line-height: 1.6; margin-bottom: 12px; }
+        .help-btn { flex: 1; background: #fef3c7; color: #92400e; border: 1px solid #fde68a; padding: 6px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; }
+        .help-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .q-text { font-size: 14px; font-weight: 800; color: var(--text-main); line-height: 1.6; margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 8px; border-right: 4px solid var(--primary); }
+        
         .options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-        .option-item { background: #f8f9fa; border: 1.5px solid #c8d6e5; border-radius: 10px; padding: 10px 12px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .option-item.selected { border-color: #0d3b36; background: #d0ebe5; font-weight: 800; }
-        .option-item.struck { text-decoration: line-through; opacity: 0.4; }
-        .strike-btn { font-size: 11px; background: #cbd5e1; padding: 2px 6px; border-radius: 4px; }
+        .option-item { background: #ffffff; border: 1.5px solid var(--border-color); border-radius: 10px; padding: 9px 12px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.15s; }
+        .option-item:hover { border-color: var(--primary); }
+        .option-item.selected { border-color: var(--primary); background: #e6f4f1; font-weight: 800; color: var(--primary); }
+        .option-item.struck { text-decoration: line-through; opacity: 0.35; background: #f1f5f9; }
+        
+        .strike-btn { font-size: 10px; background: #e2e8f0; color: #475569; padding: 2px 6px; border-radius: 4px; }
+
         .nav-bar { display: flex; gap: 8px; margin-top: 10px; }
-        .nav-btn { flex: 1; background: #0d3b36; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .nav-btn:disabled { background: #94a3b8; }
+        .nav-btn { flex: 1; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer; }
+        .nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
         .btn-finish { background: #ef4444; }
-        #calculator { position: fixed; bottom: 15px; left: 15px; width: 240px; background: #1e293b; color: white; border-radius: 12px; z-index: 1000; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
-        .calc-header { background: #0f172a; padding: 6px 10px; display: flex; justify-content: space-between; font-size: 12px; }
-        .calc-display { background: #020617; color: #38bdf8; font-size: 18px; padding: 6px; text-align: left; border: none; width: 100%; }
+
+        /* Calculator */
+        #calculator { position: fixed; bottom: 15px; left: 15px; width: 230px; background: #0f172a; color: white; border-radius: 12px; z-index: 1000; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
+        .calc-header { background: #1e293b; padding: 6px 10px; display: flex; justify-content: space-between; font-size: 11px; font-weight: bold; }
+        .calc-display { background: #020617; color: #38bdf8; font-size: 16px; padding: 6px; text-align: left; border: none; width: 100%; outline: none; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 6px; }
-        .calc-btn { background: #334155; color: white; border: none; padding: 8px; font-weight: bold; border-radius: 4px; cursor: pointer; }
-        .calc-btn.op { background: #dfb256; color: #000; }
+        .calc-btn { background: #334155; color: white; border: none; padding: 8px 0; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .calc-btn.op { background: var(--accent); color: #000; }
         .calc-btn.eq { background: #10b981; grid-column: span 2; }
         .calc-btn.clear { background: #ef4444; }
-        .calc-toggle { position: fixed; bottom: 15px; left: 15px; z-index: 999; border-radius: 50%; width: 48px; height: 48px; background: #0d3b36; color: white; border: 2px solid #c2a661; font-size: 20px; cursor: pointer; }
-        .footer { text-align: center; color: #dfb256; margin-top: 15px; margin-bottom: 10px; width: 100%; }
-        .footer-quote { font-family: 'Reem Kufi', cursive; font-size: 22px; margin-bottom: 2px; }
-        .footer-rights { font-size: 12px; color: #ffffff; opacity: 0.9; }
+        .calc-toggle { position: fixed; bottom: 15px; left: 15px; z-index: 999; border-radius: 50%; width: 44px; height: 44px; background: var(--primary); color: white; border: 2px solid var(--accent); font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        .footer { text-align: center; color: var(--accent); margin-top: 10px; margin-bottom: 10px; }
+        .footer-quote { font-size: 18px; font-weight: bold; }
+        .footer-rights { font-size: 11px; color: #ffffff; opacity: 0.8; margin-top: 2px; }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header-card">
             <h1 class="main-title">سلسلة اختبارات الأمين</h1>
-            <div class="sub-title">اختبار 3.. العلوم المتكاملة.. 2027</div>
+            <div class="sub-title">اختبار 3 - العلوم المتكاملة - 2027</div>
         </div>
+
+        <!-- Login Card -->
         <div class="card" id="loginCard">
-            <h2 class="form-title">تسجيل الدخول للاختبار</h2>
+            <h2 class="form-title">تسجيل دخول الطالب</h2>
             <div class="input-group">
                 <label>اسم الطالب الثلاثي:</label>
-                <input type="text" id="studentName" placeholder="أدخل اسمك الكامل">
+                <input type="text" id="studentName" placeholder="أدخل اسمك بالكامل">
             </div>
             <div class="input-group">
-                <label>كود الطالب:</label>
-                <input type="password" id="studentCode" placeholder="****">
+                <label>كود الطالب (من 1 إلى 100):</label>
+                <input type="number" id="studentCode" placeholder="أدخل كود الطالب">
             </div>
-            <button type="button" class="submit-btn" onclick="startExamNow()">بدء الاختبار</button>
-            <div id="loginError" class="error-message">عذراً، أدخل اسمك وكود صحيح من 1 إلى 100!</div>
+            <button class="btn" type="button" onclick="startExamNow()">بدء الاختبار الان 🚀</button>
+            <div id="loginError" class="error-message">يرجى كتابة الاسم الثلاثي وكود الطالب الصحيح (1-100)!</div>
         </div>
+
+        <!-- Quiz Card -->
         <div class="card hidden" id="quizCard">
-            <div class="quiz-top">
-                <span id="qIndexDisplay">السؤال 1 من 40</span>
-                <span class="timer-box" id="timerDisplay">80:00</span>
+            <div class="quiz-header">
+                <span class="q-count" id="qIndexDisplay">السؤال 1 من 40</span>
+                <span class="timer-badge" id="timerDisplay">80:00</span>
             </div>
+
+            <!-- Question Grid Nav (نوافذ وأرقام الأسئلة بالكامل) -->
+            <div class="grid-nav-container">
+                <div class="grid-nav-title">تنقل مباشر بين الأسئلة (اضغط على رقم السؤال):</div>
+                <div class="q-grid" id="questionGrid"></div>
+            </div>
+
+            <!-- Helpers Bar -->
             <div class="helpers-bar">
                 <button class="help-btn" id="hintBtn" type="button" onclick="useHint()">💡 تلميح (<span id="hintCount">2</span>)</button>
                 <button class="help-btn" id="delBtn" type="button" onclick="useDeleteTwo()">❌ حذف إجابتين</button>
             </div>
-            <div id="hintBox" style="background:#fef9c3; color:#854d0e; padding:6px; margin-bottom:10px; border-radius:6px; font-size:12px; font-weight:bold;" class="hidden"></div>
+            <div id="hintBox" style="background:#fef9c3; color:#854d0e; padding:8px; margin-bottom:10px; border-radius:6px; font-size:12px; font-weight:bold;" class="hidden"></div>
+
+            <!-- Question & Options -->
             <div class="q-text" id="qText"></div>
             <div class="options-list" id="optionsContainer"></div>
+
+            <!-- Controls -->
             <div class="nav-bar">
                 <button class="nav-btn" id="prevBtn" type="button" onclick="prevQ()" disabled>السابق</button>
                 <button class="nav-btn" id="nextBtn" type="button" onclick="nextQ()">التالي</button>
                 <button class="nav-btn btn-finish hidden" id="finishBtn" type="button" onclick="finishQuiz()">تسليم الاختبار 🏁</button>
             </div>
         </div>
+
+        <!-- Result Card -->
         <div class="card hidden" id="resultCard">
             <div style="text-align:center;">
-                <h2 style="font-size:18px; color:#0d3b36; margin-bottom:10px;">تم تسليم الاختبار بنجاح! 🎉</h2>
-                <div id="teacherLockBox" style="background:#f8fafc; padding:12px; border-radius:10px; border:1px dashed #0d3b36;">
-                    <h3 style="font-size:14px; margin-bottom:8px;">🔒 إظهار النتيجة والشهادة</h3>
-                    <input type="password" id="masterPinInput" placeholder="أدخل رمز PIN للمعلم" style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid #ccc; text-align:center;">
-                    <button class="submit-btn" style="padding:8px; font-size:15px;" type="button" onclick="unlockResults()">فتح التقرير والشهادة</button>
+                <h2 style="font-size:18px; color:var(--primary); margin-bottom:12px;">تم تسليم الاختبار بنجاح! 🎉</h2>
+                
+                <div id="teacherLockBox" style="background:#f8fafc; padding:15px; border-radius:12px; border:1px dashed var(--primary);">
+                    <h3 style="font-size:13px; margin-bottom:8px; color:#334155;">🔒 قفل المعلم (إظهار النتيجة والشهادة)</h3>
+                    <input type="password" id="masterPinInput" placeholder="أدخل رمز PIN للمعلم" style="width:100%; padding:8px; margin-bottom:8px; border-radius:8px; border:1px solid #ccc; text-align:center; font-size:14px;">
+                    <button class="btn" style="padding:9px; font-size:14px;" type="button" onclick="unlockResults()">فتح التقرير والشهادة</button>
                     <div id="pinError" class="error-message">رمز PIN غير صحيح!</div>
                 </div>
+
                 <div id="unlockedSection" class="hidden">
-                    <h1 id="scoreDisplay" style="font-size:32px; color:#0d3b36; margin:10px 0;">0 / 60</h1>
-                    <div style="border:4px double #0d3b36; padding:12px; border-radius:10px; background:#f0fdf4; margin-bottom:15px;">
-                        <h3>🏆 شهادة تقدير 🏆</h3>
-                        <p style="margin-top:5px; font-size:14px;">الطالب/ـة: <b id="certStudentName">--</b></p>
-                        <p style="font-size:14px;">الدرجة الكلية: <b id="certScore" style="color:#10b981;">--</b></p>
+                    <h1 id="scoreDisplay" style="font-size:36px; color:var(--primary); margin:12px 0;">0 / 60</h1>
+                    <div style="border:3px double var(--primary); padding:12px; border-radius:12px; background:#f0fdf4; margin-bottom:15px;">
+                        <h3 style="color:#166534;">🏆 شهادة تقدير 🏆</h3>
+                        <p style="margin-top:6px; font-size:13px;">الطالب/ـة: <b id="certStudentName">--</b></p>
+                        <p style="font-size:13px;">الدرجة الكلية: <b id="certScore" style="color:#16a34a;">--</b></p>
                     </div>
-                    <button class="submit-btn" style="background:#25d366; font-size:15px;" type="button" onclick="sendViaWhatsApp()">📩 إرسال النتيجة إلى الأستاذ عبر WhatsApp</button>
+                    <button class="btn" style="background:#25d366;" type="button" onclick="sendViaWhatsApp()">📩 إرسال النتيجة إلى الأستاذ عبر WhatsApp</button>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
         <div class="footer">
-            <div class="footer-quote">ما استعان عبدٌ بالله إلا وصل</div>
+            <div class="footer-quote">"ما استعان عبدٌ بالله إلا وصل"</div>
             <div class="footer-rights">جميع الحقوق محفوظة © أ/ محمد أمين - 2027</div>
         </div>
     </div>
+
+    <!-- Calculator Widget -->
     <button class="calc-toggle" type="button" onclick="toggleCalc()">🧮</button>
     <div id="calculator">
         <div class="calc-header">
-            <span>آلة كاسيو</span>
+            <span>آلة حاسبة</span>
             <span style="cursor:pointer;" onclick="toggleCalc()">✖</span>
         </div>
         <input type="text" class="calc-display" id="calcDisplay" readonly value="0">
@@ -142,6 +207,7 @@
             <button class="calc-btn eq" type="button" onclick="calcEval()">=</button>
         </div>
     </div>
+
     <script>
         var questions = [
             { id:1, mark:1, text:"أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟", options:["حجم المادة","الكثافة","الكتلة","كمية الحرارة المفقودة"], correct:1, hint:"تعتمد فقط على نوع المادة والمسافات البينية." },
@@ -156,4 +222,250 @@
             { id:10, mark:1, text:"يتجمد ماء البحيرات في المناطق القطبية بدءاً من السطح إلى القاع بسبب:", options:["أن الجليد أعلى كثافة","أن طبقة الماء عند 0°C أقل كثافة فتطفو وتتجمد أولاً","هبوط الماء البارد للقاع","امتصاص القاع للحرارة"], correct:1, hint:"الماء الأقل كثافة عند 0°C يستقر على السطح." },
             { id:11, mark:2, text:"مكعبات ثلج تم إضافتها إلى ماء نقي عند 4°C. ماذا يحدث لكثافة الماء السائل أثناء انصهار الثلج؟", options:["تتزايد","تتناقص","لا تتغير","لا يمكن التحديد"], correct:1, hint:"انخفاض درجة الحرارة عن 4°C يقلل الكثافة." },
             { id:12, mark:1, text:"تستطيع الأسماك العيش بالقرب من قاع المحيطات القطبية لأن حرارة القاع تظل ثابتة تقريباً عند:", options:["0°C","4°C","-4°C","-273°C"], correct:1, hint:"الماء عند 4°C أعلى كثافة فيستقر بالقاع." },
-            {
+            { id:13, mark:1, text:"أي العوامل التالية يؤدي زيادة قيمته إلى زيادة كثافة مياه المحيطات؟", options:["درجة الحرارة فقط","الملوحة والضغط","درجة الحرارة والملوحة","زيادة الحجم"], correct:1, hint:"الملوحة والضغط يزيدان الكثافة." },
+            { id:14, mark:2, text:"التيارات المائية العمودية في المحيطات تنشأ أساساً نتيجة الاختلاف في:", options:["سرعة الرياح","الكثافة الناتجة عن اختلاف الحرارة والملوحة","عمق الشواطئ","شكل القارات"], correct:1, hint:"المياه الأكثر كثافة تهبط لأسفل والاقل تصعد." },
+            { id:15, mark:1, text:"تنقل التيارات المائية المحيطية الحرارة والملح من المناطق الاستوائية إلى:", options:["المناطق الاستوائية المجاورة","قطبي الكرة الأرضية","قاع المحيطات","البحيرات المغلقة"], correct:1, hint:"تعمل كحزام ناقل حراري عالمي." },
+            { id:16, mark:2, text:"أي التغيرات التالية لا يؤدي تقريباً إلى تغيير ملحوظ في كثافة ماء المحيط؟", options:["زيادة الملوحة","انخفاض الحرارة من 20°C لـ 10°C","زيادة الضغط بمقدار طفيف","انخفاض الحرارة من 4°C لـ 0°C"], correct:2, hint:"السوائل تقريباً غير قابلة للانضغاط." },
+            { id:17, mark:1, text:"المياه العذبة المنصهرة من الأنهار الجليدية تتميز بأنها:", options:["أعلى ملوحة","أقل ملوحة وتطفو فوق المياه المالحة","تهبط فوراً للقاع","تختفي تماماً"], correct:1, hint:"قلة الملوحة تجعل كثافتها أقل فتطفو." },
+            { id:18, mark:1, text:"الطاقة الداخلية لجسم أو نظام معين تمثل:", options:["طاقة حركة الجزيئات فقط","طاقة وضع الجزيئات فقط","مجموع طاقتي الحركة والوضع لجميع الجزيئات","درجة الحرارة"], correct:2, hint:"تتكون من الحركة وقوى الارتباط." },
+            { id:19, mark:2, text:"تعبر درجة الحرارة لنظام ما عن مقياس لـ:", options:["الطاقة الداخلية الكلية","متوسط طاقة حركة جزيئات النظام","طاقة الوضع","كتلة الجزيئات"], correct:1, hint:"مقياس لمعدل السرعة وطاقة الحركة." },
+            { id:20, mark:1, text:"الصفر المطلق على تدريج سيليزيوس يساوي:", options:["0°C","-273°C","273°C","100°C"], correct:1, hint:"0 K يطابق -273°C." },
+            { id:21, mark:2, text:"درجة حرارة جسم كانت 27°C، فإن درجته على تدريج كلفن (K) تكون:", options:["246 K","300 K","273 K","327 K"], correct:1, hint:"T(K) = 27 + 273 = 300." },
+            { id:22, mark:2, text:"إذا تغيرت درجة حرارة عينة بمقدار 15°C، فإن التغير على تدريج كلفن (ΔT) يساوي:", options:["15 K","288 K","258 K","150 K"], correct:0, hint:"فرق التغير متطابق Δt = ΔT." },
+            { id:23, mark:1, text:"عندما يكتسب نظام كمية من الطاقة الحرارية، فإن المعامل الذي يقل هو:", options:["سعة اهتزاز الجزيئات","سرعة الحركة","درجة الحرارة","المسافات البينية في حالة التبريد"], correct:3, hint:"اكتساب الحرارة يرفع باقي المعاملات." },
+            { id:24, mark:1, text:"تعرف الحرارة النوعية لمادة بأنها كمية الحرارة اللازمة لرفع درجة حرارة:", options:["1 kg بمقدار 1°C أو 1 K","المادة كلها 10°C","1 g إلى الغليان","الحجم الكلي"], correct:0, hint:"منسوبة لوحدة الكتل وتغير درجي واحد." },
+            { id:25, mark:2, text:"تتوقف الحرارة النوعية لمادة نقية على:", options:["كتلة العينة","حجم العينة","نوع المادة والحالة الفيزيائية","كمية الحرارة المكتسبة"], correct:2, hint:"خاصية نوعية تتغير بنوع المادة وحالتها." },
+            { id:26, mark:2, text:"أحسب الطاقة اللازمة لرفع حرارة 0.3 kg نحاس من 20°C إلى 70°C (c = 390 J/kg.K):", options:["3900 J","5850 J","7800 J","11700 J"], correct:1, hint:"Q = 0.3 × 390 × (70 - 20) = 5850 J." },
+            { id:27, mark:2, text:"قطعة ألمونيوم كتلتها 200 g ألقيت في ماء ففقدت حرارة من 80°C لـ 40°C (c = 900 J/kg.K):", options:["-7200 J","-3600 J","-14400 J","-1800 J"], correct:0, hint:"Q = 0.2 × 900 × (40 - 80) = -7200 J." },
+            { id:28, mark:2, text:"كرتان متماثلتان، نحاس (c = 390) وألمونيوم (c = 900). لتسخينهما بمقدار 1°C فإن الطاقة المطلوبة:", options:["متساوية","للألمونيوم أكبر من النحاس","للنحاس أكبر","تعتمد على الإناء"], correct:1, hint:"المادة ذات الحرارة النوعية الأكبر تتطلب طاقة أكبر." },
+            { id:29, mark:1, text:"وحدة قياس الحرارة النوعية المكافئة لـ J/kg.°C هي:", options:["kg.m²/s²","m².s⁻².K⁻¹","J/s","N.m/kg"], correct:1, hint:"بالتعويض عن الجول بـ kg.m²/s²." },
+            { id:30, mark:2, text:"خلط 300 g ماء عند 90°C مع 60 g ماء عند 15°C. حرارة الخليط النهائية تكون تقريباً:", options:["53.4°C","77.5°C","83.2°C","95.7°C"], correct:1, hint:"300*(90-Tf) = 60*(Tf-15) -> Tf = 77.5°C." },
+            { id:31, mark:1, text:"يرجع ارتفاع الحرارة النوعية للماء أساساً إلى:", options:["صغر كتلته المولية","وجود روابط هيدروجينية قوية","ضعف القوى بين الجزيئية","ارتفاع ضغطه البخاري"], correct:1, hint:"تطلب كسر الروابط طاقة عالية." },
+            { id:32, mark:2, text:"في المناطق الساحلية نهاراً، يرتفع الهواء الساخن فوق الرمل ويحل محله هواء بارد من البحر وتعرف بـ:", options:["نسيم البر","نسيم البحر","التيارات الاستوائية","الانقلاب الحراري"], correct:1, hint:"تحدث نهاراً حركة الهواء من البحر للشاطئ." },
+            { id:33, mark:1, text:"أي المواد التالية تحفظ الطاقة الحرارية لفترة أطول بعد غروب الشمس لكل وحدة كتلة؟", options:["البحيرات والمسطحات المائية","رمال الصحراء","الهواء الجوي","صخور الجبال"], correct:0, hint:"الماء يمتلك أعلى حرارة نوعية." },
+            { id:34, mark:2, text:"تستطيع الكائنات الحية ذات الدم الحار (مثل الثدييات):", options:["تغيير حرارة أجسادها","الحفاظ على درجة حرارة أجسامها ثابتة بفضل الأيض","العيش فقط في الجليد","الاستغناء عن الماء"], correct:1, hint:"تعتمد على التنظيم الحراري الداخلي." },
+            { id:35, mark:1, text:"الشعاب المرجانية تعيش في المياه السطحية الدافئة ولا تتحمل التغير الحراري لأنها:", options:["كائنات ذات دم حار","كائنات حساسة جداً للتغيرات البيئية الحرارية","تعتمد على الجليد","تتغذى على النيتروجين"], correct:1, hint:"تأثرها سريع بالتغير الحراري المائي." },
+            { id:36, mark:1, text:"الحرارة الكامنة لتصعيد الماء هي كمية الحرارة اللازمة لـ:", options:["رفع حرارة 1 kg بمقدار 1°C","تحويل 1 kg من سائل لغاز دون تغير في درجة الحرارة","صهر 1 kg جليد","غليان الماء تحت الضغط"], correct:1, hint:"تستهلك الطاقة في التحول الفيزيائي فقط." },
+            { id:37, mark:2, text:"المنحنى البياني يوضح تسخين الماء. ما الذي تمثله المنطقة الأفقية عند 100°C؟", options:["تسخين الجليد","تسخين الماء السائل","عملية التبخر وثبات الحرارة عند 100°C","ارتفاع حرارة البخار"], correct:2, hint:"درجة الحرارة تثبت أثناء تحول الحالة." },
+            { id:38, mark:2, text:"كمية الطاقة اللازمة لتبخير الماء عند 100°C تكون مقارنة بـ كمية التسخين من 0°C لـ 100°C:", options:["أقل بكثير","مساوية لها","أكبر بكثير","نصف قيمتها"], correct:2, hint:"الحرارة الكامنة للتصعيد عالية جداً." },
+            { id:39, mark:1, text:"تساعد عملية التعرق والنتح في النبات على تنظيم درجة الحرارة بفضل:", options:["ارتفاع الكثافة النسبية","ارتفاع الحرارة الكامنة لتصعيد الماء التي تسحب الحرارة","شذوذ الكثافة","انخفاض الحرارة النوعية"], correct:1, hint:"سحب الحرارة الكامنة عند تبخر العرق." },
+            { id:40, mark:2, text:"عينة ماء كتلتها 2 kg عند 100°C تحولت لبخار (L_v = 2260000 J/kg):", options:["1130000 J","2260000 J","4520000 J","9040000 J"], correct:2, hint:"Q = 2 × 2260000 = 4520000 J." }
+        ];
+
+        var currentQ = 0;
+        var studentAnswers = {};
+        var struckOptions = {};
+        var hintsLeft = 2;
+        var deleteUsed = {};
+        var studentName = "";
+        var studentCode = "";
+        var timerSeconds = 80 * 60;
+        var timerInterval = null;
+        var finalScore = 0;
+
+        function startExamNow() {
+            var name = document.getElementById("studentName").value.trim();
+            var codeInput = document.getElementById("studentCode").value.trim();
+            var codeNum = parseInt(codeInput, 10);
+
+            if (!name || isNaN(codeNum) || codeNum < 1 || codeNum > 100) {
+                document.getElementById("loginError").style.display = "block";
+                return;
+            }
+
+            document.getElementById("loginError").style.display = "none";
+            studentName = name;
+            studentCode = codeInput;
+
+            document.getElementById("loginCard").className = "card hidden";
+            document.getElementById("quizCard").className = "card";
+
+            buildQuestionGrid();
+            startTimer();
+            renderQ();
+        }
+
+        function buildQuestionGrid() {
+            var gridContainer = document.getElementById("questionGrid");
+            gridContainer.innerHTML = "";
+            for (var i = 0; i < questions.length; i++) {
+                (function(index) {
+                    var btn = document.createElement("button");
+                    btn.className = "q-grid-btn";
+                    btn.id = "gridBtn_" + index;
+                    btn.innerText = (index + 1);
+                    btn.type = "button";
+                    btn.onclick = function() {
+                        currentQ = index;
+                        renderQ();
+                    };
+                    gridContainer.appendChild(btn);
+                })(i);
+            }
+        }
+
+        function updateQuestionGrid() {
+            for (var i = 0; i < questions.length; i++) {
+                var btn = document.getElementById("gridBtn_" + i);
+                if (!btn) continue;
+                
+                var isAnswered = studentAnswers[i] !== undefined;
+                var isActive = i === currentQ;
+
+                btn.className = "q-grid-btn" + 
+                                (isActive ? " active" : "") + 
+                                (isAnswered ? " answered" : "");
+            }
+        }
+
+        function startTimer() {
+            updateTimerDisp();
+            timerInterval = setInterval(function() {
+                timerSeconds--;
+                updateTimerDisp();
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisp() {
+            var m = Math.floor(timerSeconds / 60);
+            var s = timerSeconds % 60;
+            document.getElementById("timerDisplay").innerText = (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+        }
+
+        function renderQ() {
+            var q = questions[currentQ];
+            document.getElementById("qIndexDisplay").innerText = "السؤال " + (currentQ + 1) + " من " + questions.length;
+            document.getElementById("qText").innerText = (currentQ + 1) + ". " + q.text;
+
+            document.getElementById("hintCount").innerText = hintsLeft;
+            document.getElementById("hintBtn").disabled = hintsLeft <= 0;
+            document.getElementById("hintBox").className = "hidden";
+            document.getElementById("delBtn").disabled = !!deleteUsed[currentQ];
+
+            var optBox = document.getElementById("optionsContainer");
+            optBox.innerHTML = "";
+
+            var labels = ["أ", "ب", "ج", "د"];
+            q.options.forEach(function(optText, idx) {
+                var isSelected = studentAnswers[currentQ] === idx;
+                var isStruck = struckOptions[currentQ] && struckOptions[currentQ].indexOf(idx) !== -1;
+
+                var item = document.createElement("div");
+                item.className = "option-item" + (isSelected ? " selected" : "") + (isStruck ? " struck" : "");
+                item.innerHTML = '<span>' + labels[idx] + ') ' + optText + '</span><span class="strike-btn" onclick="toggleStrike(event, ' + idx + ')">' + (isStruck ? 'إعادة' : 'شطب') + '</span>';
+
+                item.onclick = function(e) {
+                    if (e.target.className === "strike-btn") return;
+                    studentAnswers[currentQ] = idx;
+                    renderQ();
+                };
+
+                optBox.appendChild(item);
+            });
+
+            document.getElementById("prevBtn").disabled = currentQ === 0;
+            if (currentQ === questions.length - 1) {
+                document.getElementById("nextBtn").className = "nav-btn hidden";
+                document.getElementById("finishBtn").className = "nav-btn btn-finish";
+            } else {
+                document.getElementById("nextBtn").className = "nav-btn";
+                document.getElementById("finishBtn").className = "nav-btn btn-finish hidden";
+            }
+
+            updateQuestionGrid();
+        }
+
+        function toggleStrike(e, idx) {
+            e.stopPropagation();
+            if (!struckOptions[currentQ]) struckOptions[currentQ] = [];
+            var arr = struckOptions[currentQ];
+            var pos = arr.indexOf(idx);
+            if (pos !== -1) arr.splice(pos, 1);
+            else arr.push(idx);
+            renderQ();
+        }
+
+        function useHint() {
+            if (hintsLeft <= 0) return;
+            hintsLeft--;
+            var hintBox = document.getElementById("hintBox");
+            hintBox.innerText = "💡 تلميح: " + questions[currentQ].hint;
+            hintBox.className = "";
+            document.getElementById("hintCount").innerText = hintsLeft;
+            document.getElementById("hintBtn").disabled = hintsLeft <= 0;
+        }
+
+        function useDeleteTwo() {
+            if (deleteUsed[currentQ]) return;
+            deleteUsed[currentQ] = true;
+            var correct = questions[currentQ].correct;
+            var wrong = [0, 1, 2, 3].filter(function(i) { return i !== correct; }).sort(function() { return Math.random() - 0.5; }).slice(0, 2);
+            if (!struckOptions[currentQ]) struckOptions[currentQ] = [];
+            struckOptions[currentQ].push(wrong[0], wrong[1]);
+            renderQ();
+        }
+
+        function prevQ() { if (currentQ > 0) { currentQ--; renderQ(); } }
+        function nextQ() { if (currentQ < questions.length - 1) { currentQ++; renderQ(); } }
+
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            finalScore = 0;
+            questions.forEach(function(q, idx) {
+                var score = 0;
+                if (studentAnswers[idx] === q.correct) score = q.mark;
+                if (deleteUsed[idx]) score = Math.max(0, score - 0.5);
+                finalScore += score;
+            });
+
+            document.getElementById("quizCard").className = "card hidden";
+            document.getElementById("resultCard").className = "card";
+        }
+
+        function unlockResults() {
+            var pin = document.getElementById("masterPinInput").value.trim();
+            if (pin !== "0109030166") {
+                document.getElementById("pinError").style.display = "block";
+                return;
+            }
+
+            document.getElementById("pinError").style.display = "none";
+            document.getElementById("teacherLockBox").className = "hidden";
+            document.getElementById("unlockedSection").className = "";
+
+            document.getElementById("scoreDisplay").innerText = finalScore + " / 60";
+            document.getElementById("certStudentName").innerText = studentName;
+            document.getElementById("certScore").innerText = finalScore + " / 60";
+        }
+
+        function sendViaWhatsApp() {
+            var msg = "السلام عليكم أ/ محمد أمين، تم الانتهاء من الاختبار 3 (العلوم المتكاملة):\n" +
+                      "الطالب: " + studentName + "\n" +
+                      "الكود: " + studentCode + "\n" +
+                      "الدرجة: " + finalScore + " / 60";
+            var url = "https://wa.me/?text=" + encodeURIComponent(msg);
+            window.open(url, "_blank");
+        }
+
+        function toggleCalc() {
+            var c = document.getElementById("calculator");
+            c.style.display = c.style.display === "block" ? "none" : "block";
+        }
+        function calcInput(v) {
+            var d = document.getElementById("calcDisplay");
+            if (d.value === "0" && v !== ".") d.value = "";
+            d.value += v;
+        }
+        function calcClear() { document.getElementById("calcDisplay").value = "0"; }
+        function calcEval() {
+            var d = document.getElementById("calcDisplay");
+            try { d.value = eval(d.value.replace(/×/g, '*').replace(/÷/g, '/')); }
+            catch(e) { d.value = "خطأ"; setTimeout(calcClear, 1200); }
+        }
+    </script>
+</body>
+</html>

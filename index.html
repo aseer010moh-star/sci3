@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلسلة اختبارات الأمين</title>
-    <!-- استدعاء خط Cairo و Reem Kufi من Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
-    
+    <title>سلسلة اختبارات الأمين - اختبار 3.. العلوم المتكاملة.. 2027</title>
+    <!-- استدعاء خطوط Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <style>
+        :root {
+            --bg-main: #0d3b36;
+            --card-bg: #ffffff;
+            --text-dark: #0b2e2b;
+            --gold: #c2a661;
+            --gold-light: #dfb256;
+            --accent-green: #10b981;
+            --danger: #ef4444;
+            --border-color: #c8d6e5;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
+            user-select: none;
         }
 
         body {
-            background-color: #0d3b36;
+            background-color: var(--bg-main);
             color: #1a1a1a;
             display: flex;
             flex-direction: column;
@@ -30,28 +41,28 @@
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
-        /* كارت العنوان العلوي */
+        /* 1. Header Card */
         .header-card {
-            background-color: #ffffff;
+            background-color: var(--card-bg);
             border-radius: 20px;
-            padding: 25px 15px;
+            padding: 22px 15px;
             text-align: center;
-            box-shadow: 0 8px 0px #c2a661;
+            box-shadow: 0 8px 0px var(--gold);
         }
 
         .main-title {
             font-size: 26px;
-            font-weight: 800;
-            color: #0b2e2b;
-            text-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+            font-weight: 900;
+            color: var(--text-dark);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
             white-space: nowrap;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .sub-title {
@@ -60,51 +71,51 @@
             color: #2c3e50;
         }
 
-        /* كارت تسجيل الدخول */
-        .login-card {
-            background-color: #ffffff;
+        /* 2. Login & Quiz Card Container */
+        .card {
+            background-color: var(--card-bg);
             border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 25px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         }
 
         .form-title {
             text-align: center;
             font-size: 22px;
             font-weight: 800;
-            color: #0b2e2b;
-            margin-bottom: 25px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .input-group label {
             display: block;
             font-size: 15px;
             font-weight: 700;
-            color: #0b2e2b;
+            color: var(--text-dark);
             margin-bottom: 8px;
         }
 
         .input-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #c8d6e5;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 16px;
             outline: none;
             transition: border-color 0.3s;
         }
 
         .input-group input:focus {
-            border-color: #0d3b36;
+            border-color: var(--bg-main);
         }
 
         .submit-btn {
             width: 100%;
-            background-color: #0d3b36;
+            background-color: var(--bg-main);
             color: #ffffff;
             border: none;
             padding: 14px;
@@ -121,26 +132,256 @@
         }
 
         .error-message {
-            color: #e74c3c;
-            font-size: 13px;
+            color: var(--danger);
+            font-size: 14px;
             font-weight: 700;
             text-align: center;
             margin-top: 10px;
             display: none;
         }
 
-        /* الفوتر الأصلي */
+        /* 3. Quiz Interface Components */
+        .hidden { display: none !important; }
+
+        .quiz-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .timer-badge {
+            background: #fee2e2;
+            color: var(--danger);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .helpers-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .help-btn {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .help-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #e2e8f0;
+            color: #94a3b8;
+        }
+
+        .q-text {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .svg-box {
+            text-align: center;
+            margin: 10px 0 15px 0;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            background: #f8f9fa;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .option-item:hover {
+            border-color: var(--bg-main);
+            background: #e6f4f1;
+        }
+
+        .option-item.selected {
+            border-color: var(--bg-main);
+            background: #d0ebe5;
+            color: var(--text-dark);
+            font-weight: 800;
+        }
+
+        .option-item.struck {
+            text-decoration: line-through;
+            opacity: 0.4;
+            background: #f1f5f9;
+        }
+
+        .strike-btn {
+            font-size: 12px;
+            background: #cbd5e1;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #334155;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            background: var(--bg-main);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .btn-finish {
+            background: var(--danger);
+        }
+
+        /* 4. Draggable Casio Calculator */
+        #calculator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 260px;
+            background: #1e293b;
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        .calc-header {
+            background: #0f172a;
+            padding: 8px 12px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .calc-display {
+            background: #020617;
+            color: #38bdf8;
+            font-family: monospace;
+            font-size: 20px;
+            padding: 10px;
+            text-align: left;
+            border: none;
+            width: 100%;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            padding: 8px;
+        }
+
+        .calc-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .calc-btn:hover { background: #475569; }
+        .calc-btn.op { background: var(--gold-light); color: #000; }
+        .calc-btn.eq { background: var(--accent-green); grid-column: span 2; }
+        .calc-btn.clear { background: var(--danger); }
+
+        .calc-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            background: var(--bg-main);
+            color: white;
+            border: 2px solid var(--gold);
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* 5. Result & Certificate */
+        .result-box {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .cert-card {
+            background: #ffffff;
+            border: 6px double var(--bg-main);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* 6. Footer Original */
         .footer {
             text-align: center;
-            color: #d4af37;
-            margin-top: 30px;
+            color: var(--gold-light);
+            margin-top: 25px;
             padding-bottom: 10px;
         }
 
         .footer-quote {
             font-family: 'Reem Kufi', cursive;
             font-size: 22px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .footer-rights {
@@ -153,67 +394,168 @@
 <body>
 
     <div class="container">
-        <!-- كارت العنوان -->
+        <!-- 1. Header Card -->
         <div class="header-card">
             <h1 class="main-title">سلسلة اختبارات الأمين</h1>
             <div class="sub-title">اختبار 3.. العلوم المتكاملة.. 2027</div>
         </div>
 
-        <!-- كارت تسجيل الدخول -->
-        <div class="login-card">
+        <!-- 2. Login Card -->
+        <div class="card" id="loginCard">
             <h2 class="form-title">تسجيل الدخول للاختبار</h2>
-            
-            <form id="quizLoginForm">
-                <!-- 1. اسم الطالب الثلاثي أولاً -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="input-group">
                     <label for="studentName">اسم الطالب الثلاثي:</label>
                     <input type="text" id="studentName" placeholder="أدخل اسمك الكامل" required>
                 </div>
 
-                <!-- 2. كود الطالب (ظاهر على شكل نجوم ****) -->
                 <div class="input-group">
                     <label for="studentCode">كود الطالب:</label>
                     <input type="password" id="studentCode" placeholder="****" required>
                 </div>
 
                 <button type="submit" class="submit-btn">بدء الاختبار</button>
-                <div id="errorMsg" class="error-message">عذراً، كود الطالب غير صحيح!</div>
+                <div id="loginError" class="error-message">عذراً، كود الطالب غير صحيح! (يسمح بالأكواد من 1 إلى 100)</div>
             </form>
+        </div>
+
+        <!-- 3. Quiz Interface Card -->
+        <div class="card hidden" id="quizCard">
+            <div class="quiz-header-bar">
+                <span id="qIndexDisplay">السؤال 1 من 40</span>
+                <span class="timer-badge" id="timerDisplay">80:00</span>
+            </div>
+
+            <!-- Helpers Bar -->
+            <div class="helpers-bar">
+                <button class="help-btn" id="hintBtn" onclick="useHint()">💡 تلميح (متبقي: <span id="hintCount">2</span>)</button>
+                <button class="help-btn" id="delBtn" onclick="useDeleteTwo()">❌ حذف إجابتين (خصم 0.5 درجة)</button>
+            </div>
+            <div id="hintBox" style="background:#fef9c3; color:#854d0e; padding:8px 12px; margin-bottom:12px; border-radius:6px; font-weight:bold; font-size:14px;" class="hidden"></div>
+
+            <!-- Question & Options -->
+            <div class="q-text" id="qText"></div>
+            <div class="svg-box hidden" id="svgContainer"></div>
+            <div class="options-list" id="optionsContainer"></div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-bar">
+                <button class="nav-btn" id="prevBtn" onclick="prevQ()" disabled>السابق</button>
+                <button class="nav-btn" id="nextBtn" onclick="nextQ()">التالي</button>
+                <button class="nav-btn btn-finish hidden" id="finishBtn" onclick="confirmSubmit()">تسليم الاختبار 🏁</button>
+            </div>
+        </div>
+
+        <!-- 4. Result Lock Screen -->
+        <div class="card hidden" id="resultCard">
+            <div class="result-box">
+                <h2 style="color:var(--text-dark); margin-bottom:10px;">تم تسجيل الإجابات بنجاح! 🎉</h2>
+                <p style="color:#64748b; font-size:14px; margin-bottom:20px;">شكراً لمجهودك، تم تسليم الاختبار وحفظ درجتك.</p>
+
+                <!-- Unlock Master PIN -->
+                <div id="teacherLockBox" style="background:#f8fafc; padding:15px; border-radius:12px; border:1px dashed var(--bg-main);">
+                    <h3 style="color:var(--text-dark); font-size:16px; margin-bottom:10px;">🔒 فتح الشهادة والتقرير التفصيلي</h3>
+                    <div class="input-group" style="margin-bottom:10px;">
+                        <input type="password" id="masterPinInput" placeholder="أدخل رمز PIN المخصص">
+                    </div>
+                    <button class="submit-btn" style="padding:10px;" onclick="unlockResults()">فتح التقرير والشهادة</button>
+                    <div id="pinError" class="error-message">رمز PIN غير صحيح!</div>
+                </div>
+
+                <!-- Unlocked Certificate Section -->
+                <div id="unlockedSection" class="hidden">
+                    <h1 id="scoreDisplay" style="font-size:36px; color:var(--bg-main); margin:15px 0;">0 / 60</h1>
+                    <div class="cert-card">
+                        <h2 style="color:var(--text-dark); margin-bottom:10px;">🏆 شهادة تقدير 🏆</h2>
+                        <p>تشهد **سلسلة اختبارات الأمين** بأن الطالب/ـة:</p>
+                        <h3 id="certStudentName" style="color:var(--bg-main); font-size:22px; margin:8px 0;">--</h3>
+                        <p>قد أتم **اختبار 3.. العلوم المتكاملة.. 2027** وحصل على درجة:</p>
+                        <h2 id="certScore" style="color:var(--accent-green); margin:10px 0;">--</h2>
+                        <p style="font-size:13px; color:#64748b;">مع أطيب التمنيات بدوام التفوق والنجاح!</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- الفوتر الأصلي -->
+    <!-- Draggable Calculator -->
+    <button class="calc-toggle" onclick="toggleCalc()">🧮</button>
+    <div id="calculator">
+        <div class="calc-header" id="calcHeader">
+            <span>كاسيو علمية</span>
+            <span style="cursor:pointer;" onclick="toggleCalc()">✖</span>
+        </div>
+        <input type="text" class="calc-display" id="calcDisplay" readonly value="0">
+        <div class="calc-grid">
+            <button class="calc-btn clear" onclick="calcClear()">C</button>
+            <button class="calc-btn" onclick="calcInput('(')">(</button>
+            <button class="calc-btn" onclick="calcInput(')')">)</button>
+            <button class="calc-btn op" onclick="calcInput('/')">÷</button>
+
+            <button class="calc-btn" onclick="calcInput('7')">7</button>
+            <button class="calc-btn" onclick="calcInput('8')">8</button>
+            <button class="calc-btn" onclick="calcInput('9')">9</button>
+            <button class="calc-btn op" onclick="calcInput('*')">×</button>
+
+            <button class="calc-btn" onclick="calcInput('4')">4</button>
+            <button class="calc-btn" onclick="calcInput('5')">5</button>
+            <button class="calc-btn" onclick="calcInput('6')">6</button>
+            <button class="calc-btn op" onclick="calcInput('-')">-</button>
+
+            <button class="calc-btn" onclick="calcInput('1')">1</button>
+            <button class="calc-btn" onclick="calcInput('2')">2</button>
+            <button class="calc-btn" onclick="calcInput('3')">3</button>
+            <button class="calc-btn op" onclick="calcInput('+')">+</button>
+
+            <button class="calc-btn" onclick="calcInput('0')">0</button>
+            <button class="calc-btn" onclick="calcInput('.')">.</button>
+            <button class="calc-btn eq" onclick="calcEval()">=</button>
+        </div>
+    </div>
+
+    <!-- 5. Footer Original -->
     <div class="footer">
         <div class="footer-quote">ما استعان عبدٌ بالله إلا وصل</div>
         <div class="footer-rights">جميع الحقوق محفوظة © أ/ محمد أمين - 2027</div>
     </div>
 
     <script>
-        document.getElementById('quizLoginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('studentName').value.trim();
-            const codeInput = document.getElementById('studentCode').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-
-            const codeNumber = parseInt(codeInput, 10);
-
-            // قبول الأكواد من 1 إلى 100
-            if (codeNumber >= 1 && codeNumber <= 100) {
-                errorMsg.style.display = 'none';
-                
-                // ==========================================
-                // استبدل الرابط التالي برابط الـ 40 سؤال الخاص بك (Google Forms أو صفحة الاختبار):
-                // ==========================================
-                const myQuizUrl = "رابط_الاختبار_بتاعك_هنا.html"; 
-
-                // تحويل الطالب فوراً وبدون أي رسائل تنبيهية
-                window.location.href = myQuizUrl;
-            } else {
-                errorMsg.style.display = 'block';
-            }
-        });
-    </script>
-
-</body>
-</html>
+        // --- 40 EXAM QUESTIONS DATA ---
+        const questions = [
+            { id:1, mark:1, text:"أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟", options:["حجم المادة","الكثافة","الكتلة","كمية الحرارة المفقودة"], correct:1, hint:"تعتمد فقط على نوع المادة والمسافات البينية." },
+            { id:2, mark:2, text:"شريحة معدنية مربعة الشكل تم قطع ربعها. ما نسبة كثافة مادة الجزء المقطوع إلى كثافة المادة المتبقية عند نفس درجة الحرارة؟", options:["1 : 4","1 : 1","4 : 1","1 : 2"], correct:1, hint:"الكثافة خاصية مميزة ولا تتأثر بالقطع." },
+            { id:3, mark:1, text:"حوض يحوي كمية من الجازولين كتلتها 3450 kg وحجمها 5 m³. تكون كثافة الجازولين مساوية لـ:", options:["600 kg/m³","650 kg/m³","690 kg/m³","720 kg/m³"], correct:2, hint:"الكثافة = الكتلة ÷ الحجم." },
+            { id:4, mark:2, text:"إذا كانت كثافة الألمونيوم 2700 kg/m³ وكثافة الماء النقي عند 4°C هي 10³ kg/m³، فإن الكثافة النسبية للألمونيوم تساوي:", options:["0.27","0.54","2.7","5.4"], correct:2, hint:"الكثافة النسبية = كثافة المادة ÷ كثافة الماء عند 4°C." },
+            { id:5, mark:1, text:"وحدة قياس الكثافة النسبية هي:", options:["kg/m³","g/cm³","g/L","ليس لها وحدة قياس"], correct:3, hint:"نسبة بين كميتين من نفس النوع." },
+            { id:6, mark:2, text:"عند استخدام جهاز الهيدرومتر في سائل عالي الكثافة وسائل آخر منخفض الكثافة، فإن الجزء المغمور منه:", svg:`<svg width="200" height="90" viewBox="0 0 200 90"><rect x="30" y="10" width="35" height="70" fill="#e0f2fe" stroke="#0284c7"/><rect x="135" y="10" width="35" height="70" fill="#fef3c7" stroke="#d97706"/><line x1="47" y1="20" x2="47" y2="75" stroke="#334155" stroke-width="4"/><line x1="152" y1="40" x2="152" y2="75" stroke="#334155" stroke-width="4"/><text x="25" y="88" font-size="9">سائل (أ)</text><text x="130" y="88" font-size="9">سائل (ب)</text></svg>`, options:["يكون أكبر في السائل عالي الكثافة","يكون أكبر في السائل منخفض الكثافة","متساوٍ في السائلين","ينغمر بالكامل"], correct:1, hint:"قانون الطفو: السائل الأقل كثافة يتطلب إنغمار جزء أكبر." },
+            { id:7, mark:1, text:"تصل كثافة الماء النقي إلى أقصى قيمة لها (1000 kg/m³) عند درجة حرارة:", options:["0°C","4°C","100°C","-4°C"], correct:1, hint:"عند 4°C يكون للماء أقل حجم وأعلى كثافة." },
+            { id:8, mark:2, text:"عند خفض درجة حرارة الماء النقي من 4°C إلى 0°C، فإن سلوك حجمه وكثافته يكون كالآتي:", options:["يزداد الحجم وتزداد الكثافة","يقل الحجم وتقل الكثافة","يزداد الحجم وتقل الكثافة","يقل الحجم وتزداد الكثافة"], correct:2, hint:"يتمدد الماء بالبرودة بسبب تزايد الروابط الهيدروجينية." },
+            { id:9, mark:2, text:"الرسم البياني التالي يمثل العلاقة بين حجم الماء (V) ودرجة الحرارة (t). أي النقاط تمثل أقل كثافة للماء السائل؟", svg:`<svg width="200" height="90" viewBox="0 0 200 90"><path d="M 20 20 Q 70 80 170 30" stroke="#2563eb" fill="none" stroke-width="3"/><line x1="20" y1="80" x2="180" y2="80" stroke="#000"/><line x1="20" y1="10" x2="20" y2="80" stroke="#000"/><text x="65" y="88" font-size="9">4°C</text><text x="15" y="88" font-size="9">0°C</text><circle cx="20" cy="20" r="4" fill="#ef4444"/><text x="28" y="25" font-size="10" fill="#ef4444">A</text></svg>`, options:["النقطة A عند 0°C","عند درجة 4°C","عند درجة 10°C","الكثافة متساوية"], correct:0, hint:"أكبر حجم للماء السائل يطابق أقل كثافة له." },
+            { id:10, mark:1, text:"يتجمد ماء البحيرات في المناطق القطبية بدءاً من السطح إلى القاع بسبب:", options:["أن الجليد أعلى كثافة من الماء","أن طبقة الماء عند 0°C أقل كثافة فتطفو وتتجمد أولاً","هبوط الماء البارد للقاع","امتصاص القاع للحرارة"], correct:1, hint:"الماء الأقل كثافة عند 0°C يستقر على السطح وتتجمد أولاً." },
+            { id:11, mark:2, text:"مكعبات ثلج تم إضافتها إلى ماء نقي عند 4°C. ماذا يحدث لكثافة الماء السائل أثناء انصهار الثلج؟", options:["تتزايد","تتناقص","لا تتغير","لا يمكن التحديد"], correct:1, hint:"انخفاض درجة حرارة المزيج عن 4°C يقلل الكثافة." },
+            { id:12, mark:1, text:"تستطيع الأسماك العيش بالقرب من قاع المحيطات القطبية المتجمدة لأن حرارة القاع تظل ثابتة تقريباً عند:", options:["0°C","4°C","-4°C","-273°C"], correct:1, hint:"الماء عند 4°C أعلى كثافة فيستقر بالقاع." },
+            { id:13, mark:1, text:"تتأثر كثافة مياه المحيطات بعوامل رئيسية، أي العوامل التالية يؤدي زيادة قيمته إلى زيادة الكثافة؟", options:["درجة الحرارة فقط","الملوحة والضغط","درجة الحرارة والملوحة","زيادة الحجم"], correct:1, hint:"الملوحة والضغط يزيدان الكثافة." },
+            { id:14, mark:2, text:"التيارات المائية العمودية في المحيطات تنشأ أساساً نتيجة الاختلاف في:", options:["سرعة الرياح السطحية","الكثافة الناتجة عن اختلاف الحرارة والملوحة","عمق الشواطئ","شكل القارات"], correct:1, hint:"المياه الأكثر كثافة تهبط لأسفل والاقل تصعد." },
+            { id:15, mark:1, text:"تنقل التيارات المائية المحيطية الحرارة والملح من المناطق الاستوائية إلى:", options:["المناطق الاستوائية المجاورة","قطبي الكرة الأرضية","قاع المحيطات المظلمة","البحيرات الداخلية"], correct:1, hint:"تعمل كحزام ناقل حراري عالمي." },
+            { id:16, mark:2, text:"أي التغيرات التالية لا يؤدي تقريباً إلى تغيير ملحوظ في كثافة ماء المحيط؟", options:["زيادة الملوحة بدرجة كبيرة","انخفاض الحرارة من 20°C إلى 10°C","زيادة الضغط بمقدار طفيف عند زيادة العمق","انخفاض الحرارة من 4°C إلى 0°C"], correct:2, hint:"السوائل تقريباً غير قابلة للانضغاط." },
+            { id:17, mark:1, text:"المياه العذبة المنصهرة من الأنهار الجليدية والتي تصب في المحيط تتميز بأنها:", options:["أعلى ملوحة وأعلى كثافة","أقل ملوحة وتطفو فوق المياه المالحة","تهبط فوراً للقاع","تختفي تماماً"], correct:1, hint:"قلة الملوحة تجعل كثافتها أقل وتطفو." },
+            { id:18, mark:1, text:"الطاقة الداخلية لجسم أو نظام معين تمثل:", options:["طاقة حركة الجزيئات فقط","طاقة وضع الجزيئات فقط","مجموع طاقتي الحركة والوضع لجميع جزيئات النظام","درجة الحرارة"], correct:2, hint:"تتكون من الحركة وقوى الارتباط." },
+            { id:19, mark:2, text:"تعبر درجة الحرارة لنظام ما عن مقياس لـ:", options:["الطاقة الداخلية الكلية","متوسط طاقة حركة جزيئات النظام","طاقة الوضع","كتلة الجزيئات"], correct:1, hint:"مقياس لمعدل السرعة وطاقة الحركة." },
+            { id:20, mark:1, text:"درجة الحرارة التي تنعدم عندها طاقة حركة الجزيئات نظرياً تسمى الصفر المطلق وتساوي:", options:["0°C","-273°C","273°C","100°C"], correct:1, hint:"0 K يطابق -273°C." },
+            { id:21, mark: 2, text:"درجة حرارة جسم كانت 27°C، فإن درجته على تدريج كلفن (K) تكون:", options:["246 K","300 K","273 K","327 K"], correct:1, hint:"T(K) = t(°C) + 273 = 27 + 273 = 300." },
+            { id:22, mark:2, text:"إذا تغيرت درجة حرارة عينة بمقدار 15°C، فإن التغير في درجة حرارتها على تدريج كلفن (ΔT) يساوي:", options:["15 K","288 K","258 K","150 K"], correct:0, hint:"فرق التغير متطابق Δt = ΔT." },
+            { id:23, mark:1, text:"عندما يكتسب نظام كمية من الطاقة الحرارية، فإن المعامل الذي يقل هو:", options:["سعة اهتزاز الجزيئات","سرعة حركة الجزيئات","درجة الحرارة","المسافات البينية في حالة التبريد"], correct:3, hint:"اكتساب الحرارة يرفع باقي المعاملات." },
+            { id:24, mark:1, text:"تعرف الحرارة النوعية لمادة بأنها كمية الحرارة اللازمة لرفع درجة حرارة:", options:["1 kg من المادة بمقدار 1°C أو 1 K","المادة كلها بمقدار 10°C","1 g إلى درجة الغليان","الحجم الكلي"], correct:0, hint:"منسوبة لوحدة الكتل وتغير درجي واحد." },
+            { id:25, mark:2, text:"أي العوامل التالية تتوقف عليها الحرارة النوعية لمادة نقية؟", options:["كتلة العينة","حجم العينة","نوع المادة والحالة الفيزيائية","كمية الحرارة المكتسبة"], correct:2, hint:"خاصية نوعية تتغير بنوع المادة وحالتها فقط." },
+            { id:26, mark:2, text:"أحسب كمية الحرارة اللازمة لرفع درجة حرارة 0.3 kg من النحاس من 20°C إلى 70°C (علماً بأن c = 390 J/kg.K):", options:["3900 J","5850 J","7800 J","11700 J"], correct:1, hint:"Q = m.c.ΔT = 0.3 × 390 × (70 - 20) = 5850 J." },
+            { id:27, mark:2, text:"قطعة ألمونيوم كتلتها 200 g ودرجة حرارتها 80°C ألقيت في ماء ففقدت حرارة حتى أصبحت 40°C (علماً بأن c = 900 J/kg.K):", options:["-7200 J","-3600 J","-14400 J","-1800 J"], correct:0, hint:"m = 0.2 kg, ΔT = 40 - 80 = -40°C. Q = -7200 J." },
+            { id:28, mark:2, text:"كرتان متماثلتان في الكتلة، إحداهما نحاس (c = 390) والأخرى ألمونيوم (c = 900) عند 20°C. لتصل كل منهما إلى 21°C فإن الطاقة المطلوبة:", options:["متساوية","للألمونيوم أكبر من النحاس","للنحاس أكبر","تعتمد على الإناء"], correct:1, hint:"المادة ذات الحرارة النوعية الأكبر تتطلب طاقة أكبر." },
+            { id:29, mark:1, text:"وحدة قياس الحرارة النوعية المكافئة لـ J/kg.°C في النظام الدولي هي:", options:["kg.m²/s²","m².s⁻².K⁻¹","J/s","N.m/kg"], correct:1, hint:"بالتعويض عن الجول بـ kg.m²/s²." },
+            { id:30, mark:2, text:"إناء محتوٍ على 300 g ماء عند 90°C تم خلطه مع 60 g ماء عند 15°C. درجة حرارة الخليط النهائية تكون تقريباً:", options:["53.4°C","77.5°C","83.2°C","95.7°C"], correct:1, hint:"Q المفقودة = Q المكتسبة -> 300*(90-Tf) = 60*(Tf-15)." },
+            { id:31, mark:1, text:"يتميز الماء بارتفاع حرارته النوعية مقارنة بمعظم المواد الأخرى ويرجع ذلك أساساً إلى:", options:["صغر كتلته المولية","وجود روابط هيدروجينية قوية","ضعف القوى بين الجزيئية","ارتفاع ضغطه البخاري"], correct:1, hint:"تطلب كسر الروابط الهيدروجينية طاقة عالية." },
+            { id:32, mark:2, text:"في المناطق الساحلية، يمتص الماء الحرارة نهاراً ببطء وتخرج رمال الشاطئ هواءً دافئاً يرتفع لأعلى ويحل محله هواء بارد قادم من البحر وتسمى بـ:", options:["نسيم البر","نسيم البحر","التيارات الاستوائية","الانقلاب الحراري"], correct:1, hint:"تحدث نهاراً حركة الهواء من البحر للشاطئ." },
+            { id:33, mark:1, text:"أي المواد التالية لها القدرة على تخزين الطاقة الحرارية لفترة أطول بعد غروب الشمس لكل وحدة كتلة؟", options:["البحيرات والمسطحات المائية","رمال الصحراء","الهواء الجوي","صخور الجبال"], correct:0, hint:"الماء يمتلك أعلى حرارة نوعية." },
+            { id:34, mark:2, text:"تستطيع الكائنات الحية ذات الدم الحار (مثل الثدييات والطيور):", options:["تغيير حرارة أجسادها مع البيئة","الحفاظ على درجة حرارة أجسامها ثابتة بفضل الأيض","العيش فقط في الجليد","الاستغناء عن الماء"], correct:1, hint:"تعتمد على التنظيم الحراري المباشر الداخلي." },
+            { id:35, mark:1, text:"الشعاب المرجانية تعيش بشكل أساسي في المياه السطحية الدافئة ولا تتحمل التغيرات المستمرة في الحرارة لأنها:", options:["كائنات ذات دم حار","كائنات حساسة جداً للتغيرات البيئية الحرارية","تعتمد على الجليد","تتغذى على النيتروجين"], correct:1, hint:"تأثرها سريع بالتغير الحراري المائي." },
+            { id:36, mark:1, text:"الحرارة الكامنة لتصعيد الماء هي كمية الحرارة اللازمة لـ:", options:["رفع درجة حرارة 1 kg بمقدار 1°C","تحويل 1 kg من الماء من سائل لغاز دون تغير في درجة الحرارة","صهر 1 kg جليد","غليان الماء تحت الضغط"], correct:1, hint:"تستهلك الطاقة في التحول الفيزيائي فقط." },
+            { id:37, mark:2, text:"المنحنى البياني يوضح تسخين الماء. ما الذي تمثله المنطقة الأفقية B عند 100°C؟", svg:`<svg width="200" height="90" viewBox="0 0 200 90"><path d="M 20 70 L 50 70 L 90 25 L 160 25 L 180 10" stroke="#16a34a" stroke-width="3" fill="none"/><line x1="20" y1="80" x2="180" y2="80" stroke="#000"/><line x1="20" y1="10" x2="20" y2="80" stroke="#000"/><text x="115" y="20" font-size="11" fill="#16a34a" font-

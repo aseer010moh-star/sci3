@@ -31,7 +31,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .container {
@@ -39,7 +39,7 @@
             max-width: 650px;
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 24px;
+            padding: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             border: 1px solid var(--border-color);
         }
@@ -47,32 +47,28 @@
         /* رأس الصفحة */
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .header h1 {
             color: var(--primary);
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 5px;
         }
         .header p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        /* شاشات النظام */
-        .screen {
-            display: none;
-        }
-        .screen.active {
-            display: block;
-        }
+        /* الشاشات */
+        .screen { display: none; }
+        .screen.active { display: block; }
 
-        /* شاشة الاختبار */
+        /* واجهة الاختبار */
         .quiz-top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: rgba(15, 23, 42, 0.6);
             padding: 10px 15px;
             border-radius: 8px;
@@ -80,32 +76,32 @@
         .timer {
             background: #ef4444;
             color: white;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
         }
         .question-box {
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 17px;
+            margin-bottom: 15px;
             line-height: 1.6;
         }
         .options-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 20px;
         }
         .option-btn {
             background: #27354f;
             border: 1px solid var(--border-color);
             color: var(--text-light);
-            padding: 12px 16px;
+            padding: 12px 15px;
             border-radius: 8px;
             text-align: right;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 16px;
+            font-size: 15px;
         }
         .option-btn:hover {
             background: #334155;
@@ -132,12 +128,10 @@
             font-weight: bold;
             cursor: pointer;
             flex: 1;
-            font-size: 16px;
+            font-size: 15px;
             transition: background 0.2s;
         }
-        .main-btn:hover {
-            background: var(--primary-hover);
-        }
+        .main-btn:hover { background: var(--primary-hover); }
         .secondary-btn {
             background: #475569;
             color: white;
@@ -146,10 +140,10 @@
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
         }
 
-        /* زر فتح الآلة الحاسبة العائمة */
+        /* زر الآلة الحاسبة العائمة */
         .calc-toggle-btn {
             position: fixed;
             bottom: 20px;
@@ -157,43 +151,41 @@
             background: var(--accent-gold);
             color: #0f172a;
             border: none;
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        /* نافذة الآلة الحاسبة Casio المتقدمة */
+        /* نافذة آلة كاسيو المتقدمة */
         .calculator-modal {
             position: fixed;
-            bottom: 85px;
+            bottom: 80px;
             left: 20px;
-            width: 340px;
+            width: 330px;
             background: #111827;
             border: 2px solid #374151;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             display: none;
-            z-index: 101;
+            z-index: 1001;
             overflow: hidden;
         }
-        .calculator-modal.open {
-            display: block;
-        }
+        .calculator-modal.open { display: block; }
         .calc-header {
             background: #1f2937;
             padding: 8px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13px;
+            font-size: 12px;
             color: #9ca3af;
             border-bottom: 1px solid #374151;
         }
@@ -207,22 +199,13 @@
         }
         .calc-screen {
             background: #0d1117;
-            padding: 12px;
+            padding: 10px;
             text-align: left;
             border-bottom: 1px solid #374151;
         }
-        .calc-history {
-            font-size: 11px;
-            color: #6b7280;
-            min-height: 15px;
-        }
-        .calc-output {
-            font-size: 22px;
-            color: var(--primary);
-            font-family: monospace;
-            font-weight: bold;
-            overflow-x: auto;
-        }
+        .calc-history { font-size: 11px; color: #6b7280; min-height: 14px; }
+        .calc-output { font-size: 20px; color: var(--primary); font-family: monospace; font-weight: bold; overflow-x: auto; }
+        
         .calc-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -234,42 +217,37 @@
             background: #374151;
             color: #f3f4f6;
             border: none;
-            padding: 9px 0;
+            padding: 8px 0;
             border-radius: 4px;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: background 0.1s;
         }
         .calc-btn:hover { background: #4b5563; }
-        .calc-btn.fn { background: #1f2937; color: var(--accent-gold); font-size: 11px; }
+        .calc-btn.fn { background: #1f2937; color: var(--accent-gold); font-size: 10px; }
         .calc-btn.op { background: #374151; color: #60a5fa; }
         .calc-btn.eq { background: var(--primary); color: #0f172a; font-weight: bold; grid-column: span 2; }
         .calc-btn.ac { background: #dc2626; color: white; }
 
-        /* شاشة تسليم الاختبار والنتيجة مع القفل */
+        /* شاشة النتيجة والتسليم المحمية */
         .success-card {
             background: #064e3b;
             border: 1px solid var(--primary);
-            padding: 20px;
+            padding: 18px;
             border-radius: 12px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
-        .success-card h2 {
-            color: #34d399;
-            margin-bottom: 10px;
-        }
+        .success-card h2 { color: #34d399; margin-bottom: 8px; font-size: 18px; }
+        
         .lock-section {
             background: #111827;
-            padding: 20px;
+            padding: 18px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
             text-align: center;
         }
-        .lock-section h3 {
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
+        .lock-section h3 { margin-bottom: 8px; font-size: 15px; }
         .pin-input {
             background: #1f2937;
             border: 1px solid var(--border-color);
@@ -278,31 +256,22 @@
             font-size: 18px;
             text-align: center;
             border-radius: 6px;
-            width: 200px;
+            width: 180px;
             letter-spacing: 5px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
-        .error-msg {
-            color: #ef4444;
-            font-size: 13px;
-            margin-top: 8px;
-            display: none;
-        }
+        .error-msg { color: #ef4444; font-size: 12px; margin-top: 6px; display: none; }
 
-        /* التقرير المفصل (يظهر بعد إدخال الرمز الصحيح) */
         .report-content {
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             background: #111827;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
             text-align: right;
+            border: 1px solid var(--primary);
         }
-        .report-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #27354f;
-            font-size: 14px;
-        }
+        .report-item { padding: 6px 0; border-bottom: 1px solid #27354f; font-size: 13px; }
         .report-item.correct { color: #34d399; }
         .report-item.wrong { color: #f87171; }
     </style>
@@ -310,16 +279,15 @@
 <body>
 
     <div class="container">
-        <!-- رأس التطبيق -->
         <div class="header">
             <h1>سلسلة اختبارات الأمين</h1>
             <p>اختبار الفيزياء - باكوريا 2027</p>
         </div>
 
-        <!-- الشاشة الأولى: الأسئلة -->
+        <!-- شاشة الاختبار -->
         <div id="quizScreen" class="screen active">
             <div class="quiz-top-bar">
-                <span>السؤال 1 من 3</span>
+                <span id="questionNumText">السؤال 1 من 3</span>
                 <div class="timer" id="timer">89:49</div>
             </div>
 
@@ -340,30 +308,29 @@
             </div>
         </div>
 
-        <!-- الشاشة الثانية: التسليم والرمز السري (PIN) -->
+        <!-- شاشة التسليم والرمز السري (PIN) -->
         <div id="resultScreen" class="screen">
             <div class="success-card">
                 <h2>✓ تم تسليم الاختبار بنجاح</h2>
                 <p>شكرًا لك يا Safa.</p>
-                <p style="margin-top: 8px; font-size: 14px; color: #a7f3d0;">🚀 تم إرسال نتيجة التقرير أوتوماتيكياً إلى إيميل الأستاذ بنجاح!</p>
+                <p style="margin-top: 6px; font-size: 13px; color: #a7f3d0;">🚀 تم إرسال نتيجة التقرير أوتوماتيكياً إلى إيميل الأستاذ بنجاح!</p>
             </div>
 
             <div class="lock-section">
                 <h3>🔒 فتح الشهادة والتقرير التفصيلي</h3>
-                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">أدخل رمز PIN المخصص للاطلاع على التقرير والشهادة والخطوات:</p>
+                <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 10px;">أدخل رمز PIN للاطلاع على التقرير والخطوات والصح والخطأ:</p>
                 <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="6">
                 <div>
-                    <button class="main-btn" onclick="verifyPin()" style="width: 200px;">فتح التقرير والشهادة</button>
+                    <button class="main-btn" onclick="verifyPin()" style="width: 180px;">فتح التقرير والشهادة</button>
                 </div>
-                <div id="errorMsg" class="error-msg">الرمز السري غير صحيح! يرجى المحاولة مرة أخرى.</div>
+                <div id="errorMsg" class="error-msg">الرمز السري غير صحيح!</div>
             </div>
 
-            <!-- محتوى التقرير المفصل يظهر بعد فتح القفل -->
             <div id="reportContent" class="report-content">
-                <h4 style="color: var(--primary); margin-bottom: 10px;">📊 التقرير المفصل (صح / خطأ والخطوات):</h4>
-                <div class="report-item correct">السؤال 1: الإجابة صحيحة (ب) الكثافة - الشرح: الكثافة صفة مميزة للمادة لا تعتمد على الكتلة.</div>
-                <div class="report-item correct">السؤال 2: الإجابة صحيحة - الخطوات محسوبة بدقة.</div>
-                <div class="report-item wrong">السؤال 3: الإجابة خاطئة - الصحيح هو الخيار (ج).</div>
+                <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 14px;">📊 التقرير المفصل (الصح والخطأ والخطوات):</h4>
+                <div class="report-item correct">السؤال 1: صح (الإجابة ب - الكثافة). الشرح: الكثافة صفة مميزة للمادة.</div>
+                <div class="report-item correct">السؤال 2: صح (تم تطبيق القوانين الرياضية بنجاح).</div>
+                <div class="report-item wrong">السؤال 3: خطأ (الإجابة الصحيحة هي الخيار ج).</div>
             </div>
         </div>
     </div>
@@ -371,7 +338,7 @@
     <!-- زر الآلة الحاسبة العائمة -->
     <button class="calc-toggle-btn" onclick="toggleCalculator()" title="آلة كاسيو المتقدمة">fx</button>
 
-    <!-- نافذة آلة Casio fx Advanced المتقدمة -->
+    <!-- نافذة آلة كاسيو العلمية المتكاملة -->
     <div id="calcModal" class="calculator-modal">
         <div class="calc-header">
             <span>CASIO fx-991ES Plus (Advanced)</span>
@@ -382,21 +349,18 @@
             <div class="calc-output" id="calcOutput">0</div>
         </div>
         <div class="calc-grid">
-            <!-- الصف الأول: الدوال المتقدمة -->
-            <button class="calc-btn fn" onclick="appendCalc('sin(')">sin</button>
-            <button class="calc-btn fn" onclick="appendCalc('cos(')">cos</button>
-            <button class="calc-btn fn" onclick="appendCalc('tan(')">tan</button>
+            <button class="calc-btn fn" onclick="appendCalc('Math.sin(')">sin</button>
+            <button class="calc-btn fn" onclick="appendCalc('Math.cos(')">cos</button>
+            <button class="calc-btn fn" onclick="appendCalc('Math.tan(')">tan</button>
             <button class="calc-btn fn" onclick="appendCalc('Math.sqrt(')">√</button>
             <button class="calc-btn ac" onclick="clearCalc()">AC</button>
 
-            <!-- الصف الثاني -->
             <button class="calc-btn fn" onclick="appendCalc('Math.log10(')">log</button>
             <button class="calc-btn fn" onclick="appendCalc('Math.log(')">ln</button>
             <button class="calc-btn fn" onclick="appendCalc('**2')">x²</button>
             <button class="calc-btn fn" onclick="appendCalc('**')">x^y</button>
             <button class="calc-btn op" onclick="appendCalc('/')">÷</button>
 
-            <!-- الأرقام والعمليات -->
             <button class="calc-btn" onclick="appendCalc('7')">7</button>
             <button class="calc-btn" onclick="appendCalc('8')">8</button>
             <button class="calc-btn" onclick="appendCalc('9')">9</button>
@@ -415,4 +379,7 @@
             <button class="calc-btn fn" onclick="appendCalc('(')">(</button>
             <button class="calc-btn op" onclick="appendCalc('+')">+</button>
 
-            <button class="calc
+            <button class="calc-btn" onclick="appendCalc('0')">0</button>
+            <button class="calc-btn" onclick="appendCalc('.')">.</button>
+            <button class="calc-btn fn" onclick="appendCalc(')')">)</button>
+            <button class="calc-btn eq" onclick="calculateResult()">

@@ -30,7 +30,7 @@
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 420px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -60,8 +60,8 @@
             color: #2c3e50;
         }
 
-        /* كارت تسجيل الدخول والأسئلة */
-        .card {
+        /* كارت تسجيل الدخول */
+        .login-card {
             background-color: #ffffff;
             border-radius: 20px;
             padding: 30px 20px;
@@ -102,7 +102,7 @@
             border-color: #0d3b36;
         }
 
-        .btn {
+        .submit-btn {
             width: 100%;
             background-color: #0d3b36;
             color: #ffffff;
@@ -116,63 +116,20 @@
             margin-top: 10px;
         }
 
-        .btn:hover {
+        .submit-btn:hover {
             background-color: #082724;
         }
 
         .error-message {
             color: #e74c3c;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-align: center;
             margin-top: 10px;
             display: none;
         }
 
-        /* قسم الأسئلة - مخفي في البداية */
-        #quizSection {
-            display: none;
-        }
-
-        .question-box {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
-        }
-
-        .question-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #0b2e2b;
-            margin-bottom: 10px;
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #f8f9fa;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            border: 1px solid #e2e8f0;
-        }
-
-        .option-label input {
-            cursor: pointer;
-        }
-
-        .result-box {
-            display: none;
-            text-align: center;
-            font-size: 20px;
-            font-weight: 800;
-            color: #0d3b36;
-            margin-top: 15px;
-        }
-
-        /* الفوتر */
+        /* الفوتر الأصلي */
         .footer {
             text-align: center;
             color: #d4af37;
@@ -203,55 +160,29 @@
         </div>
 
         <!-- كارت تسجيل الدخول -->
-        <div class="card" id="loginCard">
+        <div class="login-card">
             <h2 class="form-title">تسجيل الدخول للاختبار</h2>
             
             <form id="quizLoginForm">
+                <!-- 1. اسم الطالب الثلاثي أولاً -->
                 <div class="input-group">
                     <label for="studentName">اسم الطالب الثلاثي:</label>
                     <input type="text" id="studentName" placeholder="أدخل اسمك الكامل" required>
                 </div>
 
+                <!-- 2. كود الطالب (ظاهر على شكل نجوم ****) -->
                 <div class="input-group">
                     <label for="studentCode">كود الطالب:</label>
-                    <!-- كلمة توضيحية عبارة عن نجوم بدون كشف أي شيء -->
                     <input type="password" id="studentCode" placeholder="****" required>
                 </div>
 
-                <button type="submit" class="btn">بدء الاختبار</button>
+                <button type="submit" class="submit-btn">بدء الاختبار</button>
                 <div id="errorMsg" class="error-message">عذراً، كود الطالب غير صحيح!</div>
             </form>
         </div>
-
-        <!-- كارت الأسئلة (يظهر تلقائياً بعد الدخول) -->
-        <div class="card" id="quizSection">
-            <h2 class="form-title" id="welcomeStudent"></h2>
-            
-            <form id="quizForm">
-                <!-- السؤال الأول -->
-                <div class="question-box">
-                    <div class="question-title">1. ما الغاز الذي تستهلكه النباتات أثناء عملية البناء الضوئي؟</div>
-                    <label class="option-label"><input type="radio" name="q1" value="a"> الأكسجين</label>
-                    <label class="option-label"><input type="radio" name="q1" value="b"> ثاني أكسيد الكربون</label>
-                    <label class="option-label"><input type="radio" name="q1" value="c"> النيتروجين</label>
-                </div>
-
-                <!-- السؤال الثاني -->
-                <div class="question-box">
-                    <div class="question-title">2. ما هي وحدة قياس القوة في النظام الدولي؟</div>
-                    <label class="option-label"><input type="radio" name="q2" value="a"> النيوتن</label>
-                    <label class="option-label"><input type="radio" name="q2" value="b"> الجول</label>
-                    <label class="option-label"><input type="radio" name="q2" value="c"> Watt</label>
-                </div>
-
-                <button type="submit" class="btn">إنهاء وإرسال الإجابات</button>
-            </form>
-
-            <div id="resultBox" class="result-box"></div>
-        </div>
     </div>
 
-    <!-- الفوتر -->
+    <!-- الفوتر الأصلي -->
     <div class="footer">
         <div class="footer-quote">ما استعان عبدٌ بالله إلا وصل</div>
         <div class="footer-rights">جميع الحقوق محفوظة © أ/ محمد أمين - 2027</div>
@@ -267,33 +198,20 @@
 
             const codeNumber = parseInt(codeInput, 10);
 
-            // التحقق من صحة الكود
+            // قبول الأكواد من 1 إلى 100
             if (codeNumber >= 1 && codeNumber <= 100) {
                 errorMsg.style.display = 'none';
                 
-                // إخفاء كارت الدخول وإظهار الأسئلة فوراً في نفس الصفحة
-                document.getElementById('loginCard').style.display = 'none';
-                document.getElementById('quizSection').style.display = 'block';
-                document.getElementById('welcomeStudent').innerText = `بالتوفيق يا ${name}`;
+                // ==========================================
+                // استبدل الرابط التالي برابط الـ 40 سؤال الخاص بك (Google Forms أو صفحة الاختبار):
+                // ==========================================
+                const myQuizUrl = "رابط_الاختبار_بتاعك_هنا.html"; 
+
+                // تحويل الطالب فوراً وبدون أي رسائل تنبيهية
+                window.location.href = myQuizUrl;
             } else {
                 errorMsg.style.display = 'block';
             }
-        });
-
-        // حساب الدرجة عند تسليم الاختبار
-        document.getElementById('quizForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            let score = 0;
-            const q1 = document.querySelector('input[name="q1"]:checked')?.value;
-            const q2 = document.querySelector('input[name="q2"]:checked')?.value;
-
-            if (q1 === 'b') score++;
-            if (q2 === 'a') score++;
-
-            const resultBox = document.getElementById('resultBox');
-            resultBox.innerText = `تم تسليم الإجابات بنجاح! درجتك هي: ${score} من 2`;
-            resultBox.style.display = 'block';
         });
     </script>
 

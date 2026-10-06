@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلسلة اختبارات الأمين - اختبار 3 ..علوم متكاملة ..2027</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <title>سلسلة اختبارات الأمين</title>
+    <!-- استدعاء خطوط عربية مميزة -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --secondary: #0d9488;
-            --accent: #f59e0b;
-            --danger: #ef4444;
-            --success: #10b981;
-            --bg: #f8fafc;
+            --bg-color: #0b3c3d; /* اللون الداكن للحديث والوجهة */
             --card-bg: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
+            --text-color: #0b3c3d;
+            --accent-green: #00ff66;
+            --button-bg: #0b3c3d;
+            --gold-color: #dfb256;
         }
 
         * {
@@ -26,730 +21,217 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
-            user-select: none;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
+            background-color: var(--bg-color);
             display: flex;
             flex-direction: column;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary), #1e1b4b);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            min-height: 100vh;
+            padding: 20px 15px;
+            color: #ffffff;
         }
 
-        .title-area h1 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #f8fafc;
-        }
-
-        .title-area h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .stat-badge {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            backdrop-filter: blur(4px);
-        }
-
-        .timer-badge {
-            background: #ef4444;
-            color: white;
-            font-weight: bold;
-            font-size: 1.1rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-
-        /* Container */
         .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            flex: 1;
             width: 100%;
-        }
-
-        /* Login Card */
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-
-        .login-box {
             max-width: 450px;
-            margin: 3rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* الكارت العلوي - العنوان */
+        .header-card {
+            background-color: var(--card-bg);
+            border-radius: 25px;
+            padding: 30px 20px;
             text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border-bottom: 6px solid var(--gold-color);
         }
 
-        .login-box h3 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
+        .title-glow {
+            font-size: 38px;
+            font-weight: 900;
+            color: #111;
+            text-shadow: 0 0 10px var(--accent-green), 0 0 20px var(--accent-green);
+            margin-bottom: 10px;
+            line-height: 1.2;
         }
 
-        .input-group {
-            margin-bottom: 1.5rem;
-            text-align: right;
+        .sub-title-glow {
+            font-size: 32px;
+            font-weight: 900;
+            color: #111;
+            text-shadow: 0 0 10px var(--accent-green), 0 0 20px var(--accent-green);
+            margin-bottom: 15px;
+            line-height: 1.2;
         }
 
-        .input-group label {
+        .exam-info {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* كارت تسجيل الدخول */
+        .login-card {
+            background-color: var(--card-bg);
+            border-radius: 25px;
+            padding: 30px 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            color: var(--text-color);
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            color: var(--text-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-light);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
         }
 
-        .input-group input {
+        .form-group input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1.1rem;
-            text-align: center;
-            letter-spacing: 4px;
-            transition: all 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary-light);
+            padding: 12px 15px;
+            border: 1.5px solid #b2d4d0;
+            border-radius: 12px;
+            font-size: 15px;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-        }
-
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            font-size: 1.05rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-        }
-        .btn-secondary:hover {
-            background: #0f766e;
-        }
-
-        .btn-danger {
-            background: var(--danger);
-        }
-        .btn-danger:hover {
-            background: #dc2626;
-        }
-
-        /* Question Card */
-        .q-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .q-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .q-mark {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .q-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: #0f172a;
-        }
-
-        .q-svg-container {
-            text-align: center;
-            margin: 1.5rem 0;
-            background: #f1f5f9;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .option-btn {
-            background: #f8fafc;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 1rem;
+            transition: all 0.3s ease;
             text-align: right;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
 
-        .option-btn:hover {
-            border-color: var(--primary-light);
-            background: #eff6ff;
+        .form-group input:focus {
+            border-color: var(--button-bg);
+            box-shadow: 0 0 5px rgba(11, 60, 61, 0.3);
         }
 
-        .option-btn.selected {
-            border-color: var(--primary);
-            background: #dbeafe;
-            color: var(--primary);
-        }
-
-        .option-btn.struck {
-            text-decoration: line-through;
-            opacity: 0.4;
-            background: #f1f5f9;
-        }
-
-        .strike-toggle {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            background: #e2e8f0;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-        }
-
-        /* Controls & Helpers */
-        .helpers-bar {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .help-btn {
-            background: #fef3c7;
-            color: #92400e;
-            border: 1px solid #fde68a;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .help-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: #e2e8f0;
-            color: #94a3b8;
-            border-color: #cbd5e1;
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Draggable Calculator */
-        #calculator {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 260px;
-            background: #1e293b;
-            color: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            z-index: 1000;
-            display: none;
-            overflow: hidden;
-            border: 1px solid #334155;
-        }
-
-        .calc-header {
-            background: #0f172a;
-            padding: 0.6rem 1rem;
-            cursor: move;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .calc-display {
-            background: #020617;
-            color: #38bdf8;
-            font-family: monospace;
-            font-size: 1.4rem;
-            padding: 0.8rem;
-            text-align: left;
-            border: none;
+        .submit-btn {
             width: 100%;
-        }
-
-        .calc-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            padding: 8px;
-        }
-
-        .calc-btn {
-            background: #334155;
-            color: white;
+            background-color: var(--button-bg);
+            color: #ffffff;
             border: none;
-            padding: 0.8rem;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .calc-btn:hover { background: #475569; }
-        .calc-btn.op { background: var(--accent); color: #000; }
-        .calc-btn.eq { background: var(--success); grid-column: span 2; }
-        .calc-btn.clear { background: var(--danger); }
-
-        /* Floating Calc Toggle Button */
-        .calc-toggle-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 999;
-            border-radius: 50%;
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        /* Result Section */
-        .result-box {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .result-score {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-
-        .teacher-unlock {
-            background: #f1f5f9;
-            padding: 1.5rem;
+            padding: 14px;
+            font-size: 18px;
+            font-weight: 700;
             border-radius: 12px;
-            max-width: 400px;
-            margin: 2rem auto;
-            border: 1px dashed var(--primary);
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
         }
 
-        /* Certificate */
-        .certificate {
-            background: #fff;
-            border: 10px double var(--primary);
-            padding: 2rem;
-            border-radius: 16px;
-            margin-top: 2rem;
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-size: 14px;
+            font-weight: bold;
             text-align: center;
-            position: relative;
-            background-image: radial-gradient(#e2e8f0 1px, transparent 0);
-            background-size: 20px 20px;
+            margin-top: 10px;
+            display: none;
         }
 
-        .certificate h2 { color: var(--primary); font-size: 2rem; margin-bottom: 1rem; }
+        /* الجزء السفلي المميز */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
 
-        .hidden { display: none !important; }
+        .footer-quote {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 28px;
+            color: var(--gold-color);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
 
-        @media (max-width: 600px) {
-            .header-content { flex-direction: column; text-align: center; }
-            .helpers-bar { justify-content: center; }
-            .nav-buttons { flex-direction: column; gap: 1rem; }
-            .btn { width: 100%; justify-content: center; }
+        .footer-rights {
+            font-size: 14px;
+            color: #e0e0e0;
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="title-area">
-                <h1>سلسلة اختبارات الأمين</h1>
-                <h2>اختبار 3 ..علوم متكاملة ..2027</h2>
-            </div>
-            <div class="header-stats hidden" id="headerStats">
-                <div class="stat-badge">
-                    <span>الطالب:</span>
-                    <span id="displayStudentId" style="font-weight: bold;">--</span>
-                </div>
-                <div class="stat-badge timer-badge">
-                    <span>⏱️ المتبقي:</span>
-                    <span id="timerDisplay">80:00</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Container -->
     <div class="container">
-        
-        <!-- Login Screen -->
-        <div class="card login-box" id="loginCard">
-            <h3>تسجيل دخول الاختبار</h3>
-            <p style="color: var(--text-light); margin-bottom: 1.5rem;">يرجى إدخال كود الطالب المخصص للبدء (من 1 إلى 100)</p>
-            <div class="input-group">
-                <label for="studentCodeInput">كود الطالب:</label>
-                <input type="password" id="studentCodeInput" placeholder="••••" maxlength="3" autocomplete="off">
-            </div>
-            <button class="btn" onclick="startExam()">بدء الاختبار 🚀</button>
-            <p id="loginError" style="color: var(--danger); margin-top: 1rem; font-weight: bold;" class="hidden"></p>
+        <!-- الكارت العلوي -->
+        <div class="header-card">
+            <div class="title-glow">سلسلة</div>
+            <div class="sub-title-glow">اختبارات الأمين</div>
+            <div class="exam-info">اختبار الفيزياء - بكالوريا 2027</div>
         </div>
 
-        <!-- Question Screen -->
-        <div class="card hidden" id="examCard">
-            <div class="q-header">
-                <span class="q-title" id="questionNumber">السؤال 1 من 40</span>
-                <span class="q-mark" id="questionMark">درجة واحدة</span>
-            </div>
-
-            <!-- Helpers Bar -->
-            <div class="helpers-bar">
-                <button class="help-btn" id="hintBtn" onclick="useHint()">💡 تلميح (متبقي: <span id="hintCount">2</span>)</button>
-                <button class="help-btn" id="delBtn" onclick="useDeleteTwo()">❌ حذف إجابتين (مرة واحدة - خصم 0.5 درجة)</button>
-            </div>
-            <div id="hintBox" style="background:#fef9c3; border-right:4px solid #f59e0b; padding:0.8rem; margin-bottom:1rem; border-radius:4px; font-weight:bold;" class="hidden"></div>
-
-            <div class="q-text" id="questionText"></div>
-
-            <!-- SVG Container for diagrams -->
-            <div class="q-svg-container hidden" id="svgContainer"></div>
-
-            <!-- Options Grid -->
-            <div class="options-grid" id="optionsContainer"></div>
-
-            <!-- Navigation Buttons -->
-            <div class="nav-buttons">
-                <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" disabled>السابق</button>
-                <button class="btn" id="nextBtn" onclick="nextQuestion()">التالي</button>
-                <button class="btn btn-danger hidden" id="submitBtn" onclick="confirmSubmit()">تسليم الاختبار 🏁</button>
-            </div>
-        </div>
-
-        <!-- Result Screen -->
-        <div class="card hidden" id="resultCard">
-            <div class="result-box">
-                <h2>تم الانتهاء من الاختبار بنجاح! 🎉</h2>
-                <p style="color: var(--text-light); margin-top: 0.5rem;">تم تسجيل إجاباتك بنجاح وتقييم الاختبار.</p>
+        <!-- كارت التسجيل -->
+        <div class="login-card">
+            <div class="login-title">تسجيل الدخول للاختبار</div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
                 
-                <!-- Teacher Unlock Lock -->
-                <div class="teacher-unlock" id="teacherUnlockBox">
-                    <h4 style="color: var(--primary); margin-bottom: 0.8rem;">🔒 إظهار النتيجة والشهادة</h4>
-                    <p style="font-size: 0.9rem; margin-bottom: 1rem;">أدخل كود المعلم الخاص لرؤية النتيجة التفصيلية والشهادة:</p>
-                    <div class="input-group" style="margin-bottom: 1rem;">
-                        <input type="password" id="teacherPassInput" placeholder="كود المعلم" style="letter-spacing: 2px;">
-                    </div>
-                    <button class="btn btn-secondary" onclick="unlockResults()">عرض النتيجة والشهادة ✨</button>
-                    <p id="unlockError" style="color: var(--danger); font-size:0.85rem; margin-top:0.5rem;" class="hidden">كود المعلم غير صحيح!</p>
+                <!-- 1. اسم الطالب الثلاثي أولاً -->
+                <div class="form-group">
+                    <label for="studentName">اسم الطالب الثلاثي:</label>
+                    <input type="text" id="studentName" placeholder="أدخل اسمك الكامل" required>
                 </div>
 
-                <!-- Unlocked Content -->
-                <div id="unlockedSection" class="hidden">
-                    <div class="result-score" id="finalScoreDisplay">0 / 60</div>
-                    <p id="scoreFeedback" style="font-size: 1.2rem; font-weight: bold; color: var(--secondary); margin-bottom: 2rem;"></p>
-
-                    <!-- Certificate -->
-                    <div class="certificate">
-                        <h2>🏆 شهادة تقدير 🏆</h2>
-                        <p style="font-size: 1.2rem; margin: 1rem 0;">تشهد **سلسلة اختبارات الأمين** بأن الطالب/ـة صاحب الكود:</p>
-                        <h3 id="certStudentCode" style="font-size: 1.8rem; color: var(--primary); margin: 0.5rem 0;">--</h3>
-                        <p style="font-size: 1.2rem;">قد أتم اختبار **العلوم المتكاملة (اختبار 3 - 2027)** وحصل على درجة:</p>
-                        <h3 id="certScore" style="font-size: 2rem; color: var(--success); margin: 0.5rem 0;">--</h3>
-                        <p style="margin-top: 1.5rem; font-weight: bold; color: var(--text-light);">مع أطيب تمنياتنا بدوام التميز والنجاح!</p>
-                    </div>
+                <!-- 2. كود الطالب -->
+                <div class="form-group">
+                    <label for="studentCode">كود الطالب:</label>
+                    <input type="number" id="studentCode" placeholder="أدخل الكود (من 1 إلى 100)" min="1" max="100" required>
                 </div>
-            </div>
+
+                <button type="submit" class="submit-btn">بدء الاختبار</button>
+                <div id="errorMsg" class="error-message">عذراً، يجب أن يكون الكود برقم من 1 إلى 100 فقط!</div>
+            </form>
         </div>
-
     </div>
 
-    <!-- Movable Scientific Calculator -->
-    <button class="btn calc-toggle-btn" onclick="toggleCalculator()" title="الآلة الحاسبة">🧮</button>
-    <div id="calculator">
-        <div class="calc-header" id="calcHeader">
-            <span>آلة حاسبة</span>
-            <span style="cursor:pointer;" onclick="toggleCalculator()">✖</span>
-        </div>
-        <input type="text" class="calc-display" id="calcDisplay" readonly value="0">
-        <div class="calc-grid">
-            <button class="calc-btn clear" onclick="calcClear()">C</button>
-            <button class="calc-btn" onclick="calcInput('(')">(</button>
-            <button class="calc-btn" onclick="calcInput(')')">)</button>
-            <button class="calc-btn op" onclick="calcInput('/')">÷</button>
-
-            <button class="calc-btn" onclick="calcInput('7')">7</button>
-            <button class="calc-btn" onclick="calcInput('8')">8</button>
-            <button class="calc-btn" onclick="calcInput('9')">9</button>
-            <button class="calc-btn op" onclick="calcInput('*')">×</button>
-
-            <button class="calc-btn" onclick="calcInput('4')">4</button>
-            <button class="calc-btn" onclick="calcInput('5')">5</button>
-            <button class="calc-btn" onclick="calcInput('6')">6</button>
-            <button class="calc-btn op" onclick="calcInput('-')">-</button>
-
-            <button class="calc-btn" onclick="calcInput('1')">1</button>
-            <button class="calc-btn" onclick="calcInput('2')">2</button>
-            <button class="calc-btn" onclick="calcInput('3')">3</button>
-            <button class="calc-btn op" onclick="calcInput('+')">+</button>
-
-            <button class="calc-btn" onclick="calcInput('0')">0</button>
-            <button class="calc-btn" onclick="calcInput('.')">.</button>
-            <button class="calc-btn eq" onclick="calcCalculate()">=</button>
-        </div>
+    <!-- الجزء السفلي الخرافي اللي عاجبك -->
+    <div class="footer">
+        <div class="footer-quote">ما استعان عبدٌ بالله إلا وصل</div>
+        <div class="footer-rights">جميع الحقوق محفوظة © أ/ محمد أمين - 2027</div>
     </div>
 
     <script>
-        // --- 40 EXAM QUESTIONS DATA ---
-        const questions = [
-            // --- Part 1: Density & Relative Density (1-6) ---
-            {
-                id: 1, mark: 1,
-                text: "أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟",
-                options: ["حجم المادة", "الكثافة", "الكتلة", "كمية الحرارة المفقودة"],
-                correct: 1, hint: "تعتمد فقط على نوع المادة والمسافات بين الجزيئات."
-            },
-            {
-                id: 2, mark: 2,
-                text: "شريحة معدنية مربعة الشكل تم قطع ربعها. ما نسبة كثافة مادة الجزء المقطوع إلى كثافة المادة المتبقية عند نفس درجة الحرارة؟",
-                options: ["1 : 4", "1 : 1", "4 : 1", "1 : 2"],
-                correct: 1, hint: "الكثافة خاصية مميزة ولا تتأثر بالقطع أو تغيير الحجم."
-            },
-            {
-                id: 3, mark: 1,
-                text: "حوض يحوي كمية من الجازولين كتلتها 3450 kg وحجمها 5 m³. تكون كثافة الجازولين مساوية لـ:",
-                options: ["600 kg/m³", "650 kg/m³", "690 kg/m³", "720 kg/m³"],
-                correct: 2, hint: "استخدم القانون: الكثافة = الكتلة ÷ الحجم."
-            },
-            {
-                id: 4, mark: 2,
-                text: "إذا كانت كثافة الألمونيوم 2700 kg/m³ وكثافة الماء النقي عند 4°C هي 10³ kg/m³، فإن الكثافة النسبية للألمونيوم تساوي:",
-                options: ["0.27", "0.54", "2.7", "5.4"],
-                correct: 2, hint: "الكثافة النسبية = كثافة المادة ÷ كثافة الماء عند 4°C."
-            },
-            {
-                id: 5, mark: 1,
-                text: "وحدة قياس الكثافة النسبية هي:",
-                options: ["kg/m³", "g/cm³", "g/L", "ليس لها وحدة قياس"],
-                correct: 3, hint: "نسبة بين كميتين من نفس النوع ولهما نفس وحدات القياس."
-            },
-            {
-                id: 6, mark: 2,
-                text: "عند استخدام جهاز الهيدرومتر في سائل عالي الكثافة وسائل آخر منخفض الكثافة، فإن الجزء المغمور منه:",
-                svg: `<svg width="220" height="120" viewBox="0 0 220 120"><rect x="30" y="20" width="40" height="80" fill="#e0f2fe" stroke="#0284c7"/><rect x="150" y="20" width="40" height="80" fill="#fef3c7" stroke="#d97706"/><line x1="50" y1="30" x2="50" y2="90" stroke="#334155" stroke-width="4"/><line x1="170" y1="50" x2="170" y2="90" stroke="#334155" stroke-width="4"/><text x="25" y="115" font-size="10" fill="#0284c7">سائل (أ)</text><text x="145" y="115" font-size="10" fill="#d97706">سائل (ب)</text></svg>`,
-                options: ["يكون أكبر في السائل عالي الكثافة", "يكون أكبر في السائل منخفض الكثافة", "متساوٍ في السائلين", "ينغمر بالكامل في كلا السائلين"],
-                correct: 1, hint: "قانون الطفو: السائل الأقل كثافة يتطلب إنغمار جزء أكبر لتحقيق الاتزان."
-            },
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('studentName').value.trim();
+            const code = parseInt(document.getElementById('studentCode').value, 10);
+            const errorMsg = document.getElementById('errorMsg');
 
-            // --- Part 2: Water Density Anomaly & Aquatic Life (7-12) ---
-            {
-                id: 7, mark: 1,
-                text: "تصل كثافة الماء النقي إلى أقصى قيمة لها (1000 kg/m³) عند درجة حرارة:",
-                options: ["0°C", "4°C", "100°C", "-4°C"],
-                correct: 1, hint: "عند هذه الدرجة تبدأ الروابط الهيدروجينية بالترتيب الاستثنائي."
-            },
-            {
-                id: 8, mark: 2,
-                text: "عند خفض درجة حرارة الماء النقي من 4°C إلى 0°C، فإن سلوك حجمه وكثافته يكون كالآتي:",
-                options: ["يزداد الحجم وتزداد الكثافة", "يقل الحجم وتقل الكثافة", "يزداد الحجم وتقل الكثافة", "يقل الحجم وتزداد الكثافة"],
-                correct: 2, hint: "يتمدد الماء بالبرودة بسبب تكون روابط هيدروجينية تزيد المسافات البينية."
-            },
-            {
-                id: 9, mark: 2,
-                text: "الرسم البياني التالي يمثل العلاقة بين حجم كمية معينة من الماء (V) ودرجة الحرارة (t). أي النقاط تمثل أقل كثافة للماء السائل؟",
-                svg: `<svg width="220" height="110" viewBox="0 0 220 110"><path d="M 20 20 Q 80 90 180 30" stroke="#2563eb" fill="none" stroke-width="3"/><line x1="20" y1="95" x2="200" y2="95" stroke="#000"/><line x1="20" y1="10" x2="20" y2="95" stroke="#000"/><text x="75" y="105" font-size="10">4°C</text><text x="15" y="105" font-size="10">0°C</text><circle cx="20" cy="20" r="4" fill="#ef4444"/><text x="30" y="25" font-size="11" fill="#ef4444">A</text><circle cx="80" cy="88" r="4" fill="#10b981"/><text x="85" y="85" font-size="11" fill="#10b981">B</text></svg>`,
-                options: ["النقطة A عند 0°C", "النقطة B عند 4°C", "عند درجة حرارة 10°C", "الكثافة متساوية عند جميع النقاط"],
-                correct: 0, hint: "أكبر حجم للماء السائل يعني أقل كثافة له."
-            },
-            {
-                id: 10, mark: 1,
-                text: "يتجمد ماء البحيرات في المناطق القطبية بدءاً من السطح إلى القاع بسبب:",
-                options: ["أن الجليد أعلى كثافة من الماء عند 4°C", "أن طبقة الماء عند 0°C أقل كثافة فتطفو وتتجمد أوالاً", "هبوط الماء البارد للقاع دائماً", "امتصاص القاع للحرارة بسرعة"],
-                correct: 1, hint: "الماء الأقل كثافة (عند 0°C) يطفو على السطح ويتجمد أولاً."
-            },
-            {
-                id: 11, mark: 2,
-                text: "مكعبات ثلج تكونت من ماء نقي تم إضافتها إلى إناء به ماء نقي درجة حرارته 4°C. ماذا يحدث لكثافة الماء السائل أثناء انصهار الثلج؟",
-                options: ["تتزايد", "تتناقص", "لا تتغير", "لا يمكن تحديد الإجابة"],
-                correct: 1, hint: "خلط ماء انصهار الثلج (قريب من 0°C) يقلل درجة حرارة المزيج عن 4°C فتصل كثافته لأقل."
-            },
-            {
-                id: 12, mark: 1,
-                text: "تستطيع الأسماك العيش بالقرب من قاع المحيطات القطبية المتجمدة لأن درجة حرارة الماء عند القاع تظل ثابتة تقريباً عند:",
-                options: ["0°C", "4°C", "-4°C", "-273°C"],
-                correct: 1, hint: "الماء عند 4°C يكون أعلى كثافة فيستقر في القاع ويوفر بيئة دافئة."
-            },
+            // التحقق من الأكواد (من 1 إلى 100)
+            if (code >= 1 && code <= 100) {
+                errorMsg.style.display = 'none';
+                
+                // حفظ البيانات محلياً لاستخدامها في إرسال الإيميل لاحقاً
+                localStorage.setItem('studentName', name);
+                localStorage.setItem('studentCode', code);
 
-            // --- Part 3: Ocean Currents & Ocean Dynamics (13-17) ---
-            {
-                id: 13, mark: 1,
-                text: "تتأثر كثافة مياه المحيطات بعوامل رئيسية، أي العوامل التالية يؤدي زيادة قيمته إلى زيادة كثافة الماء؟",
-                options: ["درجة الحرارة فقط", "الملوحة والضغط فقط", "درجة الحرارة والملوحة", "زيادة الحجم عند ثبوت الكتلة"],
-                correct: 1, hint: "زيادة الملوحة تزيد الكتلة في نفس الحجم، والضغط يقلل الحجم طفيفاً."
-            },
-            {
-                id: 14, mark: 2,
-                text: "التيارات المائية العمودية في المحيطات تنشأ أساساً نتيجة الاختلاف في:",
-                options: ["سرعة الرياح السطحية", "الكثافة الناتجة عن اختلاف الحرارة والملوحة", "عمق الشواطئ البحرية", "شكل القارات"],
-                correct: 1, hint: "المياه الأكثر كثافة تهبط لأسفل والمياه الأقل كثافة تصعد لأعلى."
-            },
-            {
-                id: 15, mark: 1,
-                text: "تنقل التيارات المائية المحيطية الحرارة والملح من المناطق الاستوائية إلى:",
-                options: ["المناطق الاستوائية المجاورة", "قطبي الكرة الأرضية", "قاع المحيطات المظلمة فقط", "البحيرات الداخلية مغلقة الصرف"],
-                correct: 1, hint: "تعمل كحزام ناقل حراري عالمي بين خط الاستواء والقطبين."
-            },
-            {
-                id: 16, mark: 2,
-                text: "أي التغيرات التالية لا يؤدي تقريباً إلى تغيير ملحوظ في كثافة ماء المحيط؟",
-                options: ["زيادة الملوحة بدرجة كبيرة", "انخفاض الحرارة من 20°C إلى 10°C", "زيادة الضغط عند زيادة العمق بمقدار طفيف", "انخفاض الحرارة من 4°C إلى 0°C"],
-                correct: 2, hint: "السوائل تقريباً غير قابلة للانضغاط وتأثير الضغط عليها طفيف للغاية."
-            },
-            {
-                id: 17, mark: 1,
-                text: "المياه العذبة المنصهرة من الأنهار الجليدية والتي تصب في المحيط تتميز بأنها:",
-                options: ["أعلى ملوحة وأعلى كثافة", "أقل ملوحة وتطفو فوق المياه المالحة", "تهبط فوراً للقاع لشدة برودتها", "تتفاعل كيميائياً وتختفي"],
-                correct: 1, hint: "قلة الملوحة تجعل كثافتها أقل فتستقر في الطبقات السطحية."
-            },
-
-            // --- Part 4: Internal Energy & Temperature Scales (18-23) ---
-            {
-                id: 18, mark: 1,
-                text: "الطاقة الداخلية لجسم أو نظام معين تمثل:",
-                options: ["طاقة حركة الجزيئات فقط", "طاقة وضع الجزيئات فقط", "مجموع طاقتي الحركة والوضع لجميع جزيئات النظام", "درجة الحرارة مقاسة بالكلفن"],
-                correct: 2, hint: "تتكون من الحركة التذبذبية وقوى الارتباط بين الجزيئات."
-            },
-            {
-                id: 19, mark: 2,
-                text: "تعبر درجة الحرارة لنظام ما عن مقياس لـ:",
-                options: ["الطاقة الداخلية الكلية", "متوسط طاقة حركة جزيئات النظام", "طاقة الوضع للمادة", "كتلة الجزيئات المتحركة"],
-                correct: 1, hint: "زيادة طاقة الحركة تعني زيادة سرعة الجزيئات وارتفاع درجة الحرارة."
-            },
-            {
-                id: 20, mark: 1,
-                text: "درجة الحرارة التي تنعدم عندها طاقة حركة الجزيئات نظرياً تسمى الصفر المطلق، وتساوي على تدريج سيليزيوس:",
-                options: ["0°C", "-273°C", "273°C", "100°C"],
-                correct: 1, hint: "0 K يطابق -273.15 درجة سيليزية."
-            },
-            {
-                id: 21, mark: 2,
-                text: "درجة حرارة جسم كانت 27°C، فإن درجته على تدريج كلفن (K) تكون:",
-                options: ["246 K", "300 K", "273 K", "327 K"],
-                correct: 1, hint: "العلاقة: T(K) = t(°C) + 273."
-            },
-            {
-                id: 22, mark: 2,
-                text: "إذا تغيرت درجة حرارة عينة بمقدار 15°C، فإن التغير في درجة حرارتها على تدريج كلفن (ΔT) يساوي:",
-                options: ["15 K", "288 K", "258 K", "150 K"],
-                correct: 0, hint: "مقدار التغير على تدريج سيليزيوس يساوي تماماً التغير على تدريج كلفن (Δt = ΔT)."
-            },
-            {
-                id: 23, mark: 1,
-                text: "عندما يكتسب نظام كمية من الطاقة الحرارية، فإن المعامل الذي يقل هو:",
-                options: ["سعة اهتزاز الجزيئات", "سرعة حركة الجزيئات", "درجة الحرارة", "المسافات البينية في حالة التبريد"],
-                correct: 3, hint: "الاكتساب يزيد الطاقة ودرجة الحرارة وسعة الاهتزاز."
-            },
-
-            // --- Part 5: Specific Heat Capacity & Heat Calculations (24-30) ---
-            {
-                id: 24, mark: 1,
-                text: "تعرف الحرارة النوعية لمادة بأنها كمية الحرارة اللازمة لرفع درجة حرارة:",
-                options: ["1 kg من المادة بمقدار 1°C أو 1 K", "المادة كلها بمقدار 10°C", "1 g من المادة إلى درجة الغليان", "الحجم الكلي للمادة بمقدار 1 K"],
-                correct: 0, hint: "هي كمية حرارة منسوبة لوحدة الكتل وتغير درجي واحد."
-            },
-            {
-                id: 25, mark: 2,
-                text: "أي العوامل التالية تتوقف عليها الحرارة النوعية لمادة نقية؟",
-                options: ["كتلة العينة", "حجم العينة", "نوع المادة والحالة الفيزيائية", "كمية الحرارة المكتسبة"],
-                correct: 2, hint: "تتغير بتغير نوع المادة وحالتها (صلب، سائل، غاز) ولا تعتمد على الكتلة."
-            },
-            {
-                id: 26, mark: 2,
-                text: "أحسب كمية الحرارة اللازمة لرفع درجة حرارة 0.3 kg من النحاس من 20°C إلى 70°C (علمأ بأن الحرارة النوعية للنحاس 390 J/kg.K):",
-                options: ["3900 J", "5850 J", "7800 J", "11700 J"],
-                correct: 1, hint: "Q = m × c × ΔT = 0.3 × 390 × (70 - 20)."
+                alert(`أهلاً بك يا ${name}! كودك (${code}) صحيح. جاري تحويلك للأختبار...`);
+                
+                // هنا يمكنك توجيهه لصفحة الاختبار أو فتح فورم الإيميل
+                // window.location.href = "exam.html";
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

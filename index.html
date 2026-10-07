@@ -2,6 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سلسلة اختبارات الأمين - العلوم المتكاملة 2027</title>
     <style>
@@ -13,9 +16,9 @@
         #login-section { display: flex; flex-direction: column; gap: 12px; }
         .form-group { display: flex; flex-direction: column; gap: 5px; text-align: right; }
         .form-group label { font-size: 0.9rem; color: #34d399; font-weight: bold; }
-        .form-control { background: #0b132b; border: 1px solid #3a506b; border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 0.95rem; outline: none; }
-        .btn-main { background: #10b981; color: #0b132b; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; text-align: center; transition: background 0.2s; margin-top: 5px; }
-        .btn-main:hover { background: #059669; color: #fff; }
+        .form-control { background: #0b132b; border: 1px solid #3a506b; border-radius: 8px; padding: 12px; color: #fff; font-size: 1rem; outline: none; width: 100%; }
+        .btn-main { background: #10b981; color: #0b132b; padding: 14px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; transition: background 0.2s; margin-top: 5px; width: 100%; }
+        .btn-main:active { background: #059669; color: #fff; }
         .login-error { color: #ef4444; font-size: 0.85rem; text-align: center; display: none; }
 
         .footer-text { text-align: center; font-size: 0.75rem; color: #8d99ae; margin-top: 15px; border-top: 1px solid #3a506b; padding-top: 10px; line-height: 1.5; }
@@ -33,14 +36,13 @@
 
         .tools-bar { display: flex; gap: 8px; margin-bottom: 12px; }
         .tool-btn { flex: 1; background: #3a506b; color: #f8fafc; border: none; padding: 8px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: bold; text-align: center; }
-        .tool-btn:hover { background: #475569; }
 
         .question-card { background: #0b132b; border-radius: 10px; padding: 15px; border: 1px solid #3a506b; margin-bottom: 12px; }
         .question-header { display: flex; justify-content: space-between; color: #34d399; font-size: 0.85rem; margin-bottom: 8px; font-weight: bold; }
         .question-text { font-size: 0.98rem; line-height: 1.6; color: #f8fafc; margin-bottom: 12px; font-weight: 500; text-align: right; display: block !important; }
 
         .options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-        .option-item { background: #1c2541; border: 1px solid #3a506b; border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: #e2e8f0; font-size: 0.9rem; text-align: right; }
+        .option-item { background: #1c2541; border: 1px solid #3a506b; border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: #e2e8f0; font-size: 0.9rem; text-align: right; }
         .option-item.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.25); color: white; font-weight: bold; }
         .option-item.eliminated { opacity: 0.3; text-decoration: line-through; pointer-events: none; }
 
@@ -66,7 +68,6 @@
         .calc-output { font-size: 18px; color: #34d399; font-family: monospace; font-weight: bold; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 8px; background: #1f2937; }
         .calc-btn { background: #374151; color: #f3f4f6; border: none; padding: 8px 0; border-radius: 4px; font-size: 13px; cursor: pointer; }
-        .calc-btn:hover { background: #4b5563; }
         .calc-btn.op { background: #2563eb; color: white; }
         .calc-btn.eq { background: #10b981; color: #0b132b; font-weight: bold; }
         .calc-btn.ac { background: #dc2626; color: white; }
@@ -87,11 +88,10 @@
             </div>
             <div class="form-group">
                 <label>كود الدخول:</label>
-                <!-- تم إخفاء الكود تماماً وعدم كتابته في الواجهة -->
                 <input type="password" id="student-code" class="form-control" placeholder="أدخل كود الدخول الخاص بك...">
             </div>
             <div id="login-error" class="login-error">الكود غير صحيح! يرجى التأكد من الكود الصحيح.</div>
-            <button type="button" class="btn-main" onclick="verifyAndStart()">دخول الاختبار 🚀</button>
+            <button type="button" class="btn-main" id="start-btn">دخول الاختبار 🚀</button>
             
             <div class="footer-text">
                 ما استعان عبد بالله إلا وصل<br>
@@ -109,8 +109,8 @@
             <div class="question-grid" id="question-grid"></div>
 
             <div class="tools-bar">
-                <button class="tool-btn" id="eliminate-btn" onclick="eliminateTwoOptions()">❌ حذف إجابتين (مرة واحدة)</button>
-                <button class="tool-btn" id="hint-btn" onclick="showHint()">💡 تلميح (<span id="hint-count">2</span> متبقي)</button>
+                <button class="tool-btn" id="eliminate-btn">❌ حذف إجابتين</button>
+                <button class="tool-btn" id="hint-btn">💡 تلميح (<span id="hint-count">2</span>)</button>
             </div>
 
             <div class="question-card">
@@ -123,15 +123,15 @@
             </div>
 
             <div class="action-buttons">
-                <button class="btn btn-submit" onclick="submitExam()">تسليم الاختبار 🏁</button>
-                <button class="btn btn-next" onclick="nextQuestion()">التالي</button>
-                <button class="btn btn-prev" onclick="prevQuestion()">السابق</button>
+                <button class="btn btn-submit" id="submit-exam-btn">تسليم الاختبار 🏁</button>
+                <button class="btn btn-next" id="next-btn">التالي</button>
+                <button class="btn btn-prev" id="prev-btn">السابق</button>
             </div>
         </div>
 
         <div id="result-section">
             <div class="result-title">✓ تم تسليم الاختبار بنجاح</div>
-            <p style="font-size: 0.85rem; color: #8d99ae; margin-bottom: 12px;">🚀 تم إرسال نظير نتيجتك والتقرير المفصل أوتوماتيكياً.</p>
+            <p style="font-size: 0.85rem; color: #8d99ae; margin-bottom: 12px;">🚀 تم إرسال نتيجتك والتقرير المفصل أوتوماتيكياً.</p>
             
             <div style="margin-bottom: 15px;">
                 <a id="email-btn" href="#" target="_blank" class="btn" style="background: #2563eb; color: white; text-decoration: none; display: inline-block; padding: 10px 15px; font-size: 0.9rem;">📩 إرسال النتيجة إلى بريدي الإلكتروني</a>
@@ -141,7 +141,7 @@
                 <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 8px;">🔒 أدخل الكود السري لفتح شهادة التقدير والتقرير المفصل:</p>
                 <input type="password" id="pin-input" class="pin-input" placeholder="••••••••••" maxlength="15">
                 <div>
-                    <button class="btn" onclick="verifyPin()" style="background: #10b981; color: #0b132b; padding: 8px 18px; font-size: 0.9rem;">فتح الشهادة والتقرير</button>
+                    <button class="btn" id="verify-pin-btn" style="background: #10b981; color: #0b132b; padding: 8px 18px; font-size: 0.9rem;">فتح الشهادة والتقرير</button>
                 </div>
                 <div id="error-msg" class="error-msg">الكود غير صحيح! يرجى إدخال الكود الصحيح.</div>
             </div>
@@ -153,12 +153,12 @@
         </div>
     </div>
 
-    <button class="calc-toggle-btn" onclick="toggleCalculator()" title="آلة حاسبة علمية">fx</button>
+    <button class="calc-toggle-btn" id="calc-toggle" title="آلة حاسبة علمية">fx</button>
 
     <div id="calcModal" class="calculator-modal">
         <div class="calc-header">
             <span>Casio fx-991ES</span>
-            <button class="calc-close" onclick="toggleCalculator()">×</button>
+            <button class="calc-close" id="calc-close-btn">×</button>
         </div>
         <div class="calc-screen">
             <div class="calc-output" id="calcOutput">0</div>
@@ -257,16 +257,24 @@
         let timeLeft = 5400;
         let eliminateUsed = false;
         let hintCount = 2;
-        const targetEmail = "aseer010moh@gmail.com"; // إيميلك الشخصي لاستقبال التقرير
+        const targetEmail = "aseer010moh@gmail.com";
 
-        window.onload = function() {
-            // حماية صارمة: إذا كان الطالب مسلماً للاختبار مسبقاً، امنعه من الدخول مرة أخرى
-            if(localStorage.getItem('exam_submitted_amin') === 'true') {
-                alert("⚠️ تم تسليم هذا الاختبار من قبل من هذا المتصفح ولا يمكن إعادته!");
-                document.body.innerHTML = "<h2 style='text-align:center; color:#ef4444; margin-top:20vh;'>عذراً، لقد أكملت هذا الاختبار مسبقاً ولا يمكن دخوله مرة أخرى.</h2>";
-                return;
-            }
-        };
+        // تنفيذ الكود بأمان تام فور تحميل الصفحة
+        document.addEventListener("DOMContentLoaded", function() {
+            // تنظيف الـ localStorage الخاص بالاختبار القديم لو كان عامل قفل
+            // (عشان لو الطلاب مش عارفين يدخلوا خالص، نمسح قفل الاختبار القديم)
+            // localStorage.removeItem('exam_submitted_amin');
+
+            document.getElementById('start-btn').addEventListener('click', verifyAndStart);
+            document.getElementById('eliminate-btn').addEventListener('click', eliminateTwoOptions);
+            document.getElementById('hint-btn').addEventListener('click', showHint);
+            document.getElementById('submit-exam-btn').addEventListener('click', submitExam);
+            document.getElementById('next-btn').addEventListener('click', nextQuestion);
+            document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+            document.getElementById('verify-pin-btn').addEventListener('click', verifyPin);
+            document.getElementById('calc-toggle').addEventListener('click', toggleCalculator);
+            document.getElementById('calc-close-btn').addEventListener('click', toggleCalculator);
+        });
 
         // تنبيه مغادرة الصفحة
         document.addEventListener("visibilitychange", function() {
@@ -291,7 +299,7 @@
                 return;
             }
             
-            // التحقق من كود الدخول السري (100) بدقة دون إظهاره للمستخدم
+            // التحقق من كود الدخول السري (100)
             if(code !== "100") {
                 errorDiv.style.display = 'block';
                 return;
@@ -409,7 +417,6 @@
             if(!confirm('هل أنت متأكد تماماً من تسليم الاختبار ورصد الدرجة؟')) return;
             clearInterval(timerInterval);
             
-            // قفل الجلسة لمنع إعادة الإدخال بالريفريش
             localStorage.setItem('exam_submitted_amin', 'true');
 
             document.getElementById('exam-section').style.display = 'none';
@@ -441,7 +448,6 @@
             reportHtml = `<div style="font-size:1.1rem; color:#34d399; margin-bottom:10px; font-weight:bold;">${finalScoreText}</div>` + reportHtml;
             document.getElementById('report-items-container').innerHTML = reportHtml;
 
-            // تجهيز زر إرسال النتيجة للإيميل
             emailSummary = `${finalScoreText}\n\n` + emailSummary;
             let mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent('نتيجة اختبار العلوم المتكاملة - ' + studentName)}&body=${encodeURIComponent(emailSummary)}`;
             document.getElementById('email-btn').href = mailtoLink;

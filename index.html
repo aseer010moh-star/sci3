@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلسلة اختبارات الأمين - العلوم المتكاملة</title>
+    <title>سلسلة اختبارات الأمين - العلوم المتكاملة (الاختبار الثالث)</title>
     <style>
         :root {
             --bg-dark: #0d1b2a;
@@ -43,10 +43,9 @@
             padding: 16px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.6);
             border: 1px solid var(--border-color);
-            margin-bottom: 70px;
+            margin-bottom: 75px;
         }
 
-        /* رأس الصفحة والعداد */
         .header {
             text-align: center;
             margin-bottom: 12px;
@@ -80,7 +79,6 @@
             font-size: 13px;
         }
 
-        /* شبكة التنقل المباشر بين الأسئلة (Grid) */
         .grid-section {
             background: #111e35;
             border: 1px solid var(--border-color);
@@ -96,9 +94,9 @@
         }
         .questions-grid {
             display: grid;
-            grid-template-columns: repeat(11, 1fr);
-            gap: 4px;
-            max-height: 110px;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            max-height: 120px;
             overflow-y: auto;
             padding: 2px;
         }
@@ -106,9 +104,9 @@
             background: var(--btn-gray);
             color: white;
             border: 1px solid var(--border-color);
-            padding: 5px 0;
+            padding: 6px 0;
             border-radius: 4px;
-            font-size: 11px;
+            font-size: 12px;
             cursor: pointer;
             text-align: center;
             transition: all 0.2s;
@@ -121,7 +119,6 @@
             border-color: #34d399;
         }
 
-        /* أدوات المساعدة (حذف إجابتين وتلميح) */
         .tools-bar {
             display: flex;
             gap: 8px;
@@ -145,9 +142,8 @@
         }
         .tool-btn:hover { background: #475569; }
 
-        /* صندوق السؤال والخيارات */
         .question-box {
-            font-size: 16px;
+            font-size: 15px;
             margin-bottom: 14px;
             line-height: 1.5;
             background: #111e35;
@@ -227,7 +223,6 @@
             font-size: 14px;
         }
 
-        /* شاشة تسليم الاختبار والتقرير المحمي بـ PIN */
         .screen { display: none; }
         .screen.active { display: block; }
 
@@ -275,7 +270,6 @@
         .report-item.correct { color: #34d399; }
         .report-item.wrong { color: #f87171; }
 
-        /* زر الآلة الحاسبة العائمة والنافذة المنبثقة المطورة */
         .calc-toggle-btn {
             position: fixed;
             bottom: 20px;
@@ -300,7 +294,7 @@
             position: fixed;
             bottom: 80px;
             left: 20px;
-            width: 310px;
+            width: 300px;
             background: #111e35;
             border: 2px solid var(--border-color);
             border-radius: 12px;
@@ -328,7 +322,7 @@
             border-bottom: 1px solid var(--border-color);
         }
         .calc-history { font-size: 10px; color: var(--text-muted); min-height: 12px; }
-        .calc-output { font-size: 20px; color: var(--primary); font-family: monospace; font-weight: bold; overflow-x: auto; }
+        .calc-output { font-size: 20px; color: var(--primary); font-family: monospace; font-weight: bold; }
         
         .calc-grid {
             display: grid;
@@ -357,4 +351,293 @@
     <div class="container">
         <div class="header">
             <h1>سلسلة اختبارات الأمين</h1>
-            <p
+            <p>اختبار العلوم المتكاملة - الدرس الثالث (الخواص الفيزيائية للماء)</p>
+        </div>
+
+        <!-- شاشة الاختبار -->
+        <div id="quizScreen" class="screen active">
+            <div class="quiz-top-bar">
+                <span id="questionNumText">السؤال 1 من 20</span>
+                <div class="timer" id="timer">45:00</div>
+            </div>
+
+            <!-- شبكة التنقل المباشر -->
+            <div class="grid-section">
+                <div class="grid-title">تنقل مباشر بين الأسئلة (اضغط على رقم السؤال):</div>
+                <div class="questions-grid" id="questionsGrid"></div>
+            </div>
+
+            <!-- أزرار المساعدة -->
+            <div class="tools-bar">
+                <button class="tool-btn" onclick="eliminateTwoOptions()">❌ حذف إجابتين</button>
+                <button class="tool-btn" onclick="showHint()">💡 تلميح</button>
+            </div>
+
+            <div class="question-box" id="questionText">
+                1. أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟
+            </div>
+
+            <div class="options-list" id="optionsList">
+                <button class="option-btn" onclick="selectOption(0)"><span id="optText0">أ) حجم المادة</span><span class="option-status-badge" id="badge0">شطب</span></button>
+                <button class="option-btn" onclick="selectOption(1)"><span id="optText1">ب) الكثافة</span><span class="option-status-badge" id="badge1">شطب</span></button>
+                <button class="option-btn" onclick="selectOption(2)"><span id="optText2">ج) الكتلة</span><span class="option-status-badge" id="badge2">شطب</span></button>
+                <button class="option-btn" onclick="selectOption(3)"><span id="optText3">د) كمية الحرارة المفقودة</span><span class="option-status-badge" id="badge3">شطب</span></button>
+            </div>
+
+            <div class="btn-group">
+                <button class="secondary-btn" onclick="prevQuestion()">السابق</button>
+                <button class="main-btn" onclick="nextQuestion()">التالي / تسليم</button>
+            </div>
+        </div>
+
+        <!-- شاشة التقرير والـ PIN -->
+        <div id="resultScreen" class="screen">
+            <div class="success-card">
+                <h2>✓ تم تسليم الاختبار بنجاح</h2>
+                <p>🚀 تم حفظ الإجابات وإرسال التقرير بنجاح!</p>
+            </div>
+
+            <div class="lock-section">
+                <h3 style="margin-bottom: 8px; font-size: 15px;">🔒 فتح التقرير والشهادة</h3>
+                <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 10px;">أدخل رمز PIN للاطلاع على التفاصيل:</p>
+                <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="6">
+                <div>
+                    <button class="main-btn" onclick="verifyPin()" style="width: 160px;">فتح التقرير</button>
+                </div>
+                <div id="errorMsg" class="error-msg">الرمز السري غير صحيح!</div>
+            </div>
+
+            <div id="reportContent" class="report-content">
+                <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 14px;">📊 التقرير المفصل:</h4>
+                <div class="report-item correct">السؤال 1: الإجابة صحيحة (ب) الكثافة.</div>
+                <div class="report-item correct">السؤال 2: الإجابة صحيحة.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- زر الآلة الحاسبة -->
+    <button class="calc-toggle-btn" onclick="toggleCalculator()" title="آلة حاسبة">fx</button>
+
+    <!-- نافذة الآلة الحاسبة -->
+    <div id="calcModal" class="calculator-modal">
+        <div class="calc-header">
+            <span>آلة حاسبة</span>
+            <button class="calc-close" onclick="toggleCalculator()">×</button>
+        </div>
+        <div class="calc-screen">
+            <div class="calc-history" id="calcHistory"></div>
+            <div class="calc-output" id="calcOutput">0</div>
+        </div>
+        <div class="calc-grid">
+            <button class="calc-btn ac" onclick="clearCalc()">C</button>
+            <button class="calc-btn op" onclick="appendCalc('(')">(</button>
+            <button class="calc-btn op" onclick="appendCalc(')')">)</button>
+            <button class="calc-btn op" onclick="appendCalc('/')">÷</button>
+
+            <button class="calc-btn" onclick="appendCalc('7')">7</button>
+            <button class="calc-btn" onclick="appendCalc('8')">8</button>
+            <button class="calc-btn" onclick="appendCalc('9')">9</button>
+            <button class="calc-btn op" onclick="appendCalc('*')">×</button>
+
+            <button class="calc-btn" onclick="appendCalc('4')">4</button>
+            <button class="calc-btn" onclick="appendCalc('5')">5</button>
+            <button class="calc-btn" onclick="appendCalc('6')">6</button>
+            <button class="calc-btn op" onclick="appendCalc('-')">-</button>
+
+            <button class="calc-btn" onclick="appendCalc('1')">1</button>
+            <button class="calc-btn" onclick="appendCalc('2')">2</button>
+            <button class="calc-btn" onclick="appendCalc('3')">3</button>
+            <button class="calc-btn op" onclick="appendCalc('+')">+</button>
+
+            <button class="calc-btn" onclick="appendCalc('0')">0</button>
+            <button class="calc-btn" onclick="appendCalc('.')">.</button>
+            <button class="calc-btn eq" onclick="calculateResult()" style="grid-column: span 2;">=</button>
+        </div>
+    </div>
+
+    <script>
+        // بنك الأسئلة الدقيق للدرس الثالث (الخواص الفيزيائية للماء)
+        const questionsData = [
+            {
+                q: "1. أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟",
+                options: ["أ) حجم المادة", "ب) الكثافة", "ج) الكتلة", "د) كمية الحرارة المفقودة"],
+                hint: "تذكر أن الكثافة خاصية مميزة للمادة لا تتغير بتغير الكتلة أو الحجم."
+            },
+            {
+                q: "2. حوض يحتوي على كمية من الجازولين كتلتها 3450 kg وحجمها 5 متر مكعب، فتكون كثافة الجازولين تساوي:",
+                options: ["أ) 600 kg/m³", "ب) 650 kg/m³", "ج) 690 kg/m³", "د) 720 kg/m³"],
+                hint: "استخدم قانون الكثافة: الكتلة ÷ الحجم (3450 ÷ 5)."
+            },
+            {
+                q: "3. إذا كانت كثافة الألومنيوم 2700 kg/m³ وكثافة الماء النقي عند درجة حرارة 4 درجة مئوية هي 10 إلى أُس 3 kg/m³، فإن الكثافة النسبية للألومنيوم تساوي:",
+                options: ["أ) 5.4", "ب) 2.7", "ج) 0.54", "د) 0.27"],
+                hint: "الكثافة النسبية = كثافة المادة ÷ كثافة الماء النقي."
+            },
+            {
+                q: "4. شريحة معدنية مربعة تم قطع ربعها كما موضح بالشكل، فإن نسبة كثافة مادة الجزء (X) إلى كثافة مادة الجزء (Y) تساوي:",
+                options: ["أ) 1/2", "ب) 1/4", "ج) 1/1", "د) 4/1"],
+                hint: "الكثافة خاصية مميزة وثابتة لا تتغير بتغير حجم العينة."
+            },
+            {
+                q: "5. مكعبات ثلج تكونت من ماء نقي يتم إضافتها إلى إناء به ماء نقي درجة حرارته 4 درجة مئوية كما بالشكل المقابل، ماذا يحدث لكثافة الماء أثناء انصهار الثلج؟",
+                options: ["أ) تتزايد", "ب) تتناقص", "ج) لا تتغير", "د) لا يمكن تحديد الإجابة"],
+                hint: "عند انصهار الثلج عند 4 درجة مئوية للماء النقي تظل كثافة الماء عند أقصى قيمة لها."
+            },
+            {
+                q: "6. وضع هيدروميتر في إناء به عينة من ماء بحر فكان طول الجزء المغمور فيه الماء يساوي 5 cm، عند إضافة ماء مقطر إلى العينة الموجودة بالإناء، فإن طول الجزء المغمور من الهيدروميتر في الماء يمكن أن يساوي:",
+                options: ["أ) 1 cm", "ب) 3 cm", "ج) 5 cm", "د) 7 cm"],
+                hint: "عند إضافة الماء المقطر تقل كثافة السائل فيغمر الهيدروميتر بعمق أكبر."
+            },
+            {
+                q: "7. أي مما يلي وحدة لها القدرة على تخزين الطاقة الحرارية لفترة أطول بعد غروب الشمس؟",
+                options: ["أ) البحيرات المالحة (الماء)", "ب) رمال الصحراء", "ج) الهواء الجوي", "د) صخور الجبال"],
+                hint: "الماء له حرارة نوعية مرتفعة جداً مقارنة بالمواد الأخرى."
+            },
+            {
+                q: "8. ما هو السبب الرئيسي في شذوذ سلوك الماء وتناقص كثافته عند خفض دراجة حرارته من 4 إلى 0 درجة مئوية؟",
+                options: ["أ) زيادة سرعة الجزيئات", "ب) تكوين روابط هيدروجينية قوية تزيد المسافات", "ج) زيادة الضغط الواقع على الماء", "د) انعدام قوى التجاذب بين الجزيئات"],
+                hint: "ترتبط الجزيئات بروابط هيدروجينية قوية تسبب تكون بنية مفتوحة تزيد الحجم وتقلل الكثافة."
+            },
+            {
+                q: "9. كمية الحرارة اللازمة لرفع درجة حرارة 0.3 kg من النحاس من 20 إلى 70 درجة مئوية (علماً بأن الحرارة النوعية للنحاس = 390 J/kg.K) تساوي:",
+                options: ["أ) 5850 J", "ب) 3900 J", "ج) 7200 J", "د) 1200 J"],
+                hint: "طبق علاقة كمية الحرارة: Q = m * c * Δt."
+            },
+            {
+                q: "10. قطعة من الألومنيوم كتلتها 200 g ودرجة حرارتها 80 درجة مئوية أُلقيت في الماء عند درجة حرارة الغرفة فأصبحت الحرارة النهائية 40 درجة مئوية، فإن كمية الحرارة التي اكتسبها الماء تساوي (c للألومنيوم = 900):",
+                options: ["أ) 7200 J", "ب) 6400 J", "ج) 4250 J", "د) 2125 J"],
+                hint: "كمية الحرارة المفقودة من الألومنيوم تساوي اكتساب الماء (مع مراعاة الإشارة)."
+            }
+        ];
+
+        const totalQuestions = questionsData.length;
+        let currentQuestion = 0;
+        
+        // بناء شبكة الأرقام بدقة
+        const gridContainer = document.getElementById('questionsGrid');
+        for(let i = 0; i < totalQuestions; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'q-num-btn' + (i === 0 ? ' active' : '');
+            btn.innerText = i + 1;
+            btn.onclick = () => goToQuestion(i);
+            gridContainer.appendChild(btn);
+        }
+
+        function updateGrid() {
+            const btns = document.querySelectorAll('.q-num-btn');
+            btns.forEach((btn, idx) => {
+                if(idx === currentQuestion) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+        }
+
+        function loadQuestion(index) {
+            const qData = questionsData[index];
+            document.getElementById('questionNumText').innerText = `السؤال ${index + 1} من ${totalQuestions}`;
+            document.getElementById('questionText').innerText = qData.q;
+            
+            for(let i = 0; i < 4; i++) {
+                document.getElementById(`optText${i}`).innerText = qData.options[i] || "";
+            }
+            updateGrid();
+            resetOptionsState();
+        }
+
+        function goToQuestion(index) {
+            if(index < totalQuestions) {
+                currentQuestion = index;
+                loadQuestion(currentQuestion);
+            } else {
+                document.getElementById('quizScreen').classList.remove('active');
+                document.getElementById('resultScreen').classList.add('active');
+            }
+        }
+
+        function nextQuestion() {
+            if(currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            } else {
+                document.getElementById('quizScreen').classList.remove('active');
+                document.getElementById('resultScreen').classList.add('active');
+            }
+        }
+
+        function prevQuestion() {
+            if(currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function selectOption(index) {
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, i) => {
+                if(i === index) btn.classList.add('selected');
+                else btn.classList.remove('selected');
+            });
+        }
+
+        function resetOptionsState() {
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('eliminated', 'selected');
+            });
+            const badges = document.querySelectorAll('.option-status-badge');
+            badges.forEach(b => b.style.display = 'none');
+        }
+
+        function eliminateTwoOptions() {
+            const btns = document.querySelectorAll('.option-btn');
+            // استبعاد أول خيارين خطأ افتراضياً كمساعدة للطالب
+            btns[0].classList.add('eliminated');
+            document.getElementById('badge0').style.display = 'inline-block';
+            btns[2].classList.add('eliminated');
+            document.getElementById('badge2').style.display = 'inline-block';
+        }
+
+        function showHint() {
+            alert(questionsData[currentQuestion].hint);
+        }
+
+        function verifyPin() {
+            const pin = document.getElementById('pinInput').value;
+            if(pin === "1234") {
+                document.getElementById('errorMsg').style.display = "none";
+                document.getElementById('reportContent').style.display = "block";
+            } else {
+                document.getElementById('errorMsg').style.display = "block";
+            }
+        }
+
+        // الآلة الحاسبة
+        let calcExpression = "";
+        function toggleCalculator() {
+            document.getElementById('calcModal').classList.toggle('open');
+        }
+        function appendCalc(val) {
+            calcExpression += val;
+            document.getElementById('calcOutput').innerText = calcExpression;
+        }
+        function clearCalc() {
+            calcExpression = "";
+            document.getElementById('calcOutput').innerText = "0";
+            document.getElementById('calcHistory').innerText = "";
+        }
+        function calculateResult() {
+            try {
+                document.getElementById('calcHistory').innerText = calcExpression;
+                let res = eval(calcExpression);
+                document.getElementById('calcOutput').innerText = res;
+                calcExpression = res.toString();
+            } catch(e) {
+                document.getElementById('calcOutput').innerText = "خطأ";
+                calcExpression = "";
+            }
+        }
+
+        // تشغيل أول سؤال عند التحميل
+        loadQuestion(0);
+    </script>
+</body>
+</html>

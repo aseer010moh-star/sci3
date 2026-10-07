@@ -3,52 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلسلة اختبارات الأمين - العلوم المتكاملة (الاختبار الثالث)</title>
+    <title>سلسلة اختبارات الأمين - العلوم المتكاملة 2027</title>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        body { background: #0f172a; color: #f8fafc; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px; }
-        .container { width: 100%; max-width: 680px; background: #1e293b; border-radius: 16px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); border: 1px solid #334155; }
-        .header-title { text-align: center; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; padding: 12px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; margin-bottom: 12px; }
+        body { background: #0b132b; color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; }
+        .container { width: 100%; max-width: 680px; background: #1c2541; border-radius: 16px; padding: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.7); border: 1px solid #3a506b; }
+        .header-title { text-align: center; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; padding: 12px; border-radius: 12px; font-size: 1.15rem; font-weight: bold; margin-bottom: 15px; }
         
-        .teacher-tag { background: rgba(16, 185, 129, 0.1); border: 1px solid #334155; border-radius: 8px; padding: 6px; color: #34d399; font-size: 0.8rem; font-weight: bold; text-align: center; margin-bottom: 10px; }
-        .status-panel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; background: #0f172a; padding: 8px 12px; border-radius: 8px; border: 1px solid #334155; }
+        /* شاشة الدخول */
+        #login-section { display: flex; flex-direction: column; gap: 12px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+        .form-group label { font-size: 0.9rem; color: #34d399; font-weight: bold; }
+        .form-control { background: #0b132b; border: 1px solid #3a506b; border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 0.95rem; outline: none; }
+        .btn-main { background: #10b981; color: #0b132b; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; text-align: center; transition: background 0.2s; margin-top: 5px; }
+        .btn-main:hover { background: #059669; color: #fff; }
+
+        .footer-text { text-align: center; font-size: 0.75rem; color: #8d99ae; margin-top: 15px; border-top: 1px solid #3a506b; padding-top: 10px; line-height: 1.5; }
+
+        /* شاشة الاختبار */
+        #exam-section { display: none; }
+        .teacher-tag { background: rgba(16, 185, 129, 0.1); border: 1px solid #3a506b; border-radius: 8px; padding: 6px; color: #34d399; font-size: 0.8rem; font-weight: bold; text-align: center; margin-bottom: 10px; }
+        .status-panel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; background: #0b132b; padding: 8px 12px; border-radius: 8px; border: 1px solid #3a506b; }
         .timer-badge { background: #ef4444; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; }
         .user-badge { color: #34d399; font-weight: bold; font-size: 0.85rem; }
 
-        .question-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-bottom: 12px; background: #0f172a; padding: 8px; border-radius: 8px; border: 1px solid #334155; max-height: 100px; overflow-y: auto; }
-        .grid-btn { background: #334155; color: #94a3b8; border: none; border-radius: 4px; padding: 6px 0; font-size: 0.75rem; cursor: pointer; text-align: center; font-weight: bold; }
-        .grid-btn.active { background: #10b981; color: #0f172a; }
+        .question-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-bottom: 12px; background: #0b132b; padding: 8px; border-radius: 8px; border: 1px solid #3a506b; max-height: 110px; overflow-y: auto; }
+        .grid-btn { background: #3a506b; color: #8d99ae; border: none; border-radius: 4px; padding: 6px 0; font-size: 0.75rem; cursor: pointer; text-align: center; font-weight: bold; }
+        .grid-btn.active { background: #10b981; color: #0b132b; }
         .grid-btn.answered { border: 1px solid #10b981; color: #34d399; }
 
         .tools-bar { display: flex; gap: 8px; margin-bottom: 12px; }
-        .tool-btn { flex: 1; background: #334155; color: #f8fafc; border: 1px solid #475569; padding: 8px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: bold; text-align: center; }
+        .tool-btn { flex: 1; background: #3a506b; color: #f8fafc; border: none; padding: 8px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: bold; text-align: center; }
         .tool-btn:hover { background: #475569; }
 
-        .question-card { background: #0f172a; border-radius: 10px; padding: 15px; border: 1px solid #334155; margin-bottom: 12px; }
+        .question-card { background: #0b132b; border-radius: 10px; padding: 15px; border: 1px solid #3a506b; margin-bottom: 12px; }
         .question-header { display: flex; justify-content: space-between; color: #34d399; font-size: 0.85rem; margin-bottom: 8px; font-weight: bold; }
         .question-text { font-size: 0.95rem; line-height: 1.5; color: #f8fafc; margin-bottom: 12px; font-weight: 500; text-align: right; }
 
-        .options-list { display: flex; flex-direction: column; gap: 8px; }
-        .option-item { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: #e2e8f0; font-size: 0.9rem; text-align: right; }
-        .option-item.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.2); color: white; font-weight: bold; }
+        .options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+        .option-item { background: #1c2541; border: 1px solid #3a506b; border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: #e2e8f0; font-size: 0.9rem; text-align: right; }
+        .option-item.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.25); color: white; font-weight: bold; }
         .option-item.eliminated { opacity: 0.3; text-decoration: line-through; pointer-events: none; }
 
-        .action-buttons { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; }
+        .action-buttons { display: flex; justify-content: space-between; gap: 10px; }
         .btn { padding: 10px 16px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
-        .btn-prev, .btn-next { background: #475569; color: white; flex: 1; }
-        .btn-submit { background: #10b981; color: #0f172a; flex: 1.2; }
+        .btn-prev, .btn-next { background: #3a506b; color: white; flex: 1; }
+        .btn-submit { background: #10b981; color: #0b132b; flex: 1.2; }
 
+        /* شاشة النهاية والنتيجة */
         #result-section { display: none; text-align: center; }
         .result-title { font-size: 1.2rem; color: #34d399; margin-bottom: 10px; font-weight: bold; }
-        .lock-box { background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid #334155; margin-top: 15px; text-align: center; }
-        .pin-input { background: #1e293b; border: 1px solid #475569; color: white; padding: 8px; font-size: 1.1rem; text-align: center; border-radius: 6px; width: 130px; letter-spacing: 4px; margin-bottom: 10px; outline: none; }
+        .lock-box { background: #0b132b; padding: 15px; border-radius: 10px; border: 1px solid #3a506b; margin-top: 15px; text-align: center; }
+        .pin-input { background: #1c2541; border: 1px solid #3a506b; color: white; padding: 8px; font-size: 1.1rem; text-align: center; border-radius: 6px; width: 160px; letter-spacing: 3px; margin-bottom: 10px; outline: none; }
         .error-msg { color: #ef4444; font-size: 0.8rem; margin-top: 5px; display: none; }
-        .report-content { display: none; text-align: right; margin-top: 15px; background: #0f172a; padding: 10px; border-radius: 8px; border: 1px solid #10b981; max-height: 220px; overflow-y: auto; }
-        .report-item { padding: 6px 0; border-bottom: 1px solid #334155; font-size: 0.85rem; }
+        .report-content { display: none; text-align: right; margin-top: 15px; background: #0b132b; padding: 12px; border-radius: 8px; border: 1px solid #10b981; max-height: 250px; overflow-y: auto; }
+        .report-item { padding: 8px 0; border-bottom: 1px solid #3a506b; font-size: 0.85rem; }
 
         /* زر الآلة الحاسبة العائمة */
-        .calc-toggle-btn { position: fixed; bottom: 20px; left: 20px; background: #fbbf24; color: #0f172a; border: none; width: 48px; height: 48px; border-radius: 50%; font-weight: bold; font-size: 18px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .calculator-modal { position: fixed; bottom: 75px; left: 20px; width: 270px; background: #111827; border: 2px solid #374151; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; z-index: 1001; overflow: hidden; }
+        .calc-toggle-btn { position: fixed; bottom: 20px; left: 20px; background: #fbbf24; color: #0b132b; border: none; width: 48px; height: 48px; border-radius: 50%; font-weight: bold; font-size: 18px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .calculator-modal { position: fixed; bottom: 78px; left: 20px; width: 270px; background: #111827; border: 2px solid #374151; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; z-index: 1001; overflow: hidden; }
         .calculator-modal.open { display: block; }
         .calc-header { background: #1f2937; padding: 6px 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #9ca3af; border-bottom: 1px solid #374151; }
         .calc-close { background: none; border: none; color: #ef4444; font-weight: bold; cursor: pointer; font-size: 15px; }
@@ -58,7 +71,7 @@
         .calc-btn { background: #374151; color: #f3f4f6; border: none; padding: 8px 0; border-radius: 4px; font-size: 13px; cursor: pointer; }
         .calc-btn:hover { background: #4b5563; }
         .calc-btn.op { background: #2563eb; color: white; }
-        .calc-btn.eq { background: #10b981; color: #0f172a; font-weight: bold; }
+        .calc-btn.eq { background: #10b981; color: #0b132b; font-weight: bold; }
         .calc-btn.ac { background: #dc2626; color: white; }
     </style>
 </head>
@@ -67,17 +80,36 @@
     <div class="container">
         <div class="header-title">
             سلسلة اختبارات الأمين<br>
-            <span style="font-size: 0.8rem; color: #94a3b8;">اختبار العلوم المتكاملة - الدرس الثالث (الخواص الفيزيائية للماء)</span>
+            <span style="font-size: 0.8rem; color: #8d99ae;">اختبار العلوم المتكاملة - الدرس الثالث (الخواص الفيزيائية للماء)</span>
         </div>
 
-        <!-- شاشة الاختبار -->
+        <!-- شاشة تسجيل الدخول الأصلية -->
+        <div id="login-section">
+            <div class="form-group">
+                <label>اسم الطالب الكامل:</label>
+                <input type="text" id="student-name" class="form-control" placeholder="اكتب اسمك هنا...">
+            </div>
+            <div class="form-group">
+                <label>كود الدخول:</label>
+                <input type="password" id="student-code" class="form-control" placeholder="••••">
+            </div>
+            <button type="button" class="btn-main" onclick="startExam()">دخول الاختبار 🚀</button>
+            
+            <div class="footer-text">
+                ما استعان عبد بالله إلا وصل<br>
+                جميع الحقوق محفوظة أ/محمد أمين نظير 2027
+            </div>
+        </div>
+
+        <!-- شاشة الاختبار الفعلية (40 سؤالاً) -->
         <div id="exam-section">
             <div class="teacher-tag">👨‍🏫 إعداد ومتابعة: أ. محمد أمين نظير</div>
             <div class="status-panel">
-                <div class="timer-badge" id="timer-display">45:00</div>
-                <div class="user-badge">👤 الطالب: Safa</div>
+                <div class="timer-badge" id="timer-display">60:00</div>
+                <div class="user-badge">👤 <span id="display-name">الطالب</span></div>
             </div>
 
+            <!-- شبكة التنقل بين الـ 40 سؤالاً -->
             <div class="question-grid" id="question-grid"></div>
 
             <div class="tools-bar">
@@ -87,8 +119,8 @@
 
             <div class="question-card">
                 <div class="question-header">
-                    <span id="question-number-lbl">السؤال 1 من 12</span>
-                    <span>اختيار من متعدد</span>
+                    <span id="question-number-lbl">السؤال 1 من 40</span>
+                    <span>الدرجة: <span id="question-score-lbl">1.5</span> درجة</span>
                 </div>
                 <div class="question-text" id="question-text"></div>
                 <div class="options-list" id="options-container"></div>
@@ -101,4 +133,63 @@
             </div>
         </div>
 
-        <!-- شاشة النتائج -->
+        <!-- شاشة النهاية وفتح الكود السري (النجوم) -->
+        <div id="result-section">
+            <div class="result-title">✓ تم تسليم الاختبار بنجاح</div>
+            <p style="font-size: 0.85rem; color: #8d99ae; margin-bottom: 12px;">🚀 تم إرسال نتيجتك والتقرير المفصل أوتوماتيكياً إلى إيميل الأستاذ بنجاح.</p>
+            
+            <div class="lock-box">
+                <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 8px;">🔒 أدخل الكود السري (0109030166) لفتح شهادة التقدير والتقرير المفصل:</p>
+                <input type="password" id="pin-input" class="pin-input" placeholder="••••••••••" maxlength="15">
+                <div>
+                    <button class="btn" onclick="verifyPin()" style="background: #10b981; color: #0b132b; padding: 8px 18px; font-size: 0.9rem;">فتح الشهادة والتقرير</button>
+                </div>
+                <div id="error-msg" class="error-msg">الكود غير صحيح! يرجى إدخال الكود الصحيح.</div>
+            </div>
+
+            <div id="report-content" class="report-content">
+                <div style="font-weight: bold; color: #fbbf24; margin-bottom: 8px; font-size: 0.95rem;">🏆 شهادة تقدير وتقرير مفصل للإجابات:</div>
+                <div id="report-items-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- زر الآلة الحاسبة العائمة -->
+    <button class="calc-toggle-btn" onclick="toggleCalculator()" title="آلة حاسبة علمية">fx</button>
+
+    <div id="calcModal" class="calculator-modal">
+        <div class="calc-header">
+            <span>Casio fx-991ES</span>
+            <button class="calc-close" onclick="toggleCalculator()">×</button>
+        </div>
+        <div class="calc-screen">
+            <div class="calc-output" id="calcOutput">0</div>
+        </div>
+        <div class="calc-grid">
+            <button class="calc-btn ac" onclick="clearCalc()">C</button>
+            <button class="calc-btn op" onclick="appendCalc('(')">(</button>
+            <button class="calc-btn op" onclick="appendCalc(')')">)</button>
+            <button class="calc-btn op" onclick="appendCalc('/')">÷</button>
+            <button class="calc-btn" onclick="appendCalc('7')">7</button>
+            <button class="calc-btn" onclick="appendCalc('8')">8</button>
+            <button class="calc-btn" onclick="appendCalc('9')">9</button>
+            <button class="calc-btn op" onclick="appendCalc('*')">×</button>
+            <button class="calc-btn" onclick="appendCalc('4')">4</button>
+            <button class="calc-btn" onclick="appendCalc('5')">5</button>
+            <button class="calc-btn" onclick="appendCalc('6')">6</button>
+            <button class="calc-btn op" onclick="appendCalc('-')">-</button>
+            <button class="calc-btn" onclick="appendCalc('1')">1</button>
+            <button class="calc-btn" onclick="appendCalc('2')">2</button>
+            <button class="calc-btn" onclick="appendCalc('3')">3</button>
+            <button class="calc-btn op" onclick="appendCalc('+')">+</button>
+            <button class="calc-btn" onclick="appendCalc('0')">0</button>
+            <button class="calc-btn" onclick="appendCalc('.')">.</button>
+            <button class="calc-btn eq" onclick="calculateResult()" style="grid-column: span 2;">=</button>
+        </div>
+    </div>
+
+    <script>
+        // بنك الأسئلة الشامل (40 سؤالاً متكاملة بدقة لجميع أجزاء الدرس والرسومات والمسائل)
+        const questionsData = [
+            { q: "1. أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟", options: ["أ) حجم المادة", "ب) الكثافة", "ج) الكتلة", "د) كمية الحرارة المفقودة"], correct: 1, hint: "الكثافة خاصية فيزيائية مميزة للمادة لا تتغير بتغير الكتلة أو الحجم." },
+            { q: "2. حوض يحتوي على

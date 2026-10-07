@@ -1,3 +1,4 @@
+  
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -254,22 +255,13 @@
         let hintCount = 2;
 
         window.onload = function() {
-            const examStatus = localStorage.getItem('exam_submitted_amin');
-            if(examStatus === 'true') {
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('result-section').style.display = 'block';
-                return;
-            }
+            // مسح أي حالة تسليم قديمة فوراً ليبدأ الاختبار من جديد
+            localStorage.removeItem('exam_submitted_amin');
+            localStorage.removeItem('exam_student_name');
 
-            const savedName = localStorage.getItem('exam_student_name');
-            if(savedName) {
-                document.getElementById('display-name').innerText = savedName;
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('exam-section').style.display = 'block';
-                buildGrid();
-                loadQuestion(0);
-                startTimer();
-            }
+            document.getElementById('login-section').style.display = 'flex';
+            document.getElementById('exam-section').style.display = 'none';
+            document.getElementById('result-section').style.display = 'none';
         };
 
         document.addEventListener("visibilitychange", function() {

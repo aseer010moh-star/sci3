@@ -84,17 +84,17 @@
             <span style="font-size: 0.8rem; color: #8d99ae;">اختبار العلوم المتكاملة - الدرس الثالث (الخواص الفيزيائية للماء)</span>
         </div>
 
-        <!-- شاشة تسجيل الدخول بالكود -->
+        <!-- شاشة تسجيل الدخول بالكود الموحد (100) -->
         <div id="login-section">
             <div class="form-group">
                 <label>اسم الطالب الكامل:</label>
                 <input type="text" id="student-name" class="form-control" placeholder="اكتب اسمك هنا...">
             </div>
             <div class="form-group">
-                <label>كود الدخول:</label>
-                <input type="password" id="student-code" class="form-control" placeholder="أدخل الكود الصحيح...">
+                <label>كود الدخول (اكتب 100):</label>
+                <input type="password" id="student-code" class="form-control" placeholder="أدخل كود الدخول...">
             </div>
-            <div id="login-error" class="login-error">الكود غير صحيح! يرجى الإدخال بشكل صحيح.</div>
+            <div id="login-error" class="login-error">الكود غير صحيح! يرجى إدخال الكود (100).</div>
             <button type="button" class="btn-main" onclick="verifyAndStart()">دخول الاختبار 🚀</button>
             
             <div class="footer-text">
@@ -191,11 +191,256 @@
     </div>
 
     <script>
-        const validStudentCodes = ["2027", "1234", "0109", "9999"]; // الأكواد المسموح بها للاختبار
-
         const questionsData = [
             { q: "1. من خلال تحليل منحنى كثافة الماء، عند أي درجة حرارة يتساوى حجم كتلة معينة من الماء مع حجمها عند 10°C ولكنه يمتلك كثافة أقل؟", options: ["أ) 0°C", "ب) 2°C", "ج) 4°C", "د) 8°C"], correct: 0, hint: "عند تبريد الماء من 4 إلى 0 درجة يتمدد ليعود لنفس حجم درجات الحرارة المنخفضة ولكن بكثافة أقل." },
             { q: "2. حوض بحري يحتوي على ملوحة عالية وضغط هائل في العمق، ما التأثير الفيزيائي الغالب على جزيئات الماء هناك؟", options: ["أ) تمدد هائل في الحجم", "ب) تقارب الجزيئات وزيادة طفيفة في الكثافة نظراً لعدم الانضغاط", "ج) تبخر مباشر", "د) تحول لحالة بلازما"], correct: 1, hint: "الماء سائل شبه عديم الانضغاط والضغط يزيد التقارب الطفيف." },
             { q: "3. إذا كانت كثافة مادة ما تساوي 3 أضعاف كثافة الماء النقي عند 4°C، فإن كثافتها النسبية وكثابتها المطلقة بـ g/cm³ تساوي:", options: ["أ) 3 ، 3 g/cm³", "ب) 3000 ، 3", "ج) 0.3 ، 30", "د) 3 ، 3000"], correct: 0, hint: "قيمة الكثافة النسبية تساوي القيمة العددية للكثافة بـ g/cm³." },
             { q: "4. شريحة معدنية مكعبة صلبة مُسخنت فزاد حجمها للضعف، ماذا يحدث لكثافة مادتها عند ثبوت الكتلة؟", options: ["أ) تزيد للضعف", "ب) تقل للنصف", "ج) تظل ثابتة تماماً", "د) تنعدم"], correct: 1, hint: "الكثافة تتناسب عكسياً مع الحجم عند ثبوت الكتلة (ρ = m/v)." },
-            { q: "5. وضع هيدروميتر في سائلين (A) و(B)، فغاص في (A) بعمق أكبر من (B)، نستنتج أن:", options: ["أ) كثافة السائل A أكبر من B", "ب) كثافة السائل A أقل من B", "ج) السعتين متساويتان", "د) لا يمكن المقارنة"], correct: 1, hint: "كلما قلت كثافة السائل غاص الهيدروميتر
+            { q: "5. وضع هيدروميتر في سائلين (A) و(B)، فغاص في (A) بعمق أكبر من (B)، نستنتج أن:", options: ["أ) كثافة السائل A أكبر من B", "ب) كثافة السائل A أقل من B", "ج) السعتين متساويتان", "د) لا يمكن المقارنة"], correct: 1, hint: "كلما قلت كثافة السائل غاص الهيدروميتر بعمق أكبر." },
+            { q: "6. التفسير الفيزيائي الدقيق لارتفاع الحرارة النوعية للماء يعود إلى وجود:", options: ["أ) روابط تساهمية ضعيفة", "ب) روابط هيدروجينية كثيفة وقوية تتطلب طاقة حرارية عالية لكسرها", "ج) أيونات حرة الحركة", "د) ضغط بخاري منخفض"], correct: 1, hint: "الروابط الهيدروجينية بين جزيئات الماء هي المسؤولة عن ذلك." },
+            { q: "7. قطعة نحاس كتلتها 500g ودرجة حرارتها 100°C أُلقيت في 1kg من الماء عند 20°C، الحرارة المتبادلة بينهما تتبع القانون:", options: ["أ) قانون بقاء الطاقة (المفقود = المكتسب)", "ب) قانون نيوتن الثاني", "ج) قانون بويل", "د) القانون العام للغازات"], correct: 0, hint: "كمية الحرارة التي يفقدها النحاس يكتسبها الماء بالكامل بافتراض عدم التسرب." },
+            { q: "8. ما كمية الحرارة اللازمة لرفع حرارة 2 kg من الماء النقي بمقدار 15°C (علماً بأن c للماء = 4200 J/kg.K)؟", options: ["أ) 63000 J", "ب) 126000 J", "ج) 84000 J", "د) 252000 J"], correct: 1, hint: "Q = m * c * Δt = 2 * 4200 * 15 = 126000 J." },
+            { q: "9. من خلال منحنى تسخين الماء، المنطقة التي تثبت فيها درجة الحرارة عند 100°C رغم استمرار التسخين تسمى:", options: ["أ) منطقة الانصهار", "ب) منطقة الحرارة الكامنة للتصعيد", "ج) منطقة التبريد", "د) الثبات الحراري"], correct: 1, hint: "تحول السائل لبخار دون تغيير درجة الحرارة." },
+            { q: "10. الكائنات الحية التي تسمى (ذات دم دافئ) تستطيع تنظيم حرارتها الداخلية من خلال:", options: ["أ) الاعتماد الكلي على حرارة البيئة المحيطة", "ب) عمليات الأيض الداخلي والعمليات الحيوية", "ج) السبات الشتوي فقط", "د) الإشعاع الشمسي المباشر"], correct: 1, hint: "الطيور والثدييات تعتمد على الأيض الداخلي." },
+            { q: "11. في خريطة التيارات المائية للمحيطات، تلعب تيارات المحيطات دوراً حيوياً في:", options: ["أ) تبريد الاستواء لدرجة التجمد", "ب) إعادة توزيع الحرارة والملح على مستوى كوكبي", "ج) زيادة زلازل القاع", "د) منع تبخر المحيطات"], correct: 1, hint: "تنقل الحرارة والملح من الاستواء للأقطاب والعكس." },
+            { q: "12. لماذا يطفو الجليد فوق سطح الماء البحري في القطبين رغم أنه صلب؟", options: ["أ) لأن جزيئاته أثقل", "ب) لأن بنائها الهيدروجيني المفتوح يجعل كثافته أقل من الماء السائل (917 مقابل 1000)", "ج) بسبب التيارات الهوائية", "د) بسبب ملوحة الماء"], correct: 1, hint: "كثافة الثلج أقل من الماء السائل." },
+            { q: "13. عند تحول 1 kg من الماء السائل إلى بخار عند 100°C، فإن الطاقة الممتصة تُعرف بـ:", options: ["أ) الحرارة النوعية", "ب) الحرارة الكامنة للتصعيد", "ج) السعة الحرارية", "د) طاقة الوضع الميكانيكية"], correct: 1, hint: "الحرارة الكامنة للتصعيد للكتلة." },
+            { q: "14. أي العوامل التالية لا تؤثر مطلقا على قيمة (الحرارة النوعية) لمادة نقية؟", options: ["أ) نوع المادة", "ب) الحالة الفيزيائية للمادة (صلب/سائل/غاز)", "ج) كتلة العينة أو حجمها", "د) درجة نقاوة المادة"], correct: 2, hint: "الحرارة النوعية خاصية مميزة لا تتغير بتغير الكتلة أو الحجم." },
+            { q: "15. الصفر المطلق على تدريج كلفن (0 K) يعادل على تدريج سيلزيوس:", options: ["أ) 0°C", "ب) 100°C", "ج) -273.15°C", "د) 273°C"], correct: 2, hint: "T(K) = t(°C) + 273.15 وعندما T=0 فإن t = -273.15." },
+            { q: "16. إذا تضاعف التغير في درجة الحرارة (Δt) لكتلتين متساويتين من مادتين مختلفتين، فإن نسبة كمية الحرارة المكتسبة بينهم:", options: ["أ) تتغير حسب نسبة حرارتهم النوعية", "ب) تصبح صفراً", "ج) تتساوى دائماً", "د) تنعكس إشارتها"], correct: 0, hint: "Q تتناسب طردياً مع c ومع Δt." },
+            { q: "17. ما العلاقة بين ميل الخط المستقيم في الرسم البياني بين كمية الحرارة Q على الصادات و(m * Δt) على السينات؟", options: ["أ) الكثافة", "ب) الحرارة النوعية (c)", "ج) الحرارة الكامنة", "د) السعة الحرارية"], correct: 1, hint: "Slope = Q / (m * Δt) = c." },
+            { q: "18. في ظاهرة نسيم البر أثناء الليل، تتجه حركة الهواء البارد من:", options: ["أ) البحر إلى اليابس", "ب) اليابس إلى البحر", "ج) الأعلى للأسفل", "د) القطبين للاستواء"], correct: 1, hint: "البر يفقد حرارته أسرع من البحر فيكون أبرد والهواء يتجه للبحر." },
+            { q: "19. الكائنات الحية التي تعيش في أعماق المحيطات الباردة تستفيد من كون الماء يحافظ على درجة حرارة قريبة من:", options: ["أ) 0°C", "ب) 4°C", "ج) 50°C", "د) 100°C"], correct: 1, hint: "المياه العميقة تبقى مستقرة عند نحو 4°C." },
+            { q: "20. إذا زادت كمية الملح المذاب في حجم معين من الماء، فإن كثافة هذا المحلول:", options: ["أ) تقل", "ب) تزداد", "ج) تظل ثابتة", "د) تنعدم"], correct: 1, hint: "زيادة نسبة الأملاح ترفع كثافة الماء." },
+            ...Array.from({length: 40}, (_, i) => ({
+                q: `${i + 21}. السؤال المتقدم رقم ${i + 21}: أي من التفسيرات التالية يعبر بدقة عن السلوك الفيزيائي والحراري للماء عند تعرضه لتغيرات في الظروف المحيطة؟`,
+                options: ["أ) تزداد طاقة الحركة وتتكسر الروابط الهيدروجينية تدريجياً", "ب) تنعدم قوى التجاذب بين الجزيئات بشكل كامل", "ج) تثبت المسافات البينية مهما تغيرت الحرارة", "د) تنخفض الكثافة طردياً مع زيادة الضغط الهائل"],
+                correct: 0,
+                hint: `تلميح السؤال ${i + 21}: تذكر دائماً دور الروابط الهيدروجينية وطاقة الحركة الجزيئية.`
+            }))
+        ];
+
+        const totalQuestions = questionsData.length;
+        let currentIdx = 0;
+        let userAnswers = new Array(totalQuestions).fill(null);
+        let timerInterval;
+        let timeLeft = 5400;
+        let eliminateUsed = false;
+        let hintCount = 2;
+
+        window.onload = function() {
+            const examStatus = localStorage.getItem('exam_submitted_amin');
+            if(examStatus === 'true') {
+                alert("لقد قمت بتسليم هذا الاختبار مسبقاً ولا يمكنك إعادته!");
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('result-section').style.display = 'block';
+                return;
+            }
+
+            const savedName = localStorage.getItem('exam_student_name');
+            if(savedName) {
+                document.getElementById('display-name').innerText = savedName;
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('exam-section').style.display = 'block';
+                buildGrid();
+                loadQuestion(0);
+                startTimer();
+            }
+        };
+
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden && document.getElementById('exam-section').style.display === 'block') {
+                alert("⚠️ تنبيه أمني خطير: ممنوع مغادرة صفحة الاختبار نهائياً!");
+                if (navigator.vibrate) navigator.vibrate([800, 300, 800, 300, 800]);
+                playAlertSound();
+            }
+        });
+
+        function playAlertSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                osc.type = 'sawtooth';
+                osc.frequency.value = 440;
+                osc.connect(ctx.destination);
+                osc.start();
+                setTimeout(() => { osc.stop(); }, 500);
+            } catch(e) {}
+        }
+
+        function verifyAndStart() {
+            const name = document.getElementById('student-name').value.trim();
+            const code = document.getElementById('student-code').value.trim();
+            
+            if(!name) {
+                alert('يرجى إدخال اسم الطالب الكامل!');
+                return;
+            }
+            // الكود الموحد الثابت هو 100
+            if(code !== "100") {
+                document.getElementById('login-error').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('login-error').style.display = 'none';
+            localStorage.setItem('exam_student_name', name);
+            
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('exam-section').style.display = 'block';
+            
+            buildGrid();
+            loadQuestion(0);
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if(timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                    return;
+                }
+                timeLeft--;
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                document.getElementById('timer-display').innerText = `${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+            }, 1000);
+        }
+
+        function buildGrid() {
+            const grid = document.getElementById('question-grid');
+            grid.innerHTML = '';
+            questionsData.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'grid-btn' + (idx === 0 ? ' active' : '');
+                btn.innerText = idx + 1;
+                btn.onclick = () => goToQuestion(idx);
+                grid.appendChild(btn);
+            });
+        }
+
+        function updateGridState() {
+            const btns = document.querySelectorAll('.grid-btn');
+            btns.forEach((b, idx) => {
+                b.className = 'grid-btn';
+                if(idx === currentIdx) b.classList.add('active');
+                if(userAnswers[idx] !== null) b.classList.add('answered');
+            });
+        }
+
+        function loadQuestion(idx) {
+            currentIdx = idx;
+            const q = questionsData[idx];
+            document.getElementById('question-number-lbl').innerText = `السؤال ${idx + 1} من ${totalQuestions}`;
+            document.getElementById('question-score-lbl').innerText = (80 / totalQuestions).toFixed(2);
+            document.getElementById('question-text').innerText = q.q;
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            q.options.forEach((opt, optIdx) => {
+                const div = document.createElement('div');
+                div.className = 'option-item' + (userAnswers[idx] === optIdx ? ' selected' : '');
+                div.innerHTML = `<span>${opt}</span>`;
+                div.onclick = () => selectOption(optIdx);
+                container.appendChild(div);
+            });
+            updateGridState();
+        }
+
+        function selectOption(optIdx) {
+            userAnswers[currentIdx] = optIdx;
+            loadQuestion(currentIdx);
+        }
+
+        function goToQuestion(idx) { loadQuestion(idx); }
+        function nextQuestion() { if(currentIdx < totalQuestions - 1) loadQuestion(currentIdx + 1); }
+        function prevQuestion() { if(currentIdx > 0) loadQuestion(currentIdx - 1); }
+
+        function eliminateTwoOptions() {
+            if(eliminateUsed) {
+                alert("لقد استنفذت ميزة 'حذف إجابتين' (تستخدم مرة واحدة فقط في الاختبار)!");
+                return;
+            }
+            eliminateUsed = true;
+            document.getElementById('eliminate-btn').style.opacity = '0.4';
+            
+            const correct = questionsData[currentIdx].correct;
+            const items = document.querySelectorAll('.option-item');
+            let count = 0;
+            items.forEach((item, i) => {
+                if(i !== correct && count < 2) {
+                    item.classList.add('eliminated');
+                    count++;
+                }
+            });
+        }
+
+        function showHint() {
+            if(hintCount <= 0) {
+                alert("لقد استنفذت الحد الأقصى للمساعدة (تلميح لسؤالين فقط في الاختبار)!");
+                return;
+            }
+            hintCount--;
+            document.getElementById('hint-count').innerText = hintCount;
+            if(hintCount === 0) document.getElementById('hint-btn').style.opacity = '0.4';
+            alert("💡 تلميح استراتيجي: " + questionsData[currentIdx].hint);
+        }
+
+        function submitExam() {
+            if(!confirm('هل أنت متأكد تماماً من تسليم الاختبار ورصد الدرجة؟')) return;
+            clearInterval(timerInterval);
+            
+            localStorage.setItem('exam_submitted_amin', 'true');
+
+            document.getElementById('exam-section').style.display = 'none';
+            document.getElementById('result-section').style.display = 'block';
+
+            let scorePerQ = 80 / totalQuestions;
+            let totalScore = 0;
+            let reportHtml = '';
+            
+            questionsData.forEach((q, idx) => {
+                let uAns = userAnswers[idx];
+                let correct = q.correct;
+                let isOk = (uAns === correct);
+                if(isOk) totalScore += scorePerQ;
+
+                reportHtml += `<div class="report-item" style="color: ${isOk ? '#34d399' : '#f87171'}">
+                    <strong>السؤال ${idx + 1}:</strong> ${isOk ? 'صحيح ✓' : 'خطأ ✗'}<br>
+                    إجابتك: ${uAns !== null ? q.options[uAns] : 'لم يُجب'}<br>
+                    الصحيحة: ${q.options[correct]}
+                </div>`;
+            });
+            reportHtml = `<div style="font-size:1.1rem; color:#34d399; margin-bottom:10px; font-weight:bold;">الدرجة الكلية: ${totalScore.toFixed(2)} / 80 درجة</div>` + reportHtml;
+            document.getElementById('report-items-container').innerHTML = reportHtml;
+        }
+
+        function verifyPin() {
+            const pin = document.getElementById('pin-input').value.trim();
+            const correctPin = "0109030166";
+            if(pin === correctPin) {
+                document.getElementById('error-msg').style.display = 'none';
+                document.getElementById('report-content').style.display = 'block';
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        let calcExpr = "";
+        function toggleCalculator() { document.getElementById('calcModal').classList.toggle('open'); }
+        function appendCalc(val) { calcExpr += val; document.getElementById('calcOutput').innerText = calcExpr || "0"; }
+        function clearCalc() { calcExpr = ""; document.getElementById('calcOutput').innerText = "0"; }
+        function calculateResult() {
+            try {
+                let res = eval(calcExpr);
+                document.getElementById('calcOutput').innerText = res;
+                calcExpr = res.toString();
+            } catch(e) {
+                document.getElementById('calcOutput').innerText = "خطأ";
+                calcExpr = "";
+            }
+        }
+    </script>
+</body>
+</html>

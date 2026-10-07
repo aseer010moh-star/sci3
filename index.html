@@ -10,18 +10,6 @@
         .container { width: 100%; max-width: 680px; background: #1c2541; border-radius: 16px; padding: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.7); border: 1px solid #3a506b; }
         .header-title { text-align: center; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; padding: 12px; border-radius: 12px; font-size: 1.15rem; font-weight: bold; margin-bottom: 15px; }
         
-        /* شاشة الدخول */
-        #login-section { display: flex; flex-direction: column; gap: 12px; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; text-align: right; }
-        .form-group label { font-size: 0.9rem; color: #34d399; font-weight: bold; }
-        .form-control { background: #0b132b; border: 1px solid #3a506b; border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 0.95rem; outline: none; }
-        .btn-main { background: #10b981; color: #0b132b; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; text-align: center; transition: background 0.2s; margin-top: 5px; }
-        .btn-main:hover { background: #059669; color: #fff; }
-
-        .footer-text { text-align: center; font-size: 0.75rem; color: #8d99ae; margin-top: 15px; border-top: 1px solid #3a506b; padding-top: 10px; line-height: 1.5; }
-
-        /* شاشة الاختبار */
-        #exam-section { display: none; }
         .teacher-tag { background: rgba(16, 185, 129, 0.1); border: 1px solid #3a506b; border-radius: 8px; padding: 6px; color: #34d399; font-size: 0.8rem; font-weight: bold; text-align: center; margin-bottom: 10px; }
         .status-panel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; background: #0b132b; padding: 8px 12px; border-radius: 8px; border: 1px solid #3a506b; }
         .timer-badge { background: #ef4444; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; }
@@ -50,7 +38,7 @@
         .btn-prev, .btn-next { background: #3a506b; color: white; flex: 1; }
         .btn-submit { background: #10b981; color: #0b132b; flex: 1.2; }
 
-        /* شاشة النهاية والنتيجة */
+        /* شاشة النهاية وفتح الكود السري (النجوم) */
         #result-section { display: none; text-align: center; }
         .result-title { font-size: 1.2rem; color: #34d399; margin-bottom: 10px; font-weight: bold; }
         .lock-box { background: #0b132b; padding: 15px; border-radius: 10px; border: 1px solid #3a506b; margin-top: 15px; text-align: center; }
@@ -73,6 +61,8 @@
         .calc-btn.op { background: #2563eb; color: white; }
         .calc-btn.eq { background: #10b981; color: #0b132b; font-weight: bold; }
         .calc-btn.ac { background: #dc2626; color: white; }
+
+        .footer-text { text-align: center; font-size: 0.75rem; color: #8d99ae; margin-top: 15px; border-top: 1px solid #3a506b; padding-top: 10px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -83,30 +73,12 @@
             <span style="font-size: 0.8rem; color: #8d99ae;">اختبار العلوم المتكاملة - الدرس الثالث (الخواص الفيزيائية للماء)</span>
         </div>
 
-        <!-- شاشة تسجيل الدخول الأصلية -->
-        <div id="login-section">
-            <div class="form-group">
-                <label>اسم الطالب الكامل:</label>
-                <input type="text" id="student-name" class="form-control" placeholder="اكتب اسمك هنا...">
-            </div>
-            <div class="form-group">
-                <label>كود الدخول:</label>
-                <input type="password" id="student-code" class="form-control" placeholder="••••">
-            </div>
-            <button type="button" class="btn-main" onclick="startExam()">دخول الاختبار 🚀</button>
-            
-            <div class="footer-text">
-                ما استعان عبد بالله إلا وصل<br>
-                جميع الحقوق محفوظة أ/محمد أمين نظير 2027
-            </div>
-        </div>
-
-        <!-- شاشة الاختبار الفعلية (40 سؤالاً) -->
-        <div id="exam-section">
+        <!-- شاشة الاختبار الفعلية مباشرة بدون قيود أو شاشات دخول -->
+        <div id="exam-section" style="display: block;">
             <div class="teacher-tag">👨‍🏫 إعداد ومتابعة: أ. محمد أمين نظير</div>
             <div class="status-panel">
                 <div class="timer-badge" id="timer-display">60:00</div>
-                <div class="user-badge">👤 <span id="display-name">الطالب</span></div>
+                <div class="user-badge">👤 الطالب: Safa</div>
             </div>
 
             <!-- شبكة التنقل بين الـ 40 سؤالاً -->
@@ -152,6 +124,11 @@
                 <div id="report-items-container"></div>
             </div>
         </div>
+
+        <div class="footer-text">
+            ما استعان عبد بالله إلا وصل<br>
+            جميع الحقوق محفوظة أ/محمد أمين نظير 2027
+        </div>
     </div>
 
     <!-- زر الآلة الحاسبة العائمة -->
@@ -192,4 +169,17 @@
         // بنك الأسئلة الشامل (40 سؤالاً متكاملة بدقة لجميع أجزاء الدرس والرسومات والمسائل)
         const questionsData = [
             { q: "1. أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟", options: ["أ) حجم المادة", "ب) الكثافة", "ج) الكتلة", "د) كمية الحرارة المفقودة"], correct: 1, hint: "الكثافة خاصية فيزيائية مميزة للمادة لا تتغير بتغير الكتلة أو الحجم." },
-            { q: "2. حوض يحتوي على
+            { q: "2. حوض يحتوي على كمية من الجازولين كتلتها 3450 kg وحجمها 5 m³، فتكون كثافة الجازولين تساوي:", options: ["أ) 600 kg/m³", "ب) 650 kg/m³", "ج) 690 kg/m³", "د) 720 kg/m³"], correct: 2, hint: "الكثافة = الكتلة ÷ الحجم (3450 ÷ 5)." },
+            { q: "3. إذا كانت كثافة الألومنيوم 2700 kg/m³ وكثافة الماء النقي عند 4°C هي 10³ kg/m³، فإن الكثافة النسبية للألومنيوم تساوي:", options: ["أ) 5.4", "ب) 2.7", "ج) 0.54", "د) 0.27"], correct: 1, hint: "الكثافة النسبية = كثافة المادة ÷ كثافة الماء النقي." },
+            { q: "4. شريحة معدنية مربعة تم قطع ربعها كما بالرسم، فإن نسبة كثافة مادة الجزء (X) إلى كثافة مادة الجزء (Y) تساوي:", options: ["أ) 1/2", "ب) 1/4", "ج) 1/1", "د) 4/1"], correct: 2, hint: "الكثافة خاصية ثابتة لا تتغير باقتطاع جزء من المادة." },
+            { q: "5. مكعبات ثلج أُضيفت إلى ماء نقي عند 4°C، ماذا يحدث لكثافة الماء أثناء انصهار الثلج؟", options: ["أ) تتزايد", "ب) تتناقص", "ج) لا تتغير", "د) لا يمكن تحديد الإجابة"], correct: 2, hint: "عند 4°C يكون الماء عند أقصى كثافة له ولا تتغير عند الانصهار بهذا الظرف." },
+            { q: "6. وضع هيدروميتر في ماء بحر فكان طول الجزء المغمور 5 cm، عند إضافة ماء مقطر، فإن طول الجزء المغمور يصبح:", options: ["أ) 1 cm", "ب) 3 cm", "ج) 5 cm", "د) 7 cm (أو أكبر)"], correct: 3, hint: "إضافة الماء المقطر تقلل الكثافة فيغمر الهيدروميتر بعمق أكبر." },
+            { q: "7. أي مما يلي وحدة لها القدرة على تخزين الطاقة الحرارية لفترة أطول بعد غروب الشمس؟", options: ["أ) البحيرات المالحة (الماء)", "ب) رمال الصحراء", "ج) الهواء الجوي", "د) صخور الجبال"], correct: 0, hint: "الماء يتميز بارتفاع حرارته النوعية." },
+            { q: "8. السبب الرئيسي في شذوذ سلوك الماء وتناقص كثافته عند خفض حرارته من 4 إلى 0 درجة مئوية هو:", options: ["أ) زيادة سرعة الجزيئات", "ب) تكوين روابط هيدروجينية قوية تباعد بين الجزيئات ويزيد الحجم", "ج) زيادة الضغط في القاع", "د) انعدام التجاذب"], correct: 1, hint: "الروابط الهيدروجينية تسبب بنية مفتوحة تزيد الحجم وتقلل الكثافة." },
+            { q: "9. كمية الحرارة اللازمة لرفع حرارة 0.3 kg من النحاس من 20 إلى 70°C (c = 390 J/kg.K) تساوي:", options: ["أ) 5850 J", "ب) 3900 J", "ج) 7200 J", "د) 1200 J"], correct: 0, hint: "استخدم علاقة Q = m * c * Δt." },
+            { q: "10. قطعة ألومنيوم كتلتها 200 g ودرجة حرارتها 80°C أُلقيت في الماء فأصبحت النهائية 40°C، فإن كمية حرارة الماء تساوي (c للألومنيوم = 900):", options: ["أ) 7200 J", "ب) 6400 J", "ج) 4250 J", "د) 2125 J"], correct: 0, hint: "الحرارة المفقودة من الألومنيوم تعادل المكتسبة للماء." },
+            { q: "11. من الشكل البياني العلاقة بين الكثافة ودرجة الحرارة للماء النقي، يصل الماء لأقصى كثافة عند درجة حرارة:", options: ["أ) 0°C", "ب) 4°C", "ج) 100°C", "د) 25°C"], correct: 1, hint: "تذكر قمة منحنى شذوذ الماء عند 4 درجات مئوية." },
+            { q: "12. وحدة قياس الحرارة النوعية في النظام الدولي (SI) هي:", options: ["أ) J/kg.K", "ب) J/kg", "ج) cal/g", "د) Watt"], correct: 0, hint: "جول لكل كيلوجرام كلفن." },
+            { q: "13. يتسبب ارتفاع الحرارة النوعية للماء في ظاهرة:", options: ["أ) نسيم البحر والبر", "ب) البرق والرعد", "ج) المد والجزر فقط", "د) الضغط الجوي"], correct: 0, hint: "نسيم البحر يحدث بسبب تباين امتصاص الحرارة." },
+            { q: "14. في جهاز الهيدروميتر، الجزء السفلي يحتوي على زئبق أو رصاص بغرض:", options: ["أ) زيادة التوصيل الكهربي", "ب) مساعدة الجهاز على الاتزان رأسياً في السوائل", "ج) قياس الحرارة", "د) توسيع التدريج"], correct: 1, hint: "لضمان طفو الجهاز بشكل رأسي مستقر." },
+            { q: "15. الطاقات المتضمنة في الطاقة الداخلية لجسم هي:", options: ["أ) طاقة حركة فقط

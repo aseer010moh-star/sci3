@@ -171,4 +171,233 @@
             <button class="calc-btn op" onclick="appendCalc(')')">)</button>
             <button class="calc-btn op" onclick="appendCalc('/')">÷</button>
             <button class="calc-btn" onclick="appendCalc('7')">7</button>
-            <button class
+            <button class="calc-btn" onclick="appendCalc('8')">8</button>
+            <button class="calc-btn" onclick="appendCalc('9')">9</button>
+            <button class="calc-btn op" onclick="appendCalc('*')">×</button>
+            <button class="calc-btn" onclick="appendCalc('4')">4</button>
+            <button class="calc-btn" onclick="appendCalc('5')">5</button>
+            <button class="calc-btn" onclick="appendCalc('6')">6</button>
+            <button class="calc-btn op" onclick="appendCalc('-')">-</button>
+            <button class="calc-btn" onclick="appendCalc('1')">1</button>
+            <button class="calc-btn" onclick="appendCalc('2')">2</button>
+            <button class="calc-btn" onclick="appendCalc('3')">3</button>
+            <button class="calc-btn op" onclick="appendCalc('+')">+</button>
+            <button class="calc-btn" onclick="appendCalc('0')">0</button>
+            <button class="calc-btn" onclick="appendCalc('.')">.</button>
+            <button class="calc-btn eq" onclick="calculateResult()" style="grid-column: span 2;">=</button>
+        </div>
+    </div>
+
+    <script>
+        const questionsData = [
+            { q: "1. أي من الكميات الفيزيائية التالية تُعد خاصية مميزة للمادة عند ثبوت درجة الحرارة والضغط ولا تتغير بتغير كتلة العينة؟", options: ["أ) حجم المادة", "ب) الكثافة", "ج) الكتلة", "د) كمية الحرارة المفقودة"], correct: 1, hint: "الكثافة خاصية مميزة للمادة لا تتغير بتغير الكتلة أو الحجم." },
+            { q: "2. حوض يحتوي على كمية من الجازولين كتلتها 3450 kg وحجمها 5 m³، فتكون كثافة الجازولين تساوي:", options: ["أ) 600 kg/m³", "ب) 650 kg/m³", "ج) 690 kg/m³", "د) 720 kg/m³"], correct: 2, hint: "الكثافة = الكتلة ÷ الحجم (3450 ÷ 5)." },
+            { q: "3. إذا كانت كثافة الألومنيوم 2700 kg/m³ وكثافة الماء النقي عند 4°C هي 10³ kg/m³، فإن الكثافة النسبية للألومنيوم تساوي:", options: ["أ) 5.4", "ب) 2.7", "ج) 0.54", "د) 0.27"], correct: 1, hint: "الكثافة النسبية = كثافة المادة ÷ كثافة الماء النقي." },
+            { q: "4. شريحة معدنية مربعة تم قطع ربعها كما بالرسم، فإن نسبة كثافة مادة الجزء (X) إلى كثافة مادة الجزء (Y) تساوي:", options: ["أ) 1/2", "ب) 1/4", "ج) 1/1", "د) 4/1"], correct: 2, hint: "الكثافة خاصية ثابتة لا تتغير باقتطاع جزء من المادة." },
+            { q: "5. مكعبات ثلج أُضيفت إلى ماء نقي عند 4°C، ماذا يحدث لكثافة الماء أثناء انصهار الثلج؟", options: ["أ) تتزايد", "ب) تتناقص", "ج) لا تتغير", "د) لا يمكن تحديد الإجابة"], correct: 2, hint: "عند 4°C يكون الماء عند أقصى كثافة له ولا تتغير عند الانصهار بهذا الظرف." },
+            { q: "6. وضع هيدروميتر في ماء بحر فكان طول الجزء المغمور 5 cm، عند إضافة ماء مقطر، فإن طول الجزء المغمور يصبح:", options: ["أ) 1 cm", "ب) 3 cm", "ج) 5 cm", "د) 7 cm (أو أكبر)"], correct: 3, hint: "إضافة الماء المقطر تقلل الكثافة فيغمر الهيدروميتر بعمق أكبر." },
+            { q: "7. أي مما يلي وحدة لها القدرة على تخزين الطاقة الحرارية لفترة أطول بعد غروب الشمس؟", options: ["أ) البحيرات المالحة (الماء)", "ب) رمال الصحراء", "ج) الهواء الجوي", "د) صخور الجبال"], correct: 0, hint: "الماء يتميز بارتفاع حرارته النوعية." },
+            { q: "8. السبب الرئيسي في شذوذ سلوك الماء وتناقص كثافته عند خفض حرارته من 4 إلى 0 درجة مئوية هو:", options: ["أ) زيادة سرعة الجزيئات", "ب) تكوين روابط هيدروجينية قوية تباعد بين الجزيئات ويزيد الحجم", "ج) زيادة الضغط في القاع", "د) انعدام التجاذب"], correct: 1, hint: "الروابط الهيدروجينية تسبب بنية مفتوحة تزيد الحجم وتقلل الكثافة." },
+            { q: "9. كمية الحرارة اللازمة لرفع حرارة 0.3 kg من النحاس من 20 إلى 70°C (c = 390 J/kg.K) تساوي:", options: ["أ) 5850 J", "ب) 3900 J", "ج) 7200 J", "د) 1200 J"], correct: 0, hint: "استخدم علاقة Q = m * c * Δt." },
+            { q: "10. قطعة ألومنيوم كتلتها 200 g ودرجة حرارتها 80°C أُلقيت في الماء فأصبحت النهائية 40°C، فإن كمية حرارة الماء تساوي (c للألومنيوم = 900):", options: ["أ) 7200 J", "ب) 6400 J", "ج) 4250 J", "د) 2125 J"], correct: 0, hint: "الحرارة المفقودة من الألومنيوم تعادل المكتسبة للماء." },
+            { q: "11. من الشكل البياني العلاقة بين الكثافة ودرجة الحرارة للماء النقي، يصل الماء لأقصى كثافة عند درجة حرارة:", options: ["أ) 0°C", "ب) 4°C", "ج) 100°C", "د) 25°C"], correct: 1, hint: "تذكر قمة منحنى شذوذ الماء عند 4 درجات مئوية." },
+            { q: "12. وحدة قياس الحرارة النوعية في النظام الدولي (SI) هي:", options: ["أ) J/kg.K", "ب) J/kg", "ج) cal/g", "د) Watt"], correct: 0, hint: "جول لكل كيلوجرام كلفن." },
+            { q: "13. يتسبب ارتفاع الحرارة النوعية للماء في ظاهرة:", options: ["أ) نسيم البحر والبر", "ب) البرق والرعد", "ج) المد والجزر فقط", "د) الضغط الجوي"], correct: 0, hint: "نسيم البحر يحدث بسبب تباين امتصاص الحرارة." },
+            { q: "14. في جهاز الهيدروميتر، الجزء السفلي يحتوي على زئبق أو رصاص بغرض:", options: ["أ) زيادة التوصيل الكهربي", "ب) مساعدة الجهاز على الاتزان رأسياً في السوائل", "ج) قياس الحرارة", "د) توسيع التدريج"], correct: 1, hint: "لضمان طفو الجهاز بشكل رأسي مستقر." },
+            { q: "15. الطاقات المتضمنة في الطاقة الداخلية لجسم هي:", options: ["أ) طاقة حركة فقط", "ب) طاقة وضع فقط", "ج) مجموع طاقاتي الحركة والوضع لجزيئات الجسم", "د) الطاقة النووية"], correct: 2, hint: "الطاقة الداخلية = طاقة الحركة + طاقة الوضع." },
+            { q: "16. عند رفع درجة حرارة الماء من 20°C إلى 80°C فإن المسافات البينية بين الجزيئات:", options: ["أ) تقل", "ب) تزداد", "ج) تنعدم", "د) لا تتغير"], correct: 1, hint: "تسخين السوائل يسبب تباعد الجزيئات وزيادة الحجم." },
+            { q: "17. أي من الآتي يُعبر عن تعريف درجة الحرارة؟", options: ["أ) إجمالي الطاقة للجسيمات", "ب) مقياس لمتوسط طاقة حركة جزيئات الجسم", "ج) كمية الحرارة المنقولة", "د) السعة الحرارية"], correct: 1, hint: "درجة الحرارة تعبر عن متوسط طاقة الحركة." },
+            { q: "18. التدريج السيلزي والكلڤني متفقان في أن مقدار التغير في درجات الحرارة بينهما يحقق العلاقة:", options: ["أ) Δt(°C) = ΔT(K)", "ب) Δt = 273 ΔT", "ج) Δt > ΔT", "د) لا علاقة بينهما"], correct: 0, hint: "مقدار التغير واحد على التدريجين." },
+            { q: "19. العوامل التي تتوقف عليها الحرارة النوعية لمادة تشمل:", options: ["أ) كتلة الجسم فقط", "ب) حجم الجسم", "ج) نوع المادة وحالتها الفيزيائية", "د) سرعة الرياح"], correct: 2, hint: "الحرارة النوعية صفة مميزة تتوقف على نوع المادة وحالتها." },
+            { q: "20. إذا تساوت كتلتان من (ماء نقي) و(زئبق) في اكتساب نفس كمية الحرارة، فأيهما ترتفع درجة حرارته بمقدار أكبر؟", options: ["أ) الماء النقي", "ب) الزئبق", "ج) يرتفعان بنفس المقدار", "د) لا ترتفع حرارتهما"], correct: 1, hint: "الزئبق له حرارة نوعية أقل بكثير من الماء." },
+            { q: "21. عملية تحول المادة من الحالة السائلة إلى الحالة الغازية دون تغير دراجة الحرارة تسمى:", options: ["أ) انصهار", "ب) تصعيد (تبخير)", "ج) تكثيف", "د) تجمد"], correct: 1, hint: "الحرارة الكامنة للتصعيد." },
+            { q: "22. الكائنات الحية ذات الدم الحار (دافيء):", options: ["أ) تتغير حرارتها بتبدل الجو", "ب) تستطيع المحافظة على درجة حرارة أجسامها ثابتة", "ج) تعتمد كلياً على الشمس", "د) لا تتنفس"], correct: 1, hint: "مثل الطيور والثدييات." },
+            { q: "23. في خريطة التيارات المائية للمحيطات، تنقل تيارات الاستواء:", options: ["أ) المياه الباردة للأقطاب", "ب) الحرارة والملح من الاستواء إلى قطبي الكرة الأرضية", "ج) الأسماك فقط", "د) الرواسب"], correct: 1, hint: "التيارات الدافئة تنقل الحرارة نحو القطبين." },
+            { q: "24. ضغط الماء في الأعماق الكبيرة للمحيطات يؤدي إلى:", options: ["أ) زيادة حجم الماء بشكل كبير", "ب) تقارب جزيئات الماء وزيادة طفيفة جداً في الكثافة", "ج) تبخر الماء فوراً", "د) تجمد الماء"], correct: 1, hint: "الماء شبه عديم الانضغاط." },
+            { q: "25. ملوحة الماء في المسطحات المائية تؤدي إلى:", options: ["أ) نقص الكثافة", "ب) زيادة نسبة الملوحة تزيد الكثافة", "ج) ثبات الكثافة", "د) انعدام الكثافة"], correct: 1, hint: "زيادة الأملاح ترفع الكثافة." },
+            { q: "26. الأنهار الجليدية والجليد البحري يطفو فوق سطح الماء لأن:", options: ["أ) كثافة الجليد أقل من كثافة الماء السائل", "ب) الجليد أثقل", "ج) الضغط يدفعه للأعلى", "د) التيارات تحمله"], correct: 0, hint: "كثافة الثلج أقل من الماء (حوالي 917 kg/m³)." },
+            { q: "27. تبلغ الحرارة النوعية للماء تقريباً:", options: ["أ) 2100 J/kg.K", "ب) 4200 J/kg.K", "ج) 900 J/kg.K", "د) 140 J/kg.K"], correct: 1, hint: "حوالي 4200 جول لكل كجم كلفن." },
+            { q: "28. إذا سخن جسم واكتسب كمية حرارة موجبة، فإن الإشارة الدالة على Q تكون:", options: ["أ) سالبة", "ب) موجبة", "ج) صفر", "د) غير ذلك"], correct: 1, hint: "الاكتساب يعني إشارة موجبة للتسخين." },
+            { q: "29. العلاقة البيانية بين كمية الحرارة (Q) والتغير في درجات الحرارة (Δt) لكتلة معينة هي خط مستقيم ميله يمثل:", options: ["أ) الكتلة فقط", "ب) السعة الحرارية (m * c)", "ج) الكثافة", "د) الحرارة النوعية"], correct: 1, hint: "الميل = m * c." },
+            { q: "30. تحويل درجة الحرارة من سيلزيوس إلى كلفن يتم بإضافة:", options: ["أ) 100", "ب) 273", "ج) -273", "د) 500"], correct: 1, hint: "T(K) = t(°C) + 273." },
+            { q: "31. الشعاب المرجانية تتواجد غالباً في:", options: ["أ) المياه السطحية الدافئة", "ب) أعماق القطبين", "ج) البحار المتجمدة", "د) الأنهار الباردة"], correct: 0, hint: "تعيش في المياه السطحية الدافئة." },
+            { q: "32. الكائنات التي تعيش في أعماق المحيطات تستفيد من خاصية الماء في أن العمق يتميز بـ:", options: ["أ) تقلبات حرارية عنيفة", "ب) استقرار نسبي وثبات حراري", "ج) حرارة عالية جداً", "د) جفاف تام"], correct: 1, hint: "الماء العازل في الأعماق يحافظ على حرارة مستقرة." },
+            { q: "33. عند انخفاض حرارة سطح البحيرات القطبية إلى أقل من 4°C وحتى 0°C:", options: ["أ) تغوص طبقة السطح للقاع فوراً", "ب) تتمدد وتطفو طبقة الجليد السطحية كعازل يحمي الحياة بالأسفل", "ج) يتبخر الماء كله", "د) يتجمد المحيط بالكامل من القاع"], correct: 1, hint: "طبقة الجليد العازلة تحمي الكائنات الحية بالأسفل عند 4°C." },
+            { q: "34. أي من الوحدات التالية لا تُعد وحدة قياس لكمية الحرارة؟", options: ["أ) Joule", "ب) kg.m²/s²", "ج) Watt", "د) تكافئ الجول"], correct: 2, hint: "الوات وحدة قدرة وليس كمية حرارة." },
+            { q: "35. في نشاط قياس كثافة عينات مختلفة من الماء، يُستخدم الأداة الأساسية لقياس الكثافة مباشرة وهي:", options: ["أ) الترمومتر", "ب) الهيدروميتر", "ج) الميزان الحساس فقط", "د) المسطرة"], correct: 1, hint: "الهيدروميتر (مقياس كثافة السوائل)." },
+            { q: "36. إذا تضاعفت كتلة الجسم مع ثبوت الحرارة النوعية ومقدار التغير في الحرارة، فإن كمية الحرارة المكتسبة:", options: ["أ) تقل النصف", "ب) تتضاعف (تزداد للضعف)", "ج) تظل كما هي", "د) تصبح صفراً"], correct: 1, hint: "علاقة طردية بين Q والكتلة m." },
+            { q: "37. الصفر المطلق على تدريج كلفن يساوي بالسلزيوس:", options: ["أ) 0°C", "ب) -273°C", "ج) 100°C", "د) 273°C"], correct: 1, hint: "صفر كلفن يقابل -273 سيلزيوس." },
+            { q: "38. الأجسام ذات الدم البارد تعتمد في تنظيم حرارتها على:", options: ["أ) عمليات الأيض الداخلي", "ب) مصادر خارجية كالبيئة والشمس", "ج) الغذاء الدسم", "د) الطيران المستمر"], correct: 1, hint: "مثل الزواحف والأسماك." },
+            { q: "39. كمية الحرارة المنقولة من جسم لآخر تحدث نتيجة وجود:", options: ["أ) فرق في درجات الحرارة", "ب) تساوي الكتلة", "ج) تساوي الحجم", "د) انعدام الضغط"], correct: 0, hint: "تنتقل الحرارة دائماً من الجسم الأعلى في حرارته للأقل." },
+            { q: "40. تبلغ الحرارة الكامنة للتصعيد للماء قيمة كبيرة نظراً لـ:", options: ["أ) سهولة تبخر الماء", "ب) الحاجة لكسر الروابط الهيدروجينية القوية بين الجزيئات", "ج) خفة جزيئاته", "د) انعدام الضغط"], correct: 1, hint: "لتحويل الماء لبخار يجب كسر الروابط الهيدروجينية." }
+        ];
+
+        const totalQuestions = questionsData.length;
+        let currentIdx = 0;
+        let userAnswers = new Array(totalQuestions).fill(null);
+        let timerInterval;
+        let timeLeft = 3600;
+
+        // نظام التنبيه ضد محاولة الخروج من الاختبار (صوت واهتزاز)
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden && document.getElementById('exam-section').style.display === 'block') {
+                alert("⚠️ تنبيه هام: ممنوع مغادرة صفحة الاختبار!");
+                if (navigator.vibrate) navigator.vibrate([500, 200, 500]);
+            }
+        });
+
+        function startExam() {
+            const name = document.getElementById('student-name').value.trim();
+            const code = document.getElementById('student-code').value.trim();
+            if(!name || !code) {
+                alert('يرجى إدخال اسم الطالب وكود الدخول أولاً!');
+                return;
+            }
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('exam-section').style.display = 'block';
+            
+            buildGrid();
+            loadQuestion(0);
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if(timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                    return;
+                }
+                timeLeft--;
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                document.getElementById('timer-display').innerText = `${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+            }, 1000);
+        }
+
+        function buildGrid() {
+            const grid = document.getElementById('question-grid');
+            grid.innerHTML = '';
+            questionsData.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'grid-btn' + (idx === 0 ? ' active' : '');
+                btn.innerText = idx + 1;
+                btn.onclick = () => goToQuestion(idx);
+                grid.appendChild(btn);
+            });
+        }
+
+        function updateGridState() {
+            const btns = document.querySelectorAll('.grid-btn');
+            btns.forEach((b, idx) => {
+                b.className = 'grid-btn';
+                if(idx === currentIdx) b.classList.add('active');
+                if(userAnswers[idx] !== null) b.classList.add('answered');
+            });
+        }
+
+        function loadQuestion(idx) {
+            currentIdx = idx;
+            const q = questionsData[idx];
+            document.getElementById('question-number-lbl').innerText = `السؤال ${idx + 1} من ${totalQuestions}`;
+            document.getElementById('question-score-lbl').innerText = (60 / totalQuestions).toFixed(1);
+            document.getElementById('question-text').innerText = q.q;
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            q.options.forEach((opt, optIdx) => {
+                const div = document.createElement('div');
+                div.className = 'option-item' + (userAnswers[idx] === optIdx ? ' selected' : '');
+                div.innerHTML = `<span>${opt}</span>`;
+                div.onclick = () => selectOption(optIdx);
+                container.appendChild(div);
+            });
+            updateGridState();
+        }
+
+        function selectOption(optIdx) {
+            userAnswers[currentIdx] = optIdx;
+            loadQuestion(currentIdx);
+        }
+
+        function goToQuestion(idx) { loadQuestion(idx); }
+        function nextQuestion() { if(currentIdx < totalQuestions - 1) loadQuestion(currentIdx + 1); }
+        function prevQuestion() { if(currentIdx > 0) loadQuestion(currentIdx - 1); }
+
+        function eliminateTwoOptions() {
+            const correct = questionsData[currentIdx].correct;
+            const items = document.querySelectorAll('.option-item');
+            let count = 0;
+            items.forEach((item, i) => {
+                if(i !== correct && count < 2) {
+                    item.classList.add('eliminated');
+                    count++;
+                }
+            });
+        }
+
+        let hintUsedCount = 0;
+        function showHint() {
+            if(hintUsedCount >= 2) {
+                alert("لقد استنفذت الحد الأقصى للمساعدة (تلميح لسؤالين فقط)!");
+                return;
+            }
+            hintUsedCount++;
+            alert("💡 تلميح: " + questionsData[currentIdx].hint + ` (متبقي لك ${2 - hintUsedCount} تلميح)`);
+        }
+
+        function submitExam() {
+            if(!confirm('هل أنت متأكد من تسليم الاختبار؟')) return;
+            clearInterval(timerInterval);
+            document.getElementById('exam-section').style.display = 'none';
+            document.getElementById('result-section').style.display = 'block';
+
+            let scorePerQ = 60 / totalQuestions;
+            let totalScore = 0;
+            let reportHtml = '';
+            
+            questionsData.forEach((q, idx) => {
+                let uAns = userAnswers[idx];
+                let correct = q.correct;
+                let isOk = (uAns === correct);
+                if(isOk) totalScore += scorePerQ;
+
+                reportHtml += `<div class="report-item" style="color: ${isOk ? '#34d399' : '#f87171'}">
+                    <strong>السؤال ${idx + 1}:</strong> ${isOk ? 'صحيح ✓' : 'خطأ ✗'}<br>
+                    إجابتك: ${uAns !== null ? q.options[uAns] : 'لم يُجب'}<br>
+                    الصحيحة: ${q.options[correct]}
+                </div>`;
+            });
+            reportHtml = `<div style="font-size:1.05rem; color:#34d399; margin-bottom:10px; font-weight:bold;">الدرجة الكلية: ${totalScore.toFixed(1)} / 60 درجة</div>` + reportHtml;
+            document.getElementById('report-items-container').innerHTML = reportHtml;
+        }
+
+        function verifyPin() {
+            const pin = document.getElementById('pin-input').value.trim();
+            const correctPin = "0109030166";
+            if(pin === correctPin) {
+                document.getElementById('error-msg').style.display = 'none';
+                document.getElementById('report-content').style.display = 'block';
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        let calcExpr = "";
+        function toggleCalculator() { document.getElementById('calcModal').classList.toggle('open'); }
+        function appendCalc(val) { calcExpr += val; document.getElementById('calcOutput').innerText = calcExpr || "0"; }
+        function clearCalc() { calcExpr = ""; document.getElementById('calcOutput').innerText = "0"; }
+        function calculateResult() {
+            try {
+                let res = eval(calcExpr);
+                document.getElementById('calcOutput').innerText = res;
+                calcExpr = res.toString();
+            } catch(e) {
+                document.getElementById('calcOutput').innerText = "خطأ";
+                calcExpr = "";
+            }
+        }
+    </script>
+</body>
+</html>

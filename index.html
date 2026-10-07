@@ -87,7 +87,6 @@
             </div>
             <div class="form-group">
                 <label>كود الدخول:</label>
-                <!-- تم إخفاء الكود تماماً وعدم كتابته في الواجهة -->
                 <input type="password" id="student-code" class="form-control" placeholder="أدخل كود الدخول الخاص بك...">
             </div>
             <div id="login-error" class="login-error">الكود غير صحيح! يرجى التأكد من الكود الصحيح.</div>
@@ -131,10 +130,10 @@
 
         <div id="result-section">
             <div class="result-title">✓ تم تسليم الاختبار بنجاح</div>
-            <p style="font-size: 0.85rem; color: #8d99ae; margin-bottom: 12px;">🚀 تم إرسال نظير نتيجتك والتقرير المفصل أوتوماتيكياً.</p>
+            <p style="font-size: 0.85rem; color: #8d99ae; margin-bottom: 12px;">🚀 تم رصد وتجهيز تقرير نتيجتك بنجاح.</p>
             
             <div style="margin-bottom: 15px;">
-                <a id="email-btn" href="#" target="_blank" class="btn" style="background: #2563eb; color: white; text-decoration: none; display: inline-block; padding: 10px 15px; font-size: 0.9rem;">📩 إرسال النتيجة إلى بريدي الإلكتروني</a>
+                <a id="email-btn" href="#" target="_blank" class="btn" style="background: #2563eb; color: white; text-decoration: none; display: inline-block; padding: 10px 15px; font-size: 0.9rem;">📩 إرسال النتيجة إلى البريد</a>
             </div>
 
             <div class="lock-box">
@@ -257,15 +256,10 @@
         let timeLeft = 5400;
         let eliminateUsed = false;
         let hintCount = 2;
-        const targetEmail = "aseer010moh@gmail.com"; // إيميلك الشخصي لاستقبال التقرير
+        const targetEmail = "aseer010moh@gmail.com";
 
         window.onload = function() {
-            // حماية صارمة: إذا كان الطالب مسلماً للاختبار مسبقاً، امنعه من الدخول مرة أخرى
-            if(localStorage.getItem('exam_submitted_amin') === 'true') {
-                alert("⚠️ تم تسليم هذا الاختبار من قبل من هذا المتصفح ولا يمكن إعادته!");
-                document.body.innerHTML = "<h2 style='text-align:center; color:#ef4444; margin-top:20vh;'>عذراً، لقد أكملت هذا الاختبار مسبقاً ولا يمكن دخوله مرة أخرى.</h2>";
-                return;
-            }
+            // تم إزالة قفل الـ localStorage المنعزل تماماً لضمان عدم تعليق أي طالب ودخوله بسلاسة
         };
 
         // تنبيه مغادرة الصفحة
@@ -291,7 +285,6 @@
                 return;
             }
             
-            // التحقق من كود الدخول السري (100) بدقة دون إظهاره للمستخدم
             if(code !== "100") {
                 errorDiv.style.display = 'block';
                 return;
@@ -408,9 +401,6 @@
         function submitExam() {
             if(!confirm('هل أنت متأكد تماماً من تسليم الاختبار ورصد الدرجة؟')) return;
             clearInterval(timerInterval);
-            
-            // قفل الجلسة لمنع إعادة الإدخال بالريفريش
-            localStorage.setItem('exam_submitted_amin', 'true');
 
             document.getElementById('exam-section').style.display = 'none';
             document.getElementById('result-section').style.display = 'block';
@@ -441,7 +431,6 @@
             reportHtml = `<div style="font-size:1.1rem; color:#34d399; margin-bottom:10px; font-weight:bold;">${finalScoreText}</div>` + reportHtml;
             document.getElementById('report-items-container').innerHTML = reportHtml;
 
-            // تجهيز زر إرسال النتيجة للإيميل
             emailSummary = `${finalScoreText}\n\n` + emailSummary;
             let mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent('نتيجة اختبار العلوم المتكاملة - ' + studentName)}&body=${encodeURIComponent(emailSummary)}`;
             document.getElementById('email-btn').href = mailtoLink;

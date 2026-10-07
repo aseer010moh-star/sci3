@@ -17,6 +17,7 @@
         .form-control { background: #0b132b; border: 1px solid #3a506b; border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 0.95rem; outline: none; }
         .btn-main { background: #10b981; color: #0b132b; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; text-align: center; transition: background 0.2s; margin-top: 5px; }
         .btn-main:hover { background: #059669; color: #fff; }
+        .login-error { color: #ef4444; font-size: 0.85rem; text-align: center; display: none; }
 
         .footer-text { text-align: center; font-size: 0.75rem; color: #8d99ae; margin-top: 15px; border-top: 1px solid #3a506b; padding-top: 10px; line-height: 1.5; }
 
@@ -83,7 +84,7 @@
             <span style="font-size: 0.8rem; color: #8d99ae;">اختبار العلوم المتكاملة - الدرس الثالث (الخواص الفيزيائية للماء)</span>
         </div>
 
-        <!-- شاشة تسجيل الدخول الأصلية -->
+        <!-- شاشة تسجيل الدخول بالكود -->
         <div id="login-section">
             <div class="form-group">
                 <label>اسم الطالب الكامل:</label>
@@ -91,9 +92,10 @@
             </div>
             <div class="form-group">
                 <label>كود الدخول:</label>
-                <input type="password" id="student-code" class="form-control" placeholder="••••">
+                <input type="password" id="student-code" class="form-control" placeholder="أدخل الكود الصحيح...">
             </div>
-            <button type="button" class="btn-main" onclick="startExam()">دخول الاختبار 🚀</button>
+            <div id="login-error" class="login-error">الكود غير صحيح! يرجى الإدخال بشكل صحيح.</div>
+            <button type="button" class="btn-main" onclick="verifyAndStart()">دخول الاختبار 🚀</button>
             
             <div class="footer-text">
                 ما استعان عبد بالله إلا وصل<br>
@@ -169,4 +171,31 @@
             <button class="calc-btn ac" onclick="clearCalc()">C</button>
             <button class="calc-btn op" onclick="appendCalc('(')">(</button>
             <button class="calc-btn op" onclick="appendCalc(')')">)</button>
-            <button class="calc-btn op" onclick="
+            <button class="calc-btn op" onclick="appendCalc('/')">÷</button>
+            <button class="calc-btn" onclick="appendCalc('7')">7</button>
+            <button class="calc-btn" onclick="appendCalc('8')">8</button>
+            <button class="calc-btn" onclick="appendCalc('9')">9</button>
+            <button class="calc-btn op" onclick="appendCalc('*')">×</button>
+            <button class="calc-btn" onclick="appendCalc('4')">4</button>
+            <button class="calc-btn" onclick="appendCalc('5')">5</button>
+            <button class="calc-btn" onclick="appendCalc('6')">6</button>
+            <button class="calc-btn op" onclick="appendCalc('-')">-</button>
+            <button class="calc-btn" onclick="appendCalc('1')">1</button>
+            <button class="calc-btn" onclick="appendCalc('2')">2</button>
+            <button class="calc-btn" onclick="appendCalc('3')">3</button>
+            <button class="calc-btn op" onclick="appendCalc('+')">+</button>
+            <button class="calc-btn" onclick="appendCalc('0')">0</button>
+            <button class="calc-btn" onclick="appendCalc('.')">.</button>
+            <button class="calc-btn eq" onclick="calculateResult()" style="grid-column: span 2;">=</button>
+        </div>
+    </div>
+
+    <script>
+        const validStudentCodes = ["2027", "1234", "0109", "9999"]; // الأكواد المسموح بها للاختبار
+
+        const questionsData = [
+            { q: "1. من خلال تحليل منحنى كثافة الماء، عند أي درجة حرارة يتساوى حجم كتلة معينة من الماء مع حجمها عند 10°C ولكنه يمتلك كثافة أقل؟", options: ["أ) 0°C", "ب) 2°C", "ج) 4°C", "د) 8°C"], correct: 0, hint: "عند تبريد الماء من 4 إلى 0 درجة يتمدد ليعود لنفس حجم درجات الحرارة المنخفضة ولكن بكثافة أقل." },
+            { q: "2. حوض بحري يحتوي على ملوحة عالية وضغط هائل في العمق، ما التأثير الفيزيائي الغالب على جزيئات الماء هناك؟", options: ["أ) تمدد هائل في الحجم", "ب) تقارب الجزيئات وزيادة طفيفة في الكثافة نظراً لعدم الانضغاط", "ج) تبخر مباشر", "د) تحول لحالة بلازما"], correct: 1, hint: "الماء سائل شبه عديم الانضغاط والضغط يزيد التقارب الطفيف." },
+            { q: "3. إذا كانت كثافة مادة ما تساوي 3 أضعاف كثافة الماء النقي عند 4°C، فإن كثافتها النسبية وكثابتها المطلقة بـ g/cm³ تساوي:", options: ["أ) 3 ، 3 g/cm³", "ب) 3000 ، 3", "ج) 0.3 ، 30", "د) 3 ، 3000"], correct: 0, hint: "قيمة الكثافة النسبية تساوي القيمة العددية للكثافة بـ g/cm³." },
+            { q: "4. شريحة معدنية مكعبة صلبة مُسخنت فزاد حجمها للضعف، ماذا يحدث لكثافة مادتها عند ثبوت الكتلة؟", options: ["أ) تزيد للضعف", "ب) تقل للنصف", "ج) تظل ثابتة تماماً", "د) تنعدم"], correct: 1, hint: "الكثافة تتناسب عكسياً مع الحجم عند ثبوت الكتلة (ρ = m/v)." },
+            { q: "5. وضع هيدروميتر في سائلين (A) و(B)، فغاص في (A) بعمق أكبر من (B)، نستنتج أن:", options: ["أ) كثافة السائل A أكبر من B", "ب) كثافة السائل A أقل من B", "ج) السعتين متساويتان", "د) لا يمكن المقارنة"], correct: 1, hint: "كلما قلت كثافة السائل غاص الهيدروميتر
